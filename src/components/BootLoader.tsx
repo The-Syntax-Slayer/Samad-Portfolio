@@ -32,7 +32,10 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
     let currentLogIndex = 0;
     const logInterval = setInterval(() => {
       if (currentLogIndex < bootLogs.length) {
-        setLogs((prev) => [...prev, bootLogs[currentLogIndex]]);
+        const nextLog = bootLogs[currentLogIndex];
+        if (nextLog) {
+          setLogs((prev) => [...prev, nextLog]);
+        }
         currentLogIndex++;
       } else {
         clearInterval(logInterval);
@@ -113,6 +116,7 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
 
         <div className="min-h-[160px] flex flex-col gap-1.5 text-xs text-accent/80">
           {logs.map((log, i) => {
+            if (!log) return null;
             const isSuccess = log.includes("[OK]");
             const isGranted = log.includes("GRANTED");
             return (
