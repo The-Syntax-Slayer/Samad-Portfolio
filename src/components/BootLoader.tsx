@@ -128,17 +128,38 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
           
           {/* Pulse text */}
           <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: [0.95, 1, 0.98, 1], opacity: 1 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            initial={{ scale: 0.98, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="flex flex-col items-center gap-3 text-center px-4"
           >
-            <span className="font-Spline_Sans_Mono text-mint text-sm tracking-[0.4em] font-medium text-glow-mint uppercase animate-pulse">
-              DECRYPTING SYSTEM MATRIX...
-            </span>
-            <span className="font-Spline_Sans_Mono text-accent/50 text-[9px] uppercase tracking-[0.25em] mt-1.5">
-              ESTABLISHING GUEST CONSOLE HANDSHAKE
-            </span>
+            <motion.span 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15, duration: 0.5, ease: "easeOut" }}
+              className="font-Spline_Sans_Mono text-mint text-xs md:text-sm tracking-[0.4em] font-semibold text-glow-mint uppercase"
+            >
+              ✦ ACCESS GRANTED ✦
+            </motion.span>
+            
+            <motion.span 
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.6, ease: "easeOut" }}
+              className="font-Spline_Sans_Mono text-white text-base md:text-xl tracking-[0.2em] font-bold uppercase my-1"
+              style={{ textShadow: "0 0 10px rgba(255, 255, 255, 0.25)" }}
+            >
+              WELCOME TO SAMAD'S WORKSPACE
+            </motion.span>
+
+            <motion.span 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.45 }}
+              transition={{ delay: 0.85, duration: 0.5 }}
+              className="font-Spline_Sans_Mono text-accent text-[9px] uppercase tracking-[0.25em]"
+            >
+              INITIALIZING DECRYPTED INTERFACE
+            </motion.span>
           </motion.div>
         </motion.div>
       )}
