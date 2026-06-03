@@ -18,7 +18,7 @@ const projects = [
     techStack: ["React", "TypeScript", "Node.js", "MongoDB", "Gemini Pro"],
     image: mmImg,
     demoLink: "https://mock-mate-ai-beta.vercel.app",
-    githubLink: "https://github.com/deepakdube1102/MockMate-AI",
+    githubLink: "https://github.com/The-Syntax-Slayer/MockMate-AI.git",
   },
   {
     id: "02",
@@ -29,7 +29,7 @@ const projects = [
     techStack: ["React", "Zustand", "Supabase", "Tailwind CSS", "Vercel"],
     image: planoraImg,
     demoLink: "https://planora-social.vercel.app",
-    githubLink: "https://github.com/deepakdube1102/Planora",
+    githubLink: "https://github.com/The-Syntax-Slayer/Planora.git",
   },
   {
     id: "03",
@@ -40,7 +40,7 @@ const projects = [
     techStack: ["React", "PageSpeed API", "Tailwind CSS v4", "Recharts"],
     image: wlImg,
     demoLink: "https://web-lens-seven.vercel.app",
-    githubLink: "https://github.com/deepakdube1102/WebLens",
+    githubLink: "https://github.com/The-Syntax-Slayer/Web-Lens.git",
   },
   {
     id: "04",
@@ -51,7 +51,7 @@ const projects = [
     techStack: ["React", "FastAPI", "Python", "spaCy", "Hugging Face"],
     image: legaleaseImg,
     demoLink: "https://legal-ease-tan.vercel.app/",
-    githubLink: "https://github.com/deepakdube1102/LegalEase",
+    githubLink: "https://github.com/The-Syntax-Slayer/Legal-Ease.git",
   },
   {
     id: "05",
@@ -62,7 +62,7 @@ const projects = [
     techStack: ["React", "Django", "PostgreSQL", "Tailwind CSS", "REST API"],
     image: clientsyncImg,
     demoLink: "https://client-sync-ddcrm.vercel.app",
-    githubLink: "https://github.com/deepakdube1102",
+    githubLink: "https://github.com/The-Syntax-Slayer",
   },
   {
     id: "06",
@@ -73,7 +73,7 @@ const projects = [
     techStack: ["React", "FastAPI", "Python", "spaCy", "TypeScript"],
     image: smartmeetImg,
     demoLink: "https://smart-meet.vercel.app",
-    githubLink: "https://github.com/deepakdube1102/SmartMeet",
+    githubLink: "https://github.com/The-Syntax-Slayer/Smart-Meet.git",
   }
 ];
 
