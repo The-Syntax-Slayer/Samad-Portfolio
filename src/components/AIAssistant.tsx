@@ -196,15 +196,15 @@ Here is your professional context:
   };
 
   return (
-    <div className="fixed bottom-24 md:bottom-28 right-6 md:right-8 z-40">
+    <div className="fixed top-18 right-6 md:right-8 z-40">
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.92 }}
+            initial={{ opacity: 0, y: -30, scale: 0.92 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 30, scale: 0.92 }}
+            exit={{ opacity: 0, y: -30, scale: 0.92 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="absolute bottom-12 right-0 w-[88vw] sm:w-[360px] h-[480px] rounded-3xl border border-white/10 bg-black/85 backdrop-blur-xl shadow-2xl flex flex-col overflow-hidden font-sans text-left"
+            className="absolute top-12 right-0 w-[88vw] sm:w-[360px] h-[480px] rounded-3xl border border-white/10 bg-black/85 backdrop-blur-xl shadow-2xl flex flex-col overflow-hidden font-sans text-left"
           >
             {/* Header */}
             <div className="p-4 border-b border-white/10 bg-white/[0.02] flex items-center justify-between">
@@ -320,17 +320,18 @@ Here is your professional context:
       {/* Floating Toggle Bubble */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-10 h-10 rounded-full border shadow-2xl flex items-center justify-center cursor-pointer transition-all duration-300 relative ${
+        className={`w-9 h-9 rounded-xl border border-white/10 bg-black/40 hover:bg-white/5 hover:border-white/20 flex items-center justify-center text-accent/60 hover:text-white transition-all duration-300 shadow-md cursor-pointer relative ${
           isOpen
             ? "border-mint bg-mint/5 text-mint rotate-90"
-            : "border-white/10 bg-black/40 hover:bg-mint/5 hover:border-mint/30 text-accent/80 hover:text-mint hover:-translate-y-0.5"
+            : "border-white/10 hover:border-white/20 text-accent/80 hover:text-mint hover:-translate-y-0.5"
         }`}
+        style={{ color: isOpen ? "var(--theme-mint)" : undefined, borderColor: isOpen ? "var(--theme-mint)" : undefined }}
       >
         {/* Pulsing indicator dot */}
         {!isOpen && (
           <span className="absolute top-0 right-0 w-2.5 h-2.5 rounded-full bg-mint animate-pulse shadow-[0_0_6px_var(--theme-mint)]" />
         )}
-        <MessageSquare className="w-5 h-5" />
+        <MessageSquare className="w-4 h-4" />
       </button>
     </div>
   );

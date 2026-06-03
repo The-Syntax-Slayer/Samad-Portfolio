@@ -93,7 +93,7 @@ export default function App() {
   ] as const;
 
   return (
-    <ReactLenis root options={{ lerp: 0.08, duration: 1.2, smoothWheel: true }}>
+    <ReactLenis root options={{ lerp: 0.1, duration: 1.0, smoothWheel: true }}>
       <div className="w-screen min-h-screen relative flex flex-col items-center justify-between text-accent overflow-x-hidden selection:bg-mint selection:text-black">
 
       {/* Theme Customization Floating Panel */}

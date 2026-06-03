@@ -59,13 +59,15 @@ export default function ParticleBackground() {
         if (this.y < 0 || this.y > height) this.vy = -this.vy;
 
         if (mouse.x !== null && mouse.y !== null) {
-          const dx = mouse.x - this.x;
-          const dy = mouse.y - this.y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < mouse.radius) {
+          const dx = this.x - mouse.x;
+          const dy = this.y - mouse.y;
+          const distSq = dx * dx + dy * dy;
+          const radiusSq = mouse.radius * mouse.radius;
+          if (distSq < radiusSq) {
+            const dist = Math.sqrt(distSq);
             const force = (mouse.radius - dist) / mouse.radius;
-            this.x -= dx * force * 0.015;
-            this.y -= dy * force * 0.015;
+            this.x += dx * force * 0.015;
+            this.y += dy * force * 0.015;
           }
         }
       }
@@ -112,13 +114,20 @@ export default function ParticleBackground() {
         p.draw();
       });
 
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const p1 = particles[i];
-          const p2 = particles[j];
-          const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+      const limitSq = connectionDistance * connectionDistance;
+      const mouseRadiusSq = mouse.radius * mouse.radius;
 
-          if (dist < connectionDistance) {
+      for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i];
+        
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const distSq = dx * dx + dy * dy;
+
+          if (distSq < limitSq) {
+            const dist = Math.sqrt(distSq);
             const alpha = (1 - dist / connectionDistance) * 0.1;
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
@@ -130,12 +139,15 @@ export default function ParticleBackground() {
         }
 
         if (mouse.x !== null && mouse.y !== null) {
-          const p = particles[i];
-          const dist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
-          if (dist < mouse.radius) {
+          const dx = p1.x - mouse.x;
+          const dy = p1.y - mouse.y;
+          const distSq = dx * dx + dy * dy;
+
+          if (distSq < mouseRadiusSq) {
+            const dist = Math.sqrt(distSq);
             const alpha = (1 - dist / mouse.radius) * 0.15;
             ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
+            ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(mouse.x, mouse.y);
             ctx.lineWidth = 0.7;
             ctx.strokeStyle = `rgba(${hexToRgb(themeColor)}, ${alpha})`;
