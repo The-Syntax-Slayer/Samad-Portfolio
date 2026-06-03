@@ -14,12 +14,20 @@ export default function ParticleBackground() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Read initial theme color from inline styles (fallback to mint green if empty)
-    let themeColor = document.documentElement.style.getPropertyValue("--theme-mint").trim() || "#8FFFD1";
+    const getSafeThemeColor = (): string => {
+      try {
+        const val = document.documentElement.style.getPropertyValue("--theme-mint");
+        return (val && typeof val === "string") ? val.trim() || "#8FFFD1" : "#8FFFD1";
+      } catch (e) {
+        return "#8FFFD1";
+      }
+    };
+
+    let themeColor = getSafeThemeColor();
 
     // Cleanly observe style changes on document element (e.g. from ThemeSwitcher) to avoid layout thrashing in RAF
     const observer = new MutationObserver(() => {
-      themeColor = document.documentElement.style.getPropertyValue("--theme-mint").trim() || "#8FFFD1";
+      themeColor = getSafeThemeColor();
     });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["style"] });
 
