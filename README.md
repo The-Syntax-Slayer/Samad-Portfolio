@@ -1,73 +1,106 @@
-# React + TypeScript + Vite
+# 👑 Samad Shaikh | Interactive Software Engineer & AI Specialist Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An ultra-premium, interactive developer portfolio showcasing advanced engineering skills, custom animations, embedded hacker terminals, and an integrated Conversational AI Assistant.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features & Interactive Modules
 
-## React Compiler
+1. **⚡ Custom Ambient Theme Switcher**
+   - A floating settings portal allowing users to swap the portfolio's accent color in real-time.
+   - Dynamic configurations: **Mint Spark**, **Cyberpunk Pink**, **Electric Cyan**, and **Amber Gold**.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+2. **🌌 Interactive Particle Background**
+   - High-performance HTML5 Canvas constellation network that tracks mouse movement and matches your selected accent color.
 
-## Expanding the ESLint configuration
+3. **📟 Developer System Boot Loader**
+   - Futuristic fullscreen booting terminal on first visit, showing system checks, loading files, and diagnostics before revealing the portfolio. Utilizes session caching for seamless navigation.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+4. **🤖 Google Gemini-Powered Chatbot (SyntaxAgent)**
+   - Integrated floating AI assistant running on the fast, low-latency **Gemini 2.5 Flash** model. 
+   - Dynamically answers professional context, bio, skills, and project queries, falling back to local regex NLP matching if needed.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+5. **🖥️ Hacker Command-Line Terminal**
+   - Retro command line embedded in the Bento grid interface. Run commands like `help`, `about`, `skills`, `projects`, `contact`, `clear`, and a `secret` matrix raining overlay!
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+6. **🗺️ bandra Custom Map Interface**
+   - Seamlessly integrated Google Maps location pin of Bandra West, Mumbai, custom-filtered with CSS neon-blue blueprint styles to match the dark theme aesthetic.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+7. **💫 Smooth Lenis Inertial Scrolling**
+   - Hardware-accelerated, buttery smooth inertial scrolling using Lenis, coupled with dynamic horizontal scrolling bento panels for desktop users.
+
+---
+
+## 🛠️ Technology Stack
+
+* **Core**: [React 19](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/)
+* **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+* **Animations**: [Framer Motion](https://www.framer.com/motion/) & HTML5 Canvas API
+* **APIs & Libraries**: [Lenis Scroll](https://lenis.darkroom.engineering/), [Google Gemini API](https://ai.google.dev/), [Lucide React Icons](https://lucide.dev/)
+
+---
+
+## 🚀 Setup & Local Installation
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/The-Syntax-Slayer/Samad-Portfolio.git
+cd Samad-Portfolio
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Install dependencies
+```bash
+npm install
 ```
+
+### 3. Setup Environment Variables
+Create a `.env` file in the root directory and insert your Gemini API Key from [Google AI Studio](https://aistudio.google.com/):
+```env
+VITE_GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+### 4. Run Development Server
+```bash
+npm run dev
+```
+
+### 5. Build for Production
+```bash
+npm run build
+```
+
+---
+
+## 📁 Repository Structure
+
+```
+PORTFOLIO/
+├── public/                 # Static assets, vector icons & favicons
+├── src/
+│   ├── assets/             # Images, portraits, and resume files
+│   ├── components/
+│   │   ├── AIAssistant.tsx         # Gemini 2.5 Chatbot window
+│   │   ├── About.tsx               # Tech skills bento & Bio
+│   │   ├── BootLoader.tsx          # Startup CLI animation
+│   │   ├── Connect.tsx             # Contact layout & social links
+│   │   ├── Footer.tsx              # Page footer & brand details
+│   │   ├── Home.tsx                # Hero, custom Map, Bento frame, Terminal
+│   │   ├── ParticleBackground.tsx  # Dynamic Canvas particles
+│   │   ├── Play.tsx                # Extra playground module (if active)
+│   │   ├── TerminalConsole.tsx     # Hacker console input logic
+│   │   ├── ThemeSwitcher.tsx       # Accent theme portal switcher
+│   │   └── Work.tsx                # Desktop Horizontal/Mobile Vertical scroll list
+│   │
+│   ├── App.tsx             # Entry point wrapping Lenis smooth scroll
+│   ├── index.css           # Custom glassmorphism, animations & design system
+│   └── main.tsx            # DOM initialization
+```
+
+---
+
+## 📧 Contact & Links
+
+* **Name**: Samad Shaikh
+* **Email**: [sxmxd.1825@gmail.com](mailto:sxmxd.1825@gmail.com)
+* **LinkedIn**: [linkedin.com/in/samad-ai](https://linkedin.com/in/samad-ai)
+* **GitHub**: [github.com/The-Syntax-Slayer](https://github.com/The-Syntax-Slayer)
