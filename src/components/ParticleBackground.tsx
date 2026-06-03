@@ -14,6 +14,15 @@ export default function ParticleBackground() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
+    // Read initial theme color from inline styles (fallback to mint green if empty)
+    let themeColor = document.documentElement.style.getPropertyValue("--theme-mint").trim() || "#8FFFD1";
+
+    // Cleanly observe style changes on document element (e.g. from ThemeSwitcher) to avoid layout thrashing in RAF
+    const observer = new MutationObserver(() => {
+      themeColor = document.documentElement.style.getPropertyValue("--theme-mint").trim() || "#8FFFD1";
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["style"] });
+
     const particles: Particle[] = [];
     const particleCount = Math.min(50, Math.floor((width * height) / 25000));
     const connectionDistance = 110;
@@ -87,9 +96,6 @@ export default function ParticleBackground() {
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
 
-      const themeColor = window.getComputedStyle(document.documentElement)
-        .getPropertyValue("--theme-mint").trim() || "#8FFFD1";
-
       ctx.fillStyle = themeColor;
       ctx.strokeStyle = themeColor;
 
@@ -137,6 +143,7 @@ export default function ParticleBackground() {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseleave", handleMouseLeave);

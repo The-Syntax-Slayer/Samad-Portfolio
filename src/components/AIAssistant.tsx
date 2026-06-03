@@ -196,7 +196,7 @@ Here is your professional context:
   };
 
   return (
-    <div className="fixed bottom-24 right-6 md:right-8 z-40">
+    <div className="fixed bottom-24 md:bottom-28 right-6 md:right-8 z-40">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -320,7 +320,7 @@ Here is your professional context:
       {/* Floating Toggle Bubble */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-12 h-12 rounded-full border shadow-2xl flex items-center justify-center cursor-pointer transition-all duration-300 relative ${
+        className={`w-10 h-10 rounded-full border shadow-2xl flex items-center justify-center cursor-pointer transition-all duration-300 relative ${
           isOpen
             ? "border-mint bg-mint/5 text-mint rotate-90"
             : "border-white/10 bg-black/40 hover:bg-mint/5 hover:border-mint/30 text-accent/80 hover:text-mint hover:-translate-y-0.5"
@@ -330,7 +330,7 @@ Here is your professional context:
         {!isOpen && (
           <span className="absolute top-0 right-0 w-2.5 h-2.5 rounded-full bg-mint animate-pulse shadow-[0_0_6px_var(--theme-mint)]" />
         )}
-        <MessageSquare className="w-5.5 h-5.5" />
+        <MessageSquare className="w-5 h-5" />
       </button>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
 interface BootLoaderProps {
@@ -19,13 +19,14 @@ const bootLogs = [
 export default function BootLoader({ onComplete }: BootLoaderProps) {
   const [logs, setLogs] = useState<string[]>([]);
   const [progress, setProgress] = useState(0);
+  const [isRedirecting, setIsRedirecting] = useState(false);
+  const onCompleteRef = useRef(onComplete);
 
   useEffect(() => {
-    if (sessionStorage.getItem("portfolio-booted")) {
-      onComplete();
-      return;
-    }
+    onCompleteRef.current = onComplete;
+  });
 
+  useEffect(() => {
     let currentLogIndex = 0;
     const logInterval = setInterval(() => {
       if (currentLogIndex < bootLogs.length) {
@@ -34,35 +35,34 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
       } else {
         clearInterval(logInterval);
       }
-    }, 150);
+    }, 220);
 
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(progressInterval);
+          setIsRedirecting(true);
           setTimeout(() => {
             sessionStorage.setItem("portfolio-booted", "true");
-            onComplete();
-          }, 400);
+            onCompleteRef.current();
+          }, 1500); // 1.5 second decryption visual animation
           return 100;
         }
-        return prev + Math.floor(Math.random() * 8) + 4;
+        return prev + Math.floor(Math.random() * 4) + 2;
       });
-    }, 80);
+    }, 95);
 
     return () => {
       clearInterval(logInterval);
       clearInterval(progressInterval);
     };
-  }, [onComplete]);
-
-  if (sessionStorage.getItem("portfolio-booted")) return null;
+  }, []);
 
   return (
     <motion.div
       initial={{ opacity: 1, y: 0 }}
       exit={{ y: "-100%", opacity: 0.9 }}
-      transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
       className="fixed inset-0 w-screen h-screen bg-[#050505] z-[9999] flex flex-col justify-center items-center px-6 font-Spline_Sans_Mono select-none"
     >
       <div 
@@ -109,6 +109,39 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
           </div>
         </div>
       </div>
+
+      {/* Spectacular Decryption Scan Visual on Redirect */}
+      {isRedirecting && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="absolute inset-0 bg-[#020504] flex flex-col justify-center items-center z-30"
+        >
+          {/* Scanning Line sweep */}
+          <motion.div
+            initial={{ y: "-100vh" }}
+            animate={{ y: "100vh" }}
+            transition={{ duration: 1.4, ease: "linear", repeat: Infinity }}
+            className="w-full h-[3px] bg-gradient-to-r from-transparent via-mint to-transparent shadow-[0_0_15px_#8FFFD1] absolute left-0"
+          />
+          
+          {/* Pulse text */}
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: [0.95, 1, 0.98, 1], opacity: 1 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="flex flex-col items-center gap-3 text-center px-4"
+          >
+            <span className="font-Spline_Sans_Mono text-mint text-sm tracking-[0.4em] font-medium text-glow-mint uppercase animate-pulse">
+              DECRYPTING SYSTEM MATRIX...
+            </span>
+            <span className="font-Spline_Sans_Mono text-accent/50 text-[9px] uppercase tracking-[0.25em] mt-1.5">
+              ESTABLISHING GUEST CONSOLE HANDSHAKE
+            </span>
+          </motion.div>
+        </motion.div>
+      )}
     </motion.div>
   );
 }

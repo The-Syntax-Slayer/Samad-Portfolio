@@ -105,7 +105,7 @@ export default function App() {
       {/* Fullscreen System Boot Log Sequence */}
       <AnimatePresence>
         {!isBooted && (
-          <BootLoader onComplete={() => setIsBooted(true)} />
+          <BootLoader key="boot-loader" onComplete={() => setIsBooted(true)} />
         )}
       </AnimatePresence>
 
