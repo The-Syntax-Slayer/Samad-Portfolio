@@ -1,23 +1,40 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import logoImg from "../assets/logo.svg";
 import cloudBg from "../assets/cloud.png";
 
 export default function Connect() {
   const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
-  // Mouse move state for atmospheric parallax
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  // Mouse move state for atmospheric parallax (using MotionValues to prevent re-renders)
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Springs for smooth movement
+  const springX = useSpring(mouseX, { stiffness: 100, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 100, damping: 20 });
+
+  // Transforms for parallax layers to run on the GPU
+  const cloudX = useTransform(springX, (x) => x * -15);
+  const cloudY = useTransform(springY, (y) => y * -15);
+
+  const leak1X = useTransform(springX, (x) => x * 25);
+  const leak1Y = useTransform(springY, (y) => y * 25);
+
+  const leak2X = useTransform(springX, (x) => x * -25);
+  const leak2Y = useTransform(springY, (y) => y * -25);
+
+  const orbitX = useTransform(springX, (x) => x * -8);
+  const orbitY = useTransform(springY, (y) => y * -8);
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth) * 2 - 1,
-        y: (e.clientY / window.innerHeight) * 2 - 1,
-      });
+      mouseX.set((e.clientX / window.innerWidth) * 2 - 1);
+      mouseY.set((e.clientY / window.innerHeight) * 2 - 1);
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [mouseX, mouseY]);
 
   // Form State
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
@@ -62,11 +79,11 @@ export default function Connect() {
 
       {/* Volumetric cloud overlay with parallax */}
       <motion.div
-        animate={{
-          x: mousePos.x * -15,
-          y: mousePos.y * -15,
+        style={{
+          x: cloudX,
+          y: cloudY,
+          willChange: "transform",
         }}
-        transition={{ type: "spring", stiffness: 100, damping: 20 }}
         className="absolute inset-0 z-0 pointer-events-none scale-105 opacity-[14%] mix-blend-screen"
       >
         <img
@@ -79,16 +96,18 @@ export default function Connect() {
 
       {/* Soft atmospheric mint glowing nodes */}
       <motion.div
-        animate={{
-          x: mousePos.x * 25,
-          y: mousePos.y * 25,
+        style={{
+          x: leak1X,
+          y: leak1Y,
+          willChange: "transform",
         }}
         className="absolute w-[450px] h-[450px] rounded-full bg-[#8FFFD1]/6 blur-[100px] pointer-events-none z-0 left-[15%] top-[10%]"
       />
       <motion.div
-        animate={{
-          x: mousePos.x * -25,
-          y: mousePos.y * -25,
+        style={{
+          x: leak2X,
+          y: leak2Y,
+          willChange: "transform",
         }}
         className="absolute w-[350px] h-[350px] rounded-full bg-[#8FFFD1]/4 blur-[80px] pointer-events-none z-0 right-[20%] bottom-[30%]"
       />
@@ -97,10 +116,13 @@ export default function Connect() {
       <motion.div
         animate={{
           rotate: 360,
-          x: mousePos.x * -8,
-          y: mousePos.y * -8,
         }}
         transition={{ duration: 75, repeat: Infinity, ease: "linear" }}
+        style={{
+          x: orbitX,
+          y: orbitY,
+          willChange: "transform",
+        }}
         className="absolute w-[700px] h-[700px] rounded-full border border-[#8FFFD1]/8 border-dashed pointer-events-none z-0 flex items-center justify-center top-[5%]"
       >
         <div className="w-[500px] h-[500px] rounded-full border border-[#8FFFD1]/6 border-dashed" />

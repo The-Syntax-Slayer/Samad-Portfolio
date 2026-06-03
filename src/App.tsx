@@ -12,6 +12,7 @@ import ThemeSwitcher from "./components/ThemeSwitcher";
 import ParticleBackground from "./components/ParticleBackground";
 import BootLoader from "./components/BootLoader";
 import AIAssistant from "./components/AIAssistant";
+import CustomCursor from "./components/CustomCursor";
 import "lenis/dist/lenis.css";
 
 type Tab = "home" | "about" | "work" | "connect";
@@ -94,13 +95,16 @@ export default function App() {
 
   return (
     <ReactLenis root options={{ lerp: 0.1, duration: 1.0, smoothWheel: true }}>
-      <div className="w-screen min-h-screen relative flex flex-col items-center justify-between text-accent overflow-x-hidden selection:bg-mint selection:text-black">
+      <div className="w-screen min-h-screen relative flex flex-col items-center justify-between text-accent selection:bg-mint selection:text-black">
 
       {/* Theme Customization Floating Panel */}
       <ThemeSwitcher />
 
       {/* Floating AI Chat Assistant */}
       <AIAssistant />
+
+      {/* Sleek Custom Mouse Cursor follower */}
+      <CustomCursor />
 
       {/* Fullscreen System Boot Log Sequence */}
       {!isBooted && (
@@ -164,9 +168,9 @@ export default function App() {
           {activeTab === "work" && (
             <motion.div
               key="work"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               className="w-full flex justify-center"
             >

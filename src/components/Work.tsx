@@ -290,6 +290,7 @@ function HorizontalProjects() {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
+    offset: ["start start", "end end"]
   });
 
   // 6 projects. Total translation is -80% of inner content width

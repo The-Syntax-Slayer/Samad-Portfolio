@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { MapPin, Minus, Plus, Briefcase, ArrowRight, Layers, ArrowUpRight, Flame } from "lucide-react";
 import planoraImg from "../assets/planora.png";
 import weblensImg from "../assets/weblens.png";
@@ -19,8 +19,29 @@ export default function Home({ setActiveTab }: HomeProps) {
   const [isMobile, setIsMobile] = useState(false);
   // Live IST Clock
   const [timeString, setTimeString] = useState("");
-  // Mouse coordinates for parallax/lighting
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  // Mouse coordinates for parallax/lighting (using MotionValues to prevent re-renders)
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Springs for smooth movement
+  const springX = useSpring(mouseX, { stiffness: 100, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 100, damping: 20 });
+
+  // Transforms for parallax layers to run on the GPU
+  const cloudX = useTransform(springX, (x) => x * -20);
+  const cloudY = useTransform(springY, (y) => y * -20);
+
+  const leak1X = useTransform(springX, (x) => x * 30);
+  const leak1Y = useTransform(springY, (y) => y * 30);
+
+  const leak2X = useTransform(springX, (x) => x * -30);
+  const leak2Y = useTransform(springY, (y) => y * -30);
+
+  const orbitX = useTransform(springX, (x) => x * -10);
+  const orbitY = useTransform(springY, (y) => y * -10);
+
+  const rightCardX = useTransform(springX, (x) => x * -10);
+  const rightCardY = useTransform(springY, (y) => y * -10);
 
   // Map Zoom State
   const [mapZoom, setMapZoom] = useState(false);
@@ -49,14 +70,12 @@ export default function Home({ setActiveTab }: HomeProps) {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth) * 2 - 1,
-        y: (e.clientY / window.innerHeight) * 2 - 1,
-      });
+      mouseX.set((e.clientX / window.innerWidth) * 2 - 1);
+      mouseY.set((e.clientY / window.innerHeight) * 2 - 1);
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [mouseX, mouseY]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -117,11 +136,11 @@ export default function Home({ setActiveTab }: HomeProps) {
 
         {/* Cloud Backdrop Parallax */}
         <motion.div
-          animate={{
-            x: mousePos.x * -20,
-            y: mousePos.y * -20,
+          style={{
+            x: cloudX,
+            y: cloudY,
+            willChange: "transform",
           }}
-          transition={{ type: "spring", stiffness: 100, damping: 20 }}
           className="absolute inset-0 z-0 pointer-events-none scale-105 opacity-[18%] mix-blend-screen"
         >
           <img
@@ -134,16 +153,18 @@ export default function Home({ setActiveTab }: HomeProps) {
 
         {/* Volumetric Mint Green Light Leaks */}
         <motion.div
-          animate={{
-            x: mousePos.x * 30,
-            y: mousePos.y * 30,
+          style={{
+            x: leak1X,
+            y: leak1Y,
+            willChange: "transform",
           }}
           className="absolute w-[500px] h-[500px] rounded-full bg-[#8FFFD1]/8 blur-[120px] pointer-events-none z-0 left-[10%] top-[20%]"
         />
         <motion.div
-          animate={{
-            x: mousePos.x * -30,
-            y: mousePos.y * -30,
+          style={{
+            x: leak2X,
+            y: leak2Y,
+            willChange: "transform",
           }}
           className="absolute w-[400px] h-[400px] rounded-full bg-[#8FFFD1]/5 blur-[100px] pointer-events-none z-0 right-[15%] bottom-[15%]"
         />
@@ -152,10 +173,13 @@ export default function Home({ setActiveTab }: HomeProps) {
         <motion.div
           animate={{
             rotate: 360,
-            x: mousePos.x * -10,
-            y: mousePos.y * -10,
           }}
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+          style={{
+            x: orbitX,
+            y: orbitY,
+            willChange: "transform",
+          }}
           className="absolute w-[600px] h-[600px] rounded-full border border-[#8FFFD1]/12 border-dashed pointer-events-none z-0 flex items-center justify-center"
         >
           <div className="w-[450px] h-[450px] rounded-full border border-[#8FFFD1]/12 border-dashed" />
@@ -392,13 +416,16 @@ export default function Home({ setActiveTab }: HomeProps) {
           initial={{ x: 50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.9, duration: 0.8, ease }}
-          style={{
-            x: mousePos.x * -10,
-            y: mousePos.y * -10,
-          }}
           className="absolute right-6 md:right-8 top-1/3 -translate-y-1/2 z-10 w-64 hidden xl:block text-left"
         >
-          <div className="glass-panel p-5 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-mint/15 hover:border-mint/35 transition-all duration-500 hover:shadow-[0_0_25px_rgba(143,255,209,0.08)]">
+          <motion.div
+            style={{
+              x: rightCardX,
+              y: rightCardY,
+              willChange: "transform",
+            }}
+            className="glass-panel p-5 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-mint/15 hover:border-mint/35 transition-all duration-500 hover:shadow-[0_0_25px_rgba(143,255,209,0.08)]"
+          >
             <div className="flex items-center gap-2 mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-mint animate-pulse shadow-[0_0_8px_2px_rgba(143,255,209,0.5)]" />
               <span className="font-Spline_Sans_Mono text-[9px] tracking-[0.2em] text-mint uppercase font-semibold text-glow-mint">
@@ -411,7 +438,7 @@ export default function Home({ setActiveTab }: HomeProps) {
             <p className="text-accent/65 text-[11px] leading-relaxed font-light">
               Developing state-of-the-art AI applications, clean design systems, and responsive full-stack solutions.
             </p>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Right "Building in Public" label */}

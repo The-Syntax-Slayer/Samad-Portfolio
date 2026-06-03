@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import cloudBg from "../assets/cloud.png";
 import resumePdf from "../assets/resume.pdf";
 
@@ -9,8 +9,25 @@ interface FooterProps {
 
 export default function Footer({ setActiveTab }: FooterProps) {
   const [copied, setCopied] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const email = "sxmxd.1825@gmail.com";
+
+  // Mouse move state for atmospheric parallax (using MotionValues to prevent re-renders)
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Springs for smooth movement
+  const springX = useSpring(mouseX, { stiffness: 100, damping: 25 });
+  const springY = useSpring(mouseY, { stiffness: 100, damping: 25 });
+
+  // Transforms for parallax layers to run on the GPU
+  const cloudX = useTransform(springX, (x) => x * -12);
+  const cloudY = useTransform(springY, (y) => y * -12);
+
+  const leak1X = useTransform(springX, (x) => x * 20);
+  const leak1Y = useTransform(springY, (y) => y * 20);
+
+  const leak2X = useTransform(springX, (x) => x * -20);
+  const leak2Y = useTransform(springY, (y) => y * -20);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(email);
@@ -25,14 +42,12 @@ export default function Footer({ setActiveTab }: FooterProps) {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
-      setMousePos({
-        x: (clientX / window.innerWidth) * 2 - 1,
-        y: (clientY / window.innerHeight) * 2 - 1,
-      });
+      mouseX.set((clientX / window.innerWidth) * 2 - 1);
+      mouseY.set((clientY / window.innerHeight) * 2 - 1);
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [mouseX, mouseY]);
 
   return (
     <footer className="w-screen min-h-[50vh] md:min-h-[90vh] bg-[#050505] relative flex flex-col items-center justify-between overflow-hidden px-4 md:px-8 pt-16 md:pt-24 pb-32 select-none border-t border-[#181F2F]/30 mt-16 md:mt-20">
@@ -43,11 +58,11 @@ export default function Footer({ setActiveTab }: FooterProps) {
       
       {/* Atmospheric Soft Clouds */}
       <motion.div
-        animate={{
-          x: mousePos.x * -12,
-          y: mousePos.y * -12,
+        style={{
+          x: cloudX,
+          y: cloudY,
+          willChange: "transform",
         }}
-        transition={{ type: "spring", stiffness: 100, damping: 25 }}
         className="absolute inset-0 z-0 pointer-events-none opacity-[11%] mix-blend-screen scale-105"
       >
         <img
@@ -60,16 +75,18 @@ export default function Footer({ setActiveTab }: FooterProps) {
 
       {/* Mint Glowing Nodes */}
       <motion.div
-        animate={{
-          x: mousePos.x * 20,
-          y: mousePos.y * 20,
+        style={{
+          x: leak1X,
+          y: leak1Y,
+          willChange: "transform",
         }}
         className="absolute w-[500px] h-[500px] rounded-full bg-[#8FFFD1]/4 blur-[120px] pointer-events-none z-0 -left-[10%] top-[20%]"
       />
       <motion.div
-        animate={{
-          x: mousePos.x * -20,
-          y: mousePos.y * -20,
+        style={{
+          x: leak2X,
+          y: leak2Y,
+          willChange: "transform",
         }}
         className="absolute w-[400px] h-[400px] rounded-full bg-[#8FFFD1]/3 blur-[100px] pointer-events-none z-0 -right-[5%] bottom-[10%]"
       />

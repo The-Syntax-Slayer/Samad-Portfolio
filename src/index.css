@@ -101,3 +101,11 @@ body {
   filter: drop-shadow(0 0 8px rgba(143, 255, 209, 0.4));
 }
 
+/* Custom Cursor Hiding for Fine Pointers (Desktop) */
+@media (pointer: fine) {
+  html, body, a, button, input, select, textarea, [role="button"], .clickable-cursor {
+    cursor: none !important;
+  }
+}
+
+
