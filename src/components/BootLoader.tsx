@@ -21,6 +21,7 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
   const [progress, setProgress] = useState(0);
   const [isRedirecting, setIsRedirecting] = useState(false);
   const onCompleteRef = useRef(onComplete);
+  const progressIntervalRef = useRef<any>(null);
 
   useEffect(() => {
     onCompleteRef.current = onComplete;
@@ -37,26 +38,38 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
       }
     }, 220);
 
-    const progressInterval = setInterval(() => {
+    progressIntervalRef.current = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
-          clearInterval(progressInterval);
-          setIsRedirecting(true);
-          setTimeout(() => {
-            sessionStorage.setItem("portfolio-booted", "true");
-            onCompleteRef.current();
-          }, 1500); // 1.5 second decryption visual animation
           return 100;
         }
-        return prev + Math.floor(Math.random() * 4) + 2;
+        const next = prev + Math.floor(Math.random() * 4) + 2;
+        return next >= 100 ? 100 : next;
       });
     }, 95);
 
     return () => {
       clearInterval(logInterval);
-      clearInterval(progressInterval);
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+      }
     };
   }, []);
+
+  // Safe progress monitoring side-effects outside of setState callback
+  useEffect(() => {
+    if (progress >= 100) {
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+      }
+      setIsRedirecting(true);
+      const timer = setTimeout(() => {
+        sessionStorage.setItem("portfolio-booted", "true");
+        onCompleteRef.current();
+      }, 1500); // 1.5 second decryption visual animation
+      return () => clearTimeout(timer);
+    }
+  }, [progress]);
 
   return (
     <motion.div
