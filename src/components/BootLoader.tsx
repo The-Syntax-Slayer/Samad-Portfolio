@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
 interface BootLoaderProps {
-  isBooted: boolean;
   onComplete: () => void;
 }
 
@@ -17,10 +16,11 @@ const bootLogs = [
   "ACCESS GRANTED. WELCOME S. SHAIKH.",
 ];
 
-export default function BootLoader({ isBooted, onComplete }: BootLoaderProps) {
+export default function BootLoader({ onComplete }: BootLoaderProps) {
   const [logs, setLogs] = useState<string[]>([]);
   const [progress, setProgress] = useState(0);
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const [isTransitioningOut, setIsTransitioningOut] = useState(false);
   const onCompleteRef = useRef(onComplete);
   const progressIntervalRef = useRef<any>(null);
 
@@ -57,25 +57,41 @@ export default function BootLoader({ isBooted, onComplete }: BootLoaderProps) {
     };
   }, []);
 
-  // Safe progress monitoring side-effects outside of setState callback
+  // Safe progress monitoring to activate redirection visual
   useEffect(() => {
     if (progress >= 100) {
       if (progressIntervalRef.current) {
         clearInterval(progressIntervalRef.current);
       }
       setIsRedirecting(true);
-      const timer = setTimeout(() => {
-        sessionStorage.setItem("portfolio-booted", "true");
-        onCompleteRef.current();
-      }, 1500); // 1.5 second decryption visual animation
-      return () => clearTimeout(timer);
     }
   }, [progress]);
+
+  // Timed sequential redirection and exit triggers
+  useEffect(() => {
+    if (isRedirecting) {
+      // 1. Trigger slide-up style classes after the visual animations complete (1.5s)
+      const timer1 = setTimeout(() => {
+        setIsTransitioningOut(true);
+      }, 1500);
+
+      // 2. Trigger parent state update to unmount from DOM after translation completes (2.5s total)
+      const timer2 = setTimeout(() => {
+        sessionStorage.setItem("portfolio-booted", "true");
+        onCompleteRef.current();
+      }, 2500);
+
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+      };
+    }
+  }, [isRedirecting]);
 
   return (
     <div
       className={`fixed inset-0 w-screen h-screen bg-[#050505] z-[9999] flex flex-col justify-center items-center px-6 font-Spline_Sans_Mono select-none transition-all duration-1000 ease-[cubic-bezier(0.76,0,0.24,1)] ${
-        isBooted 
+        isTransitioningOut 
           ? "-translate-y-full opacity-0 pointer-events-none" 
           : "translate-y-0 opacity-100"
       }`}

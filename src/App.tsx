@@ -103,7 +103,9 @@ export default function App() {
       <AIAssistant />
 
       {/* Fullscreen System Boot Log Sequence */}
-      <BootLoader isBooted={isBooted} onComplete={() => setIsBooted(true)} />
+      {!isBooted && (
+        <BootLoader onComplete={() => setIsBooted(true)} />
+      )}
 
       {/* 1. Viewport Atmospheric Background */}
       <div
