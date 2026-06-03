@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
 interface BootLoaderProps {
+  isBooted: boolean;
   onComplete: () => void;
 }
 
@@ -16,7 +17,7 @@ const bootLogs = [
   "ACCESS GRANTED. WELCOME S. SHAIKH.",
 ];
 
-export default function BootLoader({ onComplete }: BootLoaderProps) {
+export default function BootLoader({ isBooted, onComplete }: BootLoaderProps) {
   const [logs, setLogs] = useState<string[]>([]);
   const [progress, setProgress] = useState(0);
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -72,11 +73,12 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
   }, [progress]);
 
   return (
-    <motion.div
-      initial={{ opacity: 1, y: 0 }}
-      exit={{ y: "-100%", opacity: 0.9 }}
-      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-      className="fixed inset-0 w-screen h-screen bg-[#050505] z-[9999] flex flex-col justify-center items-center px-6 font-Spline_Sans_Mono select-none"
+    <div
+      className={`fixed inset-0 w-screen h-screen bg-[#050505] z-[9999] flex flex-col justify-center items-center px-6 font-Spline_Sans_Mono select-none transition-all duration-1000 ease-[cubic-bezier(0.76,0,0.24,1)] ${
+        isBooted 
+          ? "-translate-y-full opacity-0 pointer-events-none" 
+          : "translate-y-0 opacity-100"
+      }`}
     >
       <div 
         className="absolute inset-0 z-10 pointer-events-none opacity-[3%]"
@@ -176,6 +178,6 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
           </motion.div>
         </motion.div>
       )}
-    </motion.div>
+    </div>
   );
 }
