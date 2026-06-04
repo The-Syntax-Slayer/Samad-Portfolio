@@ -1,10 +1,10 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { MapPin, Minus, Plus, Briefcase, ArrowRight, Layers, ArrowUpRight, Flame } from "lucide-react";
-import planoraImg from "../assets/planora.png";
-import weblensImg from "../assets/weblens.png";
-import mockmateImg from "../assets/mockmate.png";
-import cloudBg from "../assets/cloud.png";
+import planoraImg from "../assets/planora.webp";
+import weblensImg from "../assets/weblens.webp";
+import mockmateImg from "../assets/mockmate.webp";
+import cloudBg from "../assets/cloud.webp";
 import logoImg from "../assets/logo.svg";
 import resumePdf from "../assets/resume.pdf";
 import TerminalConsole from "./TerminalConsole";

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import logoImg from "../assets/logo.svg";
-import cloudBg from "../assets/cloud.png";
+import cloudBg from "../assets/cloud.webp";
 
 export default function Connect() {
   const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];

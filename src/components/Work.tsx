@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { ExternalLink } from "lucide-react";
-import primaxImg from "../assets/primax.png";
-import mmImg from "../assets/mm.png";
-import planoraImg from "../assets/planora_2.png";
-import wlImg from "../assets/wl.png";
-import legaleaseImg from "../assets/legalease.png";
-import clientsyncImg from "../assets/clientsync.png";
-import smartmeetImg from "../assets/smartmeet.png";
+import primaxImg from "../assets/primax.webp";
+import mmImg from "../assets/mm.webp";
+import planoraImg from "../assets/planora_2.webp";
+import wlImg from "../assets/wl.webp";
+import legaleaseImg from "../assets/legalease.webp";
+import clientsyncImg from "../assets/clientsync.webp";
+import smartmeetImg from "../assets/smartmeet.webp";
 
 const projects = [
   {

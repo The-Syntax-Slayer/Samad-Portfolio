@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import cloudBg from "../assets/cloud.png";
+import cloudBg from "../assets/cloud.webp";
 import resumePdf from "../assets/resume.pdf";
 
 interface FooterProps {

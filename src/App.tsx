@@ -7,7 +7,7 @@ import About from "./components/About";
 import Work from "./components/Work";
 import Connect from "./components/Connect";
 import Footer from "./components/Footer";
-import cloudBg from "./assets/cloud.png";
+import cloudBg from "./assets/cloud.webp";
 import ThemeSwitcher from "./components/ThemeSwitcher";
 import ParticleBackground from "./components/ParticleBackground";
 import BootLoader from "./components/BootLoader";
