@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { MapPin, Minus, Plus, Briefcase, ArrowRight, Layers, ArrowUpRight, Flame, FileText } from "lucide-react";
 import planoraImg from "../assets/planora.webp";
 import weblensImg from "../assets/weblens.webp";
@@ -17,11 +17,24 @@ export default function Home({ setActiveTab }: HomeProps) {
   const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
   const [isMobile, setIsMobile] = useState(false);
+  const [showResume, setShowResume] = useState(true);
   // Live IST Clock
   const [timeString, setTimeString] = useState("");
   // Mouse coordinates for parallax/lighting (using MotionValues to prevent re-renders)
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setShowResume(false);
+      } else {
+        setShowResume(true);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Typewriter effect for roles
   const roles = useMemo(() => ["Software Engineer", "Full-Stack Developer", "AI Specialist"], []);
@@ -523,17 +536,6 @@ export default function Home({ setActiveTab }: HomeProps) {
             </div>
           </div>
         </motion.div>
-
-        {/* Mobile-only Resume floating button (absolute within Hero Section, scrolls with the page) */}
-        <a
-          href="https://samadshaikh.me"
-          target="_blank"
-          rel="noreferrer"
-          title="View Resume"
-          className="absolute bottom-24 left-6 z-45 w-9 h-9 rounded-xl border border-white/10 bg-black/40 hover:bg-white/5 hover:border-white/20 flex items-center justify-center text-accent/60 hover:text-mint hover:-translate-y-0.5 transition-all duration-300 shadow-md cursor-pointer md:hidden shrink-0"
-        >
-          <FileText className="w-4 h-4" />
-        </a>
 
       </div>
 
@@ -1232,6 +1234,25 @@ export default function Home({ setActiveTab }: HomeProps) {
           ))}
         </div>
       </motion.div>
+
+      {/* Mobile-only Resume floating button (aligned with Chat icon at bottom-24, fades out on scroll) */}
+      <AnimatePresence>
+        {showResume && (
+          <motion.a
+            href="https://samadshaikh.me"
+            target="_blank"
+            rel="noreferrer"
+            title="View Resume"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.2 }}
+            className="fixed bottom-24 left-6 z-45 w-9 h-9 rounded-xl border border-white/10 bg-black/40 hover:bg-white/5 hover:border-white/20 flex items-center justify-center text-accent/60 hover:text-mint hover:-translate-y-0.5 transition-all duration-300 shadow-md cursor-pointer md:hidden shrink-0"
+          >
+            <FileText className="w-4 h-4" />
+          </motion.a>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
