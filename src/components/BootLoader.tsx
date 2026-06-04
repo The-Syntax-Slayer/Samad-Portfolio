@@ -6,14 +6,14 @@ interface BootLoaderProps {
 }
 
 const bootLogs = [
-  "SYSTEM_BOOT: SAMAD_SHAIKH_PORTFOLIO [v1.0.0]",
+  "SYSTEM_BOOT: SAMAD-SHAIKH-PORTFOLIO",
   "--------------------------------------------------",
   "[OK] INITIALIZING STYLES & GLOW BUFFER...",
   "[OK] PACKAGING COMPONENT CORE...",
   "[OK] BOOTSTRAPPING GENAI AGENTS...",
   "[OK] SYNCHRONIZING GEOMETRIC CROWN CORE...",
   "[OK] ESTABLISHING BANDS WAVE NETWORK...",
-  "ACCESS GRANTED. WELCOME S. SHAIKH.",
+  "ACCESS GRANTED. WELCOME!",
 ];
 
 export default function BootLoader({ onComplete }: BootLoaderProps) {

@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { ExternalLink } from "lucide-react";
+import primaxImg from "../assets/primax.png";
 import mmImg from "../assets/mm.png";
 import planoraImg from "../assets/planora_2.png";
 import wlImg from "../assets/wl.png";
@@ -11,6 +12,17 @@ import smartmeetImg from "../assets/smartmeet.png";
 const projects = [
   {
     id: "01",
+    title: "PriMaX Hub",
+    category: "AI Productivity SaaS",
+    themeColor: "#3B82F6", // Cyber Blue
+    description: "An AI-powered productivity ecosystem that integrates neuroscience growth frameworks to build habits, track performance, and help users crush their daily goals.",
+    techStack: ["React", "TypeScript", "Node.js", "MongoDB", "Gemini API"],
+    image: primaxImg,
+    demoLink: "https://primax-sigma.vercel.app/",
+    githubLink: "https://github.com/The-Syntax-Slayer/PriMaX-Hub.git",
+  },
+  {
+    id: "02",
     title: "MockMate AI",
     category: "AI Product",
     themeColor: "#A78BFA", // Purple
@@ -21,7 +33,7 @@ const projects = [
     githubLink: "https://github.com/The-Syntax-Slayer/MockMate-AI.git",
   },
   {
-    id: "02",
+    id: "03",
     title: "Planora",
     category: "Social Media Planner",
     themeColor: "#F59E0B", // Amber
@@ -32,7 +44,7 @@ const projects = [
     githubLink: "https://github.com/The-Syntax-Slayer/Planora.git",
   },
   {
-    id: "03",
+    id: "04",
     title: "WebLens",
     category: "Developer Tool",
     themeColor: "#06B6D4", // Cyan
@@ -43,7 +55,7 @@ const projects = [
     githubLink: "https://github.com/The-Syntax-Slayer/Web-Lens.git",
   },
   {
-    id: "04",
+    id: "05",
     title: "LegalEase",
     category: "Legal Tech SaaS",
     themeColor: "#2DD4BF", // Teal
@@ -54,7 +66,7 @@ const projects = [
     githubLink: "https://github.com/The-Syntax-Slayer/Legal-Ease.git",
   },
   {
-    id: "05",
+    id: "06",
     title: "ClientSync",
     category: "Client CRM SaaS",
     themeColor: "#8FFFD1", // Mint Green
@@ -65,7 +77,7 @@ const projects = [
     githubLink: "https://github.com/The-Syntax-Slayer",
   },
   {
-    id: "06",
+    id: "07",
     title: "SmartMeet",
     category: "AI Meeting Assistant",
     themeColor: "#10B981", // Emerald
@@ -293,11 +305,11 @@ function HorizontalProjects() {
     offset: ["start start", "end end"]
   });
 
-  // 6 projects. Total translation is -80% of inner content width
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
+  // 7 projects. Total translation is -84% of inner content width
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-84%"]);
 
   return (
-    <section ref={targetRef} className="relative w-full h-[400vh] bg-transparent hidden lg:block">
+    <section ref={targetRef} className="relative w-full h-[500vh] bg-transparent hidden lg:block">
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         {/* Subtle background tech guide line */}
         <div className="absolute top-[18%] left-[5%] right-[5%] h-[1px] bg-gradient-to-r from-mint/0 via-mint/10 to-mint/0 pointer-events-none" />
