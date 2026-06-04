@@ -196,15 +196,15 @@ Here is your professional context:
   };
 
   return (
-    <div className="fixed top-12 right-6 md:right-8 z-40 flex flex-col gap-3 items-end">
+    <div className="fixed top-auto bottom-24 right-6 md:bottom-auto md:top-12 md:right-8 z-40 flex flex-col gap-3 items-end">
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -30, scale: 0.92 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -30, scale: 0.92 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="absolute top-12 right-0 w-[88vw] sm:w-[360px] h-[480px] rounded-3xl border border-white/10 bg-black/85 backdrop-blur-xl shadow-2xl flex flex-col overflow-hidden font-sans text-left"
+            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute bottom-12 top-auto right-0 md:bottom-auto md:top-12 w-[calc(100vw-3rem)] sm:w-80 h-[480px] bg-black/85 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden font-sans text-left"
           >
             {/* Header */}
             <div className="p-4 border-b border-white/10 bg-white/[0.02] flex items-center justify-between">

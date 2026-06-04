@@ -698,9 +698,9 @@ export default function Home({ setActiveTab }: HomeProps) {
             hoverBorderColor="rgba(var(--theme-mint-rgb), 0.35)"
           >
             <div className="flex flex-col justify-between z-10 w-1/2 text-left">
-              <div className="px-3 py-1 bg-[#111622] border border-[#181F2F] rounded-full text-[11px] font-Spline_Sans_Mono text-accent flex items-center gap-1.5 w-fit">
-                <Briefcase className="w-3.5 h-3.5 text-white/90" />
-                <span className="text-white/80">AI Product</span>
+              <div className="px-3 py-1 bg-mint/5 border border-mint/20 rounded-full text-[11px] font-Spline_Sans_Mono text-mint text-glow-mint flex items-center gap-1.5 w-fit">
+                <Briefcase className="w-3.5 h-3.5 text-mint animate-pulse" />
+                <span className="text-[#8FFFD1] font-semibold uppercase tracking-wider text-[9px]">AI Product</span>
               </div>
               <div className="mb-2">
                 <h3 className="text-base font-medium text-white">MockMate AI</h3>
@@ -804,9 +804,9 @@ export default function Home({ setActiveTab }: HomeProps) {
             glowColor="rgba(var(--theme-mint-rgb), 0.05)"
             hoverBorderColor="rgba(var(--theme-mint-rgb), 0.35)"
           >
-            <div className="px-3 py-1 bg-[#111622] border border-[#181F2F] rounded-full text-[11px] font-Spline_Sans_Mono text-accent flex items-center gap-1.5 w-fit">
-              <Flame className="w-3.5 h-3.5 text-[#8FFFD1] animate-pulse" />
-              <span className="text-white/80">Coding streak</span>
+            <div className="px-3 py-1 bg-mint/5 border border-mint/20 rounded-full text-[11px] font-Spline_Sans_Mono text-mint text-glow-mint flex items-center gap-1.5 w-fit">
+              <Flame className="w-3.5 h-3.5 text-mint animate-pulse" />
+              <span className="text-[#8FFFD1] font-semibold uppercase tracking-wider text-[9px]">Coding streak</span>
             </div>
 
             <div className="relative my-auto flex flex-col justify-center select-none">
@@ -819,7 +819,7 @@ export default function Home({ setActiveTab }: HomeProps) {
               </div>
             </div>
 
-            <div className="flex gap-4 border-t border-[#181F2F]/10 pt-4 text-[10px] font-Spline_Sans_Mono text-accent/40 z-10">
+            <div className="flex gap-4 border-t border-mint/10 pt-4 text-[10px] font-Spline_Sans_Mono text-[#8FFFD1]/60 z-10">
               <span className="flex items-center gap-1"><span className="text-[#8FFFD1]">🔥</span> Current</span>
               <span className="flex items-center gap-1"><span className="text-white">⚡</span> 156d Max</span>
               <span className="flex items-center gap-1"><span className="text-white">💻</span> Daily Push</span>
@@ -842,13 +842,12 @@ export default function Home({ setActiveTab }: HomeProps) {
             hoverBorderColor="rgba(var(--theme-mint-rgb), 0.35)"
           >
             <div className="flex items-center justify-between">
-              <div className="px-3 py-1 bg-[#111622] border border-[#181F2F] rounded-full text-[11px] font-Spline_Sans_Mono text-accent flex items-center gap-1.5 w-fit">
-                {/* Github Icon SVG */}
-                <svg className="w-3.5 h-3.5 text-white/90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <div className="px-3 py-1 bg-mint/5 border border-mint/20 rounded-full text-[11px] font-Spline_Sans_Mono text-mint text-glow-mint flex items-center gap-1.5 w-fit">
+                <svg className="w-3.5 h-3.5 text-mint" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
                   <path d="M9 18c-4.51 2-5-2-7-2" />
                 </svg>
-                <span className="text-white/80">Github activity</span>
+                <span className="text-[#8FFFD1] font-semibold uppercase tracking-wider text-[9px]">Github activity</span>
               </div>
               <span className="text-[10px] text-accent/45 font-Spline_Sans_Mono">859 contributions in the last year</span>
             </div>
@@ -885,14 +884,14 @@ export default function Home({ setActiveTab }: HomeProps) {
           glowColor="rgba(var(--theme-mint-rgb), 0.05)"
           hoverBorderColor="rgba(var(--theme-mint-rgb), 0.35)"
         >
-          <div className="px-3 py-1 bg-[#111622] border border-[#181F2F] rounded-full text-[11px] font-Spline_Sans_Mono text-accent flex items-center gap-1.5 w-fit">
-            <Layers className="w-3.5 h-3.5 text-white/90" />
-            <span className="text-white/80">Tech stack</span>
+          <div className="px-3 py-1 bg-mint/5 border border-mint/20 rounded-full text-[11px] font-Spline_Sans_Mono text-mint text-glow-mint flex items-center gap-1.5 w-fit">
+            <Layers className="w-3.5 h-3.5 text-mint" />
+            <span className="text-[#8FFFD1] font-semibold uppercase tracking-wider text-[9px]">Tech stack</span>
           </div>
 
           <div className="grid grid-cols-3 gap-3 my-auto items-center justify-items-center opacity-85 group-hover:opacity-100 transition-opacity duration-300">
             {/* React */}
-            <div className="flex flex-col items-center justify-center p-1.5 rounded-xl border border-white/[0.04] bg-[#111622]/40 hover:border-[#8FFFD1]/35 hover:bg-[#111622]/80 transition-all duration-300 w-[64px] h-[58px] group/tech cursor-pointer">
+            <div className="flex flex-col items-center justify-center p-1.5 rounded-xl border border-white/[0.04] bg-black/40 hover:border-[#8FFFD1]/35 hover:bg-mint/5 transition-all duration-300 w-[64px] h-[58px] group/tech cursor-pointer">
               <svg className="w-5 h-5 text-white/70 group-hover/tech:text-[#8FFFD1] transition-colors duration-300 animate-spin" style={{ animationDuration: '10s' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <ellipse rx="10" ry="4" cx="12" cy="12" transform="rotate(0 12 12)" />
                 <ellipse rx="10" ry="4" cx="12" cy="12" transform="rotate(60 12 12)" />
@@ -903,7 +902,7 @@ export default function Home({ setActiveTab }: HomeProps) {
             </div>
 
             {/* TypeScript */}
-            <div className="flex flex-col items-center justify-center p-1.5 rounded-xl border border-white/[0.04] bg-[#111622]/40 hover:border-[#8FFFD1]/35 hover:bg-[#111622]/80 transition-all duration-300 w-[64px] h-[58px] group/tech cursor-pointer">
+            <div className="flex flex-col items-center justify-center p-1.5 rounded-xl border border-white/[0.04] bg-black/40 hover:border-[#8FFFD1]/35 hover:bg-mint/5 transition-all duration-300 w-[64px] h-[58px] group/tech cursor-pointer">
               <div className="w-5 h-5 rounded border border-[#007acc]/30 text-[#007acc] flex items-center justify-center font-bold text-[9px] select-none group-hover/tech:bg-[#007acc] group-hover/tech:text-white group-hover/tech:border-transparent transition-all duration-300">
                 TS
               </div>
@@ -911,7 +910,7 @@ export default function Home({ setActiveTab }: HomeProps) {
             </div>
 
             {/* Next.js */}
-            <div className="flex flex-col items-center justify-center p-1.5 rounded-xl border border-white/[0.04] bg-[#111622]/40 hover:border-[#8FFFD1]/35 hover:bg-[#111622]/80 transition-all duration-300 w-[64px] h-[58px] group/tech cursor-pointer">
+            <div className="flex flex-col items-center justify-center p-1.5 rounded-xl border border-white/[0.04] bg-black/40 hover:border-[#8FFFD1]/35 hover:bg-mint/5 transition-all duration-300 w-[64px] h-[58px] group/tech cursor-pointer">
               <svg className="w-5 h-5 text-white/70 group-hover/tech:text-[#8FFFD1] transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <circle cx="12" cy="12" r="9" />
                 <path d="M9 15V9l5.5 6V9" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -920,7 +919,7 @@ export default function Home({ setActiveTab }: HomeProps) {
             </div>
 
             {/* Node.js */}
-            <div className="flex flex-col items-center justify-center p-1.5 rounded-xl border border-white/[0.04] bg-[#111622]/40 hover:border-[#8FFFD1]/35 hover:bg-[#111622]/80 transition-all duration-300 w-[64px] h-[58px] group/tech cursor-pointer">
+            <div className="flex flex-col items-center justify-center p-1.5 rounded-xl border border-white/[0.04] bg-black/40 hover:border-[#8FFFD1]/35 hover:bg-mint/5 transition-all duration-300 w-[64px] h-[58px] group/tech cursor-pointer">
               <svg className="w-5 h-5 text-white/70 group-hover/tech:text-[#8FFFD1] transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M12 3L4 7.5v9L12 21l8-4.5v-9L12 3z" />
                 <path d="M12 12V3" />
@@ -931,7 +930,7 @@ export default function Home({ setActiveTab }: HomeProps) {
             </div>
 
             {/* Python */}
-            <div className="flex flex-col items-center justify-center p-1.5 rounded-xl border border-white/[0.04] bg-[#111622]/40 hover:border-[#8FFFD1]/35 hover:bg-[#111622]/80 transition-all duration-300 w-[64px] h-[58px] group/tech cursor-pointer">
+            <div className="flex flex-col items-center justify-center p-1.5 rounded-xl border border-white/[0.04] bg-black/40 hover:border-[#8FFFD1]/35 hover:bg-mint/5 transition-all duration-300 w-[64px] h-[58px] group/tech cursor-pointer">
               <div className="w-5 h-5 rounded border border-[#ffd43b]/30 text-[#ffd43b] flex items-center justify-center font-bold text-[9px] select-none group-hover/tech:bg-[#ffd43b] group-hover/tech:text-[#306998] group-hover/tech:border-transparent transition-all duration-300">
                 PY
               </div>
@@ -939,7 +938,7 @@ export default function Home({ setActiveTab }: HomeProps) {
             </div>
 
             {/* Tailwind */}
-            <div className="flex flex-col items-center justify-center p-1.5 rounded-xl border border-white/[0.04] bg-[#111622]/40 hover:border-[#8FFFD1]/35 hover:bg-[#111622]/80 transition-all duration-300 w-[64px] h-[58px] group/tech cursor-pointer">
+            <div className="flex flex-col items-center justify-center p-1.5 rounded-xl border border-white/[0.04] bg-black/40 hover:border-[#8FFFD1]/35 hover:bg-mint/5 transition-all duration-300 w-[64px] h-[58px] group/tech cursor-pointer">
               <svg className="w-5 h-5 text-white/70 group-hover/tech:text-[#8FFFD1] transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M12 3c-1.2 0-2.4.6-3.2 1.6-1.5 1.8-1.5 4.6 0 6.4.8 1 2 1.6 3.2 1.6s2.4-.6 3.2-1.6c1.5-1.8 1.5-4.6 0-6.4C14.4 3.6 13.2 3 12 3z" />
               </svg>
@@ -1229,7 +1228,7 @@ export default function Home({ setActiveTab }: HomeProps) {
         target="_blank"
         rel="noreferrer"
         title="View Resume"
-        className="fixed bottom-24 right-6 z-45 w-9 h-9 rounded-xl border border-white/10 bg-black/40 hover:bg-white/5 hover:border-white/20 flex items-center justify-center text-accent/60 hover:text-mint hover:-translate-y-0.5 transition-all duration-300 shadow-md cursor-pointer md:hidden shrink-0"
+        className="fixed top-12 right-6 z-45 w-9 h-9 rounded-xl border border-white/10 bg-black/40 hover:bg-white/5 hover:border-white/20 flex items-center justify-center text-accent/60 hover:text-mint hover:-translate-y-0.5 transition-all duration-300 shadow-md cursor-pointer md:hidden shrink-0"
       >
         <FileText className="w-4 h-4" />
       </a>
