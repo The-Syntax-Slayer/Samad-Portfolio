@@ -1228,7 +1228,7 @@ export default function Home({ setActiveTab }: HomeProps) {
         target="_blank"
         rel="noreferrer"
         title="View Resume"
-        className="fixed top-12 right-6 z-45 w-9 h-9 rounded-xl border border-white/10 bg-black/40 hover:bg-white/5 hover:border-white/20 flex items-center justify-center text-accent/60 hover:text-mint hover:-translate-y-0.5 transition-all duration-300 shadow-md cursor-pointer md:hidden shrink-0"
+        className="fixed bottom-24 left-6 z-45 w-9 h-9 rounded-xl border border-white/10 bg-black/40 hover:bg-white/5 hover:border-white/20 flex items-center justify-center text-accent/60 hover:text-mint hover:-translate-y-0.5 transition-all duration-300 shadow-md cursor-pointer md:hidden shrink-0"
       >
         <FileText className="w-4 h-4" />
       </a>
