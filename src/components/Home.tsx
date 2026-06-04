@@ -524,6 +524,17 @@ export default function Home({ setActiveTab }: HomeProps) {
           </div>
         </motion.div>
 
+        {/* Mobile-only Resume floating button (absolute within Hero Section, scrolls with the page) */}
+        <a
+          href="https://samadshaikh.me"
+          target="_blank"
+          rel="noreferrer"
+          title="View Resume"
+          className="absolute bottom-12 left-6 z-45 w-9 h-9 rounded-xl border border-white/10 bg-black/40 hover:bg-white/5 hover:border-white/20 flex items-center justify-center text-accent/60 hover:text-mint hover:-translate-y-0.5 transition-all duration-300 shadow-md cursor-pointer md:hidden shrink-0"
+        >
+          <FileText className="w-4 h-4" />
+        </a>
+
       </div>
 
       {/* 2. Bento Grid Section (Below the fold - only visible when scrolled down) */}
@@ -1221,17 +1232,6 @@ export default function Home({ setActiveTab }: HomeProps) {
           ))}
         </div>
       </motion.div>
-
-      {/* Mobile-only Resume floating button */}
-      <a
-        href="https://samadshaikh.me"
-        target="_blank"
-        rel="noreferrer"
-        title="View Resume"
-        className="fixed bottom-24 left-6 z-45 w-9 h-9 rounded-xl border border-white/10 bg-black/40 hover:bg-white/5 hover:border-white/20 flex items-center justify-center text-accent/60 hover:text-mint hover:-translate-y-0.5 transition-all duration-300 shadow-md cursor-pointer md:hidden shrink-0"
-      >
-        <FileText className="w-4 h-4" />
-      </a>
     </motion.div>
   );
 }
