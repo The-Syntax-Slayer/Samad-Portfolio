@@ -6,7 +6,6 @@ import {
 } from "lucide-react";
 import SpotlightCard from "./SpotlightCard";
 import portraitImg from "../assets/Samad_Portrait.jpeg";
-import resumePdf from "../assets/resume.pdf";
 
 /* ─────────────────────────────────────────────
    Shared helpers
@@ -400,7 +399,7 @@ export default function About() {
                     </svg>
                   </a>
                   <a
-                    href={resumePdf}
+                    href="https://samadshaikh.me"
                     target="_blank"
                     rel="noreferrer"
                     title="Resume"

@@ -6,7 +6,6 @@ import weblensImg from "../assets/weblens.webp";
 import mockmateImg from "../assets/mockmate.webp";
 import cloudBg from "../assets/cloud.webp";
 import logoImg from "../assets/logo.svg";
-import resumePdf from "../assets/resume.pdf";
 import TerminalConsole from "./TerminalConsole";
 import SpotlightCard from "./SpotlightCard";
 
@@ -373,7 +372,7 @@ export default function Home({ setActiveTab }: HomeProps) {
 
             {/* Resume / CV Link — Replace with your real Google Drive / Dropbox / online PDF link */}
             <a
-              href={resumePdf}
+              href="https://samadshaikh.me"
               target="_blank"
               rel="noreferrer"
               title="Download Resume"

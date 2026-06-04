@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import cloudBg from "../assets/cloud.webp";
-import resumePdf from "../assets/resume.pdf";
 
 interface FooterProps {
   setActiveTab?: (tab: "home" | "about" | "work" | "connect") => void;
@@ -224,7 +223,7 @@ export default function Footer({ setActiveTab }: FooterProps) {
               {[
                 { name: "GitHub", url: "https://github.com/The-Syntax-Slayer" },
                 { name: "LinkedIn", url: "https://linkedin.com/in/samad-ai" },
-                { name: "Resume", url: resumePdf },
+                { name: "Resume", url: "https://samadshaikh.me" },
                 { name: "Email", url: `mailto:${email}` },
               ].map((link) => (
                 <a

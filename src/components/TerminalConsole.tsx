@@ -170,9 +170,9 @@ export default function TerminalConsole() {
         break;
 
       case "resume":
-        newLogs.push({ type: "output", text: "Accessing Resume PDF..." });
+        newLogs.push({ type: "output", text: "Accessing online Resume..." });
         setTimeout(() => {
-          window.open("/src/assets/resume.pdf", "_blank");
+          window.open("https://samadshaikh.me", "_blank");
         }, 300);
         break;
 
