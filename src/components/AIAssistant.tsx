@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, X, Send, Bot, User, FileText } from "lucide-react";
+import { MessageSquare, X, Send, Bot, User } from "lucide-react";
 
 interface Message {
   id: string;
@@ -196,7 +196,7 @@ Here is your professional context:
   };
 
   return (
-    <div className="fixed top-6 right-6 md:right-8 z-40 flex flex-col gap-3 items-end">
+    <div className="fixed top-12 right-6 md:right-8 z-40 flex flex-col gap-3 items-end">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -333,17 +333,6 @@ Here is your professional context:
         )}
         <MessageSquare className="w-4 h-4" />
       </button>
-
-      {/* Mobile-only Resume floating button */}
-      <a
-        href="https://samadshaikh.me"
-        target="_blank"
-        rel="noreferrer"
-        title="View Resume"
-        className="w-9 h-9 rounded-xl border border-white/10 bg-black/40 hover:bg-white/5 hover:border-white/20 flex items-center justify-center text-accent/60 hover:text-mint hover:-translate-y-0.5 transition-all duration-300 shadow-md cursor-pointer md:hidden shrink-0"
-      >
-        <FileText className="w-4 h-4" />
-      </a>
     </div>
   );
 }

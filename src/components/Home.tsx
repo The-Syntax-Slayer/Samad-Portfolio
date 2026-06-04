@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { MapPin, Minus, Plus, Briefcase, ArrowRight, Layers, ArrowUpRight, Flame } from "lucide-react";
+import { MapPin, Minus, Plus, Briefcase, ArrowRight, Layers, ArrowUpRight, Flame, FileText } from "lucide-react";
 import planoraImg from "../assets/planora.webp";
 import weblensImg from "../assets/weblens.webp";
 import mockmateImg from "../assets/mockmate.webp";
@@ -1222,6 +1222,17 @@ export default function Home({ setActiveTab }: HomeProps) {
           ))}
         </div>
       </motion.div>
+
+      {/* Mobile-only Resume floating button */}
+      <a
+        href="https://samadshaikh.me"
+        target="_blank"
+        rel="noreferrer"
+        title="View Resume"
+        className="fixed bottom-24 right-6 z-45 w-9 h-9 rounded-xl border border-white/10 bg-black/40 hover:bg-white/5 hover:border-white/20 flex items-center justify-center text-accent/60 hover:text-mint hover:-translate-y-0.5 transition-all duration-300 shadow-md cursor-pointer md:hidden shrink-0"
+      >
+        <FileText className="w-4 h-4" />
+      </a>
     </motion.div>
   );
 }
