@@ -19,8 +19,10 @@ type Tab = "home" | "about" | "work" | "connect";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>(() => {
-    const hash = typeof window !== "undefined" ? window.location.hash.replace("#", "") : "";
-    return ["home", "about", "work", "connect"].includes(hash) ? (hash as Tab) : "home";
+    if (typeof window !== "undefined" && window.history.state && window.history.state.tab) {
+      return window.history.state.tab;
+    }
+    return "home";
   });
   const [hoveredTab, setHoveredTab] = useState<Tab | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -36,18 +38,13 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [activeTab]);
 
-  // Sync state with browser back/forward buttons
+  // Sync state with browser back/forward buttons (without URL suffixes)
   useEffect(() => {
     const handlePopState = (event: PopStateEvent) => {
       if (event.state && event.state.tab) {
         setActiveTab(event.state.tab);
       } else {
-        const hash = window.location.hash.replace("#", "");
-        if (hash && ["home", "about", "work", "connect"].includes(hash)) {
-          setActiveTab(hash as Tab);
-        } else {
-          setActiveTab("home");
-        }
+        setActiveTab("home");
       }
     };
 
@@ -55,19 +52,14 @@ export default function App() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  // Sync activeTab with URL hash and history state
+  // Push tab transitions to history state while keeping the URL clean
   useEffect(() => {
-    const currentHash = window.location.hash.replace("#", "");
-    if (currentHash !== activeTab) {
-      if (currentHash === "" && activeTab === "home") {
-        window.history.replaceState({ tab: activeTab }, "", `#${activeTab}`);
+    const state = window.history.state;
+    if (!state || state.tab !== activeTab) {
+      if (!state) {
+        window.history.replaceState({ tab: activeTab }, "", window.location.pathname);
       } else {
-        window.history.pushState({ tab: activeTab }, "", `#${activeTab}`);
-      }
-    } else {
-      const state = window.history.state;
-      if (!state || state.tab !== activeTab) {
-        window.history.replaceState({ tab: activeTab }, "", `#${activeTab}`);
+        window.history.pushState({ tab: activeTab }, "", window.location.pathname);
       }
     }
   }, [activeTab]);
