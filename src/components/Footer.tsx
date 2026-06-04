@@ -198,7 +198,7 @@ export default function Footer({ setActiveTab }: FooterProps) {
               Software Engineer • Full-Stack Developer • AI Specialist
             </p>
             <p className="text-accent/50 text-xs font-light leading-relaxed max-w-[28ch] mt-1">
-              Creating AI products, digital experiences, and startup ideas.
+              Creating AI products, digital experiences, and startup ideas in Bandra, Mumbai.
             </p>
           </div>
 
@@ -281,7 +281,7 @@ export default function Footer({ setActiveTab }: FooterProps) {
           {/* Center Coordinates */}
           <div className="flex items-center gap-1.5 group cursor-pointer hover:text-[#8FFFD1] transition-colors duration-300">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#8FFFD1]/40 group-hover:bg-[#8FFFD1] animate-pulse" />
-            <span>Mumbai, India (19.0760° N, 72.8777° E)</span>
+            <span>Bandra, Mumbai, India (19.0596° N, 72.8295° E)</span>
           </div>
 
           {/* Right Back to Top */}

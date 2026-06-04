@@ -333,7 +333,7 @@ export default function About() {
             <motion.div style={{ y: imageY, scale: imageScale }} className="w-full h-full">
               <img
                 src={portraitImg}
-                alt="Samad Shaikh"
+                alt="Samad Shaikh - Best Software Developer and AI Specialist in Bandra, Mumbai"
                 className="w-full h-full object-cover object-center"
                 draggable={false}
               />
@@ -344,7 +344,7 @@ export default function About() {
                   Samad Shaikh
                 </p>
                 <p className="text-white/50 text-xs font-light italic">
-                  Software Engineer · Full-Stack Developer · AI Specialist
+                  Software Engineer · Full-Stack Developer · AI Specialist in Mumbai
                 </p>
               </div>
               <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center">
@@ -493,7 +493,7 @@ export default function About() {
               Today, I focus on{" "}
               <span className="text-white/80 font-normal">AI-powered tools</span>,{" "}
               <span className="text-white/80 font-normal">SaaS platforms</span>,
-              and modern web experiences. I enjoy working across the entire product
+              and modern web experiences from my base in Bandra, Mumbai. I enjoy working across the entire product
               lifecycle - from identifying problems and designing solutions to
               building, launching, and improving products.
             </p>
