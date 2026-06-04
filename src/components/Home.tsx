@@ -8,6 +8,7 @@ import cloudBg from "../assets/cloud.png";
 import logoImg from "../assets/logo.svg";
 import resumePdf from "../assets/resume.pdf";
 import TerminalConsole from "./TerminalConsole";
+import SpotlightCard from "./SpotlightCard";
 
 interface HomeProps {
   setActiveTab?: (tab: "home" | "about" | "work" | "connect") => void;
@@ -498,8 +499,11 @@ export default function Home({ setActiveTab }: HomeProps) {
         {/* Column 1: Map & Socials */}
         <div className="flex flex-col gap-3">
           {/* Map Card — Blueprint Style */}
-          <div className="relative overflow-hidden rounded-3xl border border-[#0D2137] bg-[#071019] h-[302px] group hover:border-mint/60 hover:shadow-[0_0_30px_rgba(143,255,209,0.12)] transition-all duration-300">
-
+          <SpotlightCard
+            className="h-[302px]"
+            glowColor="rgba(var(--theme-mint-rgb), 0.04)"
+            hoverBorderColor="rgba(var(--theme-mint-rgb), 0.45)"
+          >
             {/* Real OpenStreetMap — Blueprint Filter (strictly blue and mint green) */}
             <iframe
               src="https://maps.google.com/maps?q=19.056892,72.844176&t=&z=14&ie=UTF8&iwloc=&output=embed"
@@ -531,24 +535,24 @@ export default function Home({ setActiveTab }: HomeProps) {
               ))}
 
               {/* Center crosshair */}
-              <line x1="160" y1="121" x2="160" y2="161" stroke="#8FFFD1" strokeWidth="0.8" strokeOpacity="0.6" />
-              <line x1="140" y1="141" x2="180" y2="141" stroke="#8FFFD1" strokeWidth="0.8" strokeOpacity="0.6" />
-              <circle cx="160" cy="141" r="14" stroke="#8FFFD1" strokeWidth="0.7" strokeOpacity="0.35" strokeDasharray="3 2" />
-              <circle cx="160" cy="141" r="24" stroke="#8FFFD1" strokeWidth="0.4" strokeOpacity="0.18" strokeDasharray="2 3" />
+              <line x1="160" y1="121" x2="160" y2="161" stroke="var(--theme-mint)" strokeWidth="0.8" strokeOpacity="0.6" />
+              <line x1="140" y1="141" x2="180" y2="141" stroke="var(--theme-mint)" strokeWidth="0.8" strokeOpacity="0.6" />
+              <circle cx="160" cy="141" r="14" stroke="var(--theme-mint)" strokeWidth="0.7" strokeOpacity="0.35" strokeDasharray="3 2" />
+              <circle cx="160" cy="141" r="24" stroke="var(--theme-mint)" strokeWidth="0.4" strokeOpacity="0.18" strokeDasharray="2 3" />
 
               {/* Corner brackets — TL */}
-              <path d="M 10 22 L 10 10 L 22 10" stroke="#8FFFD1" strokeWidth="1.2" strokeOpacity="0.55" />
+              <path d="M 10 22 L 10 10 L 22 10" stroke="var(--theme-mint)" strokeWidth="1.2" strokeOpacity="0.55" />
               {/* Corner brackets — TR */}
-              <path d="M 298 10 L 310 10 L 310 22" stroke="#8FFFD1" strokeWidth="1.2" strokeOpacity="0.55" />
+              <path d="M 298 10 L 310 10 L 310 22" stroke="var(--theme-mint)" strokeWidth="1.2" strokeOpacity="0.55" />
               {/* Corner brackets — BL */}
-              <path d="M 10 280 L 10 292 L 22 292" stroke="#8FFFD1" strokeWidth="1.2" strokeOpacity="0.55" />
+              <path d="M 10 280 L 10 292 L 22 292" stroke="var(--theme-mint)" strokeWidth="1.2" strokeOpacity="0.55" />
               {/* Corner brackets — BR */}
-              <path d="M 298 292 L 310 292 L 310 280" stroke="#8FFFD1" strokeWidth="1.2" strokeOpacity="0.55" />
+              <path d="M 298 292 L 310 292 L 310 280" stroke="var(--theme-mint)" strokeWidth="1.2" strokeOpacity="0.55" />
 
               {/* Coordinate tick labels */}
-              <text x="10" y="8" fill="#8FFFD1" fontSize="4.5" opacity="0.4" fontFamily="monospace">72.78°E</text>
-              <text x="270" y="8" fill="#8FFFD1" fontSize="4.5" opacity="0.4" fontFamily="monospace">72.98°E</text>
-              <text x="2" y="148" fill="#8FFFD1" fontSize="4.5" opacity="0.4" fontFamily="monospace" writingMode="tb">19.08°N</text>
+              <text x="10" y="8" fill="var(--theme-mint)" fontSize="4.5" opacity="0.4" fontFamily="monospace">72.78°E</text>
+              <text x="270" y="8" fill="var(--theme-mint)" fontSize="4.5" opacity="0.4" fontFamily="monospace">72.98°E</text>
+              <text x="2" y="148" fill="var(--theme-mint)" fontSize="4.5" opacity="0.4" fontFamily="monospace" writingMode="tb">19.08°N</text>
             </svg>
 
             {/* Scan-line texture */}
@@ -565,35 +569,35 @@ export default function Home({ setActiveTab }: HomeProps) {
             <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#071019] via-[#071019]/80 to-transparent z-20 pointer-events-none" />
 
             {/* Header Pill */}
-            <div className="absolute top-4 left-4 px-3 py-1 bg-[#071019]/90 backdrop-blur-sm border border-[#8FFFD1]/20 rounded-full text-[11px] font-Spline_Sans_Mono flex items-center gap-1.5 w-fit z-30">
-              <MapPin className="w-3.5 h-3.5 text-[#8FFFD1]" />
-              <span className="text-[#8FFFD1]/80 tracking-wider uppercase text-[9px]">Location</span>
+            <div className="absolute top-4 left-4 px-3 py-1 bg-[#071019]/90 backdrop-blur-sm border border-mint/20 rounded-full text-[11px] font-Spline_Sans_Mono flex items-center gap-1.5 w-fit z-30">
+              <MapPin className="w-3.5 h-3.5 text-mint" />
+              <span className="text-mint/80 tracking-wider uppercase text-[9px]">Location</span>
             </div>
 
             {/* Pulsing dot — always centered */}
             <div className="absolute inset-0 z-25 flex items-center justify-center pointer-events-none" style={{ zIndex: 25 }}>
               <div className="relative">
-                <span className="absolute -inset-4 rounded-full bg-[#8FFFD1]/10 animate-ping" style={{ animationDuration: "2s" }} />
-                <span className="absolute -inset-1.5 rounded-full bg-[#8FFFD1]/20" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#8FFFD1] shadow-[0_0_14px_4px_rgba(143,255,209,0.7)] block" />
+                <span className="absolute -inset-4 rounded-full bg-mint/10 animate-ping" style={{ animationDuration: "2s" }} />
+                <span className="absolute -inset-1.5 rounded-full bg-mint/20" />
+                <span className="w-2.5 h-2.5 rounded-full bg-mint shadow-[0_0_14px_4px_rgba(var(--theme-mint-rgb),0.7)] block" />
               </div>
             </div>
 
             {/* Location label */}
             <div className="absolute bottom-4 left-5 z-30 select-none">
               <h3 className="text-[15px] font-semibold text-white tracking-wide">Mumbai</h3>
-              <p className="text-[10px] text-[#8FFFD1]/60 font-light mt-0.5 font-Spline_Sans_Mono tracking-widest uppercase">19.0569° N · 72.8442° E</p>
+              <p className="text-[10px] text-mint/60 font-light mt-0.5 font-Spline_Sans_Mono tracking-widest uppercase">19.0569° N · 72.8442° E</p>
             </div>
 
             {/* Zoom toggle */}
             <button
               onClick={() => setMapZoom(!mapZoom)}
               title={mapZoom ? "Lock map" : "Interact with map"}
-              className="absolute bottom-4 right-5 w-7 h-7 rounded-full bg-[#0D1E30]/90 border border-[#8FFFD1]/25 flex items-center justify-center text-[#8FFFD1]/70 hover:text-[#8FFFD1] cursor-pointer select-none z-30 hover:border-[#8FFFD1]/60 hover:shadow-[0_0_8px_rgba(143,255,209,0.3)] transition-all duration-200"
+              className="absolute bottom-4 right-5 w-7 h-7 rounded-full bg-[#0D1E30]/90 border border-mint/25 flex items-center justify-center text-mint/70 hover:text-mint cursor-pointer select-none z-30 hover:border-mint/60 hover:shadow-[0_0_8px_rgba(var(--theme-mint-rgb),0.3)] transition-all duration-200"
             >
               {mapZoom ? <Minus className="w-3 h-3" /> : <Plus className="w-3 h-3" />}
             </button>
-          </div>
+          </SpotlightCard>
 
           {/* Socials Card */}
           <div className="grid grid-cols-3 gap-3">
@@ -601,30 +605,45 @@ export default function Home({ setActiveTab }: HomeProps) {
               href="https://github.com/The-Syntax-Slayer"
               target="_blank"
               rel="noreferrer"
-              className="h-[90px] rounded-2xl border border-[#181F2F] bg-[#0B0F19] flex items-center justify-center hover:border-[#8FFFD1]/60 hover:bg-[#111622]/30 hover:shadow-[0_0_12px_rgba(143,255,209,0.04)] transition-all duration-300 group"
+              className="h-[90px] block rounded-2xl"
             >
-              <svg className="w-5 h-5 text-white/90 group-hover:text-[#8FFFD1]" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z" />
-              </svg>
+              <SpotlightCard
+                className="h-full !rounded-2xl group hover:shadow-[0_0_12px_rgba(var(--theme-mint-rgb),0.04)]"
+                contentClassName="flex items-center justify-center w-full h-full"
+              >
+                <svg className="w-5 h-5 text-white/90 group-hover:text-mint transition-colors duration-300" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z" />
+                </svg>
+              </SpotlightCard>
             </a>
             <a
               href="https://linkedin.com/in/samad-ai"
               target="_blank"
               rel="noreferrer"
-              className="h-[90px] rounded-2xl border border-[#181F2F] bg-[#0B0F19] flex items-center justify-center hover:border-[#8FFFD1]/60 hover:bg-[#111622]/30 hover:shadow-[0_0_12px_rgba(143,255,209,0.04)] transition-all duration-300 group"
+              className="h-[90px] block rounded-2xl"
             >
-              <svg className="w-5 h-5 text-white/90 group-hover:text-[#8FFFD1]" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-              </svg>
+              <SpotlightCard
+                className="h-full !rounded-2xl group hover:shadow-[0_0_12px_rgba(var(--theme-mint-rgb),0.04)]"
+                contentClassName="flex items-center justify-center w-full h-full"
+              >
+                <svg className="w-5 h-5 text-white/90 group-hover:text-mint transition-colors duration-300" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                </svg>
+              </SpotlightCard>
             </a>
             <a
               href="mailto:sxmxd.1825@gmail.com"
-              className="h-[90px] rounded-2xl border border-[#181F2F] bg-[#0B0F19] flex items-center justify-center hover:border-[#8FFFD1]/60 hover:bg-[#111622]/30 hover:shadow-[0_0_12px_rgba(143,255,209,0.04)] transition-all duration-300 group"
+              className="h-[90px] block rounded-2xl"
             >
-              <svg className="w-5 h-5 text-white/90 group-hover:text-[#8FFFD1]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect width="20" height="16" x="2" y="4" rx="2" />
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-              </svg>
+              <SpotlightCard
+                className="h-full !rounded-2xl group hover:shadow-[0_0_12px_rgba(var(--theme-mint-rgb),0.04)]"
+                contentClassName="flex items-center justify-center w-full h-full"
+              >
+                <svg className="w-5 h-5 text-white/90 group-hover:text-mint transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect width="20" height="16" x="2" y="4" rx="2" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+              </SpotlightCard>
             </a>
           </div>
         </div>
@@ -632,9 +651,12 @@ export default function Home({ setActiveTab }: HomeProps) {
         {/* Column 2: Projects & Apps */}
         <div className="flex flex-col gap-3">
           {/* MockMate AI Card */}
-          <div
+          <SpotlightCard
             onClick={() => setActiveTab?.("work")}
-            className="rounded-3xl border border-[#181F2F] bg-[#0B0F19] p-6 h-[200px] relative overflow-hidden flex justify-between group hover:border-mint/50 hover:bg-[#111622]/20 hover:shadow-[0_0_25px_rgba(143,255,209,0.1)] transition-all duration-300 cursor-pointer"
+            className="h-[200px] cursor-pointer"
+            contentClassName="p-6 flex justify-between w-full h-full"
+            glowColor="rgba(var(--theme-mint-rgb), 0.05)"
+            hoverBorderColor="rgba(var(--theme-mint-rgb), 0.35)"
           >
             <div className="flex flex-col justify-between z-10 w-1/2 text-left">
               <div className="px-3 py-1 bg-[#111622] border border-[#181F2F] rounded-full text-[11px] font-Spline_Sans_Mono text-accent flex items-center gap-1.5 w-fit">
@@ -657,12 +679,15 @@ export default function Home({ setActiveTab }: HomeProps) {
                 </div>
               </div>
             </div>
-          </div>
+          </SpotlightCard>
 
           {/* ClientSync Card */}
-          <div
+          <SpotlightCard
             onClick={() => setActiveTab?.("work")}
-            className="rounded-2xl border border-[#181F2F] bg-[#0B0F19] p-4 h-[90px] flex items-center justify-between group hover:border-mint/50 hover:bg-[#111622]/20 hover:shadow-[0_0_20px_rgba(143,255,209,0.08)] transition-all duration-300 cursor-pointer"
+            className="h-[90px] !rounded-2xl cursor-pointer"
+            contentClassName="p-4 flex items-center justify-between w-full h-full"
+            glowColor="rgba(var(--theme-mint-rgb), 0.05)"
+            hoverBorderColor="rgba(var(--theme-mint-rgb), 0.35)"
           >
             <div className="flex items-center gap-3">
               <svg className="w-6 h-6 text-[#8FFFD1]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -679,16 +704,19 @@ export default function Home({ setActiveTab }: HomeProps) {
                 <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
               </svg>
             </div>
-          </div>
+          </SpotlightCard>
 
           {/* Discover Projects Card */}
-          <div
+          <SpotlightCard
             onClick={() => setActiveTab?.("work")}
-            className="rounded-2xl border border-[#181F2F] bg-[#0B0F19] p-4 h-[90px] flex items-center justify-between group hover:border-mint/50 hover:bg-[#111622]/30 hover:shadow-[0_0_20px_rgba(143,255,209,0.08)] transition-all duration-300 cursor-pointer"
+            className="h-[90px] !rounded-2xl cursor-pointer"
+            contentClassName="p-4 flex items-center justify-between w-full h-full"
+            glowColor="rgba(var(--theme-mint-rgb), 0.05)"
+            hoverBorderColor="rgba(var(--theme-mint-rgb), 0.35)"
           >
             <span className="text-xs font-medium text-white group-hover:text-[#8FFFD1] transition-colors font-Spline_Sans_Mono">Discover more projects</span>
             <ArrowRight className="w-4 h-4 text-accent/60 group-hover:text-white group-hover:translate-x-1 transition-all" />
-          </div>
+          </SpotlightCard>
         </div>
 
         {/* Column 3: Spotify & Typing Speed */}
@@ -698,33 +726,45 @@ export default function Home({ setActiveTab }: HomeProps) {
             href="https://music.apple.com"
             target="_blank"
             rel="noreferrer"
-            className="rounded-3xl border border-[#181F2F] bg-[#0B0F19] p-4 h-[90px] flex items-center justify-between group hover:border-[#FC3C44]/60 hover:bg-[#111622]/20 hover:shadow-[0_0_12px_rgba(252,60,68,0.06)] transition-all duration-300"
+            className="h-[90px] block rounded-3xl"
           >
-            <div className="flex items-center gap-3">
-              {/* Disc Cover Art */}
-              <div className="w-12 h-12 rounded-full bg-[#1b1c22] border border-[#2a2c35] relative overflow-hidden flex items-center justify-center shadow-inner group-hover:rotate-45 transition-transform duration-500">
-                {/* Album center design art */}
-                <div className="w-5 h-5 rounded-full bg-[#3d3a34] border border-white/5 flex items-center justify-center relative">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#000]" />
+            <SpotlightCard
+              className="h-full group hover:shadow-[0_0_12px_rgba(252,60,68,0.06)] hover:!border-[#FC3C44]/45"
+              contentClassName="p-4 flex items-center justify-between w-full h-full"
+              glowColor="rgba(252, 60, 68, 0.08)"
+              hoverBorderColor="rgba(252, 60, 68, 0.45)"
+            >
+              <div className="flex items-center gap-3">
+                {/* Disc Cover Art */}
+                <div className="w-12 h-12 rounded-full bg-[#1b1c22] border border-[#2a2c35] relative overflow-hidden flex items-center justify-center shadow-inner group-hover:rotate-45 transition-transform duration-500">
+                  {/* Album center design art */}
+                  <div className="w-5 h-5 rounded-full bg-[#3d3a34] border border-white/5 flex items-center justify-center relative">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#000]" />
+                  </div>
+                  <div className="absolute inset-0 border border-dashed border-[#505465]/40 rounded-full scale-90" />
                 </div>
-                <div className="absolute inset-0 border border-dashed border-[#505465]/40 rounded-full scale-90" />
+
+                <div className="text-left">
+                  <span className="text-[9px] text-[#FC3C44] font-Spline_Sans_Mono uppercase tracking-wider block font-medium">On Apple Music</span>
+                  <span className="text-xs font-medium text-white block mt-0.5 group-hover:text-[#FC3C44] transition-colors">Gratitude</span>
+                  <span className="text-[10px] text-accent/50 font-light block">Brandon Lake</span>
+                </div>
               </div>
 
-              <div className="text-left">
-                <span className="text-[9px] text-[#FC3C44] font-Spline_Sans_Mono uppercase tracking-wider block font-medium">On Apple Music</span>
-                <span className="text-xs font-medium text-white block mt-0.5 group-hover:text-[#FC3C44] transition-colors">Gratitude</span>
-                <span className="text-[10px] text-accent/50 font-light block">Brandon Lake</span>
-              </div>
-            </div>
-
-            {/* Apple Music Brand Logo */}
-            <svg className="w-5 h-5 text-[#FC3C44] opacity-80 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M21.365 3.32a1.86 1.86 0 00-1.777-.384l-11.2 2.8A1.866 1.866 0 007 7.552v8.528A3.498 3.498 0 005.5 16C3.57 16 2 17.57 2 19.5S3.57 23 5.5 23s3.5-1.57 3.5-3.5v-8.15l10.5-2.625v4.35A3.498 3.498 0 0018 13c-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5 3.5-1.57 3.5-3.5V4.654a1.86 1.86 0 00-.635-1.334z" />
-            </svg>
+              {/* Apple Music Brand Logo */}
+              <svg className="w-5 h-5 text-[#FC3C44] opacity-80 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21.365 3.32a1.86 1.86 0 00-1.777-.384l-11.2 2.8A1.866 1.866 0 007 7.552v8.528A3.498 3.498 0 005.5 16C3.57 16 2 17.57 2 19.5S3.57 23 5.5 23s3.5-1.57 3.5-3.5v-8.15l10.5-2.625v4.35A3.498 3.498 0 0018 13c-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5 3.5-1.57 3.5-3.5V4.654a1.86 1.86 0 00-.635-1.334z" />
+              </svg>
+            </SpotlightCard>
           </a>
 
           {/* Coding Streak Card */}
-          <div className="rounded-3xl border border-[#181F2F] bg-[#0B0F19] p-6 h-[302px] relative overflow-hidden flex flex-col justify-between group hover:border-mint/50 hover:shadow-[0_0_25px_rgba(143,255,209,0.1)] transition-all duration-300">
+          <SpotlightCard
+            className="h-[302px]"
+            contentClassName="p-6 flex flex-col justify-between w-full h-full"
+            glowColor="rgba(var(--theme-mint-rgb), 0.05)"
+            hoverBorderColor="rgba(var(--theme-mint-rgb), 0.35)"
+          >
             <div className="px-3 py-1 bg-[#111622] border border-[#181F2F] rounded-full text-[11px] font-Spline_Sans_Mono text-accent flex items-center gap-1.5 w-fit">
               <Flame className="w-3.5 h-3.5 text-[#8FFFD1] animate-pulse" />
               <span className="text-white/80">Coding streak</span>
@@ -745,7 +785,7 @@ export default function Home({ setActiveTab }: HomeProps) {
               <span className="flex items-center gap-1"><span className="text-white">⚡</span> 156d Max</span>
               <span className="flex items-center gap-1"><span className="text-white">💻</span> Daily Push</span>
             </div>
-          </div>
+          </SpotlightCard>
         </div>
 
         {/* Row 2: Github Activity (spans 2) & Tech Stack (spans 1) */}
@@ -754,46 +794,58 @@ export default function Home({ setActiveTab }: HomeProps) {
           href="https://github.com/The-Syntax-Slayer"
           target="_blank"
           rel="noreferrer"
-          className="md:col-span-2 rounded-3xl border border-[#181F2F] bg-[#0B0F19] p-6 h-[270px] flex flex-col justify-between group hover:border-mint/50 hover:bg-[#111622]/10 hover:shadow-[0_0_25px_rgba(143,255,209,0.1)] transition-all duration-300 cursor-pointer"
+          className="md:col-span-2 h-[270px] block rounded-3xl"
         >
-          <div className="flex items-center justify-between">
-            <div className="px-3 py-1 bg-[#111622] border border-[#181F2F] rounded-full text-[11px] font-Spline_Sans_Mono text-accent flex items-center gap-1.5 w-fit">
-              {/* Github Icon SVG */}
-              <svg className="w-3.5 h-3.5 text-white/90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-                <path d="M9 18c-4.51 2-5-2-7-2" />
-              </svg>
-              <span className="text-white/80">Github activity</span>
+          <SpotlightCard
+            className="h-full cursor-pointer"
+            contentClassName="p-6 flex flex-col justify-between w-full h-full"
+            glowColor="rgba(var(--theme-mint-rgb), 0.05)"
+            hoverBorderColor="rgba(var(--theme-mint-rgb), 0.35)"
+          >
+            <div className="flex items-center justify-between">
+              <div className="px-3 py-1 bg-[#111622] border border-[#181F2F] rounded-full text-[11px] font-Spline_Sans_Mono text-accent flex items-center gap-1.5 w-fit">
+                {/* Github Icon SVG */}
+                <svg className="w-3.5 h-3.5 text-white/90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+                <span className="text-white/80">Github activity</span>
+              </div>
+              <span className="text-[10px] text-accent/45 font-Spline_Sans_Mono">859 contributions in the last year</span>
             </div>
-            <span className="text-[10px] text-accent/45 font-Spline_Sans_Mono">859 contributions in the last year</span>
-          </div>
 
-          <div className="overflow-x-auto scrollbar-hide py-2 my-auto">
-            <div className="grid grid-flow-col auto-cols-max gap-1">
-              {githubGrid.map((column, colIndex) => (
-                <div key={colIndex} className="grid grid-rows-7 gap-1">
-                  {column.map((colorClass, rowIndex) => (
-                    <div
-                      key={rowIndex}
-                      className={`w-2.5 h-2.5 rounded-[2px] ${colorClass} transition-transform duration-300 hover:scale-125`}
-                    />
-                  ))}
-                </div>
-              ))}
+            <div className="overflow-x-auto scrollbar-hide py-2 my-auto">
+              <div className="grid grid-flow-col auto-cols-max gap-1">
+                {githubGrid.map((column, colIndex) => (
+                  <div key={colIndex} className="grid grid-rows-7 gap-1">
+                    {column.map((colorClass, rowIndex) => (
+                      <div
+                        key={rowIndex}
+                        className={`w-2.5 h-2.5 rounded-[2px] ${colorClass} transition-transform duration-300 hover:scale-125`}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+              {/* Scroll indicator block */}
+              <div className="w-full h-1 bg-[#161B22] rounded-full mt-3 relative overflow-hidden">
+                <div className="w-1/3 h-full bg-[#30363D] rounded-full absolute left-1/4" />
+              </div>
             </div>
-            {/* Scroll indicator block */}
-            <div className="w-full h-1 bg-[#161B22] rounded-full mt-3 relative overflow-hidden">
-              <div className="w-1/3 h-full bg-[#30363D] rounded-full absolute left-1/4" />
-            </div>
-          </div>
 
-          <p className="text-[10px] font-Spline_Sans_Mono text-accent/40">
-            Last pushed on Friday, May 29th 2026
-          </p>
+            <p className="text-[10px] font-Spline_Sans_Mono text-accent/40">
+              Last pushed on Friday, May 29th 2026
+            </p>
+          </SpotlightCard>
         </a>
 
         {/* Tech Stack */}
-        <div className="md:col-span-1 rounded-3xl border border-[#181F2F] bg-[#0B0F19] p-5 h-[270px] flex flex-col justify-between group hover:border-mint/50 hover:shadow-[0_0_25px_rgba(143,255,209,0.1)] transition-all duration-300">
+        <SpotlightCard
+          className="md:col-span-1 h-[270px]"
+          contentClassName="p-5 flex flex-col justify-between w-full h-full"
+          glowColor="rgba(var(--theme-mint-rgb), 0.05)"
+          hoverBorderColor="rgba(var(--theme-mint-rgb), 0.35)"
+        >
           <div className="px-3 py-1 bg-[#111622] border border-[#181F2F] rounded-full text-[11px] font-Spline_Sans_Mono text-accent flex items-center gap-1.5 w-fit">
             <Layers className="w-3.5 h-3.5 text-white/90" />
             <span className="text-white/80">Tech stack</span>
@@ -862,7 +914,7 @@ export default function Home({ setActiveTab }: HomeProps) {
               Focused on full-stack development with modern frontend frameworks and scalable backend API layers.
             </p>
           </div>
-        </div>
+        </SpotlightCard>
       </motion.div>
 
       {/* System Terminal Console */}
@@ -897,14 +949,14 @@ export default function Home({ setActiveTab }: HomeProps) {
         </div>
 
         {/* Accordion Container */}
-        <div className="w-full border-b border-[#181F2F]/40">
+        <div className="w-full border-b border-mint/10">
           {projectsList.map((project) => {
             const isExpanded = true;
 
             return (
               <div
                 key={project.id}
-                className="group relative w-full border-t border-[#181F2F]/40 transition-colors duration-300 ease-out cursor-pointer bg-transparent hover:bg-[#0B0F19]/25 hover:border-t-white/10"
+                className="group relative w-full border-t border-mint/10 transition-colors duration-300 ease-out cursor-pointer bg-transparent hover:bg-mint/5 hover:border-t-white/10"
               >
                 {/* Accordion Row Height Animation */}
                 <motion.div
@@ -973,9 +1025,9 @@ export default function Home({ setActiveTab }: HomeProps) {
                         className="w-full max-w-[340px] h-[175px]"
                       >
                         {isExpanded && (
-                          <div className="w-full h-full bg-[#0B0F19] flex flex-col justify-between relative overflow-hidden font-sans border border-white/10 rounded-xl shadow-2xl select-none text-left">
+                          <div className="w-full h-full bg-[#07100D] flex flex-col justify-between relative overflow-hidden font-sans border border-white/10 rounded-xl shadow-2xl select-none text-left">
                             {/* Browser Top Bar */}
-                            <div className="flex items-center justify-between bg-[#111622] border-b border-white/5 px-3 py-1.5 text-[6px] text-neutral-400 font-sans">
+                            <div className="flex items-center justify-between bg-[#0d1a16] border-b border-white/5 px-3 py-1.5 text-[6px] text-neutral-400 font-sans">
                               <div className="flex items-center gap-1.5">
                                 <div className="flex gap-0.5">
                                   <span className="w-1.5 h-1.5 rounded-full bg-[#FF5F56]" />
@@ -1062,10 +1114,10 @@ export default function Home({ setActiveTab }: HomeProps) {
           {statsData.map((stat, i) => (
             <div
               key={i}
-              className="relative overflow-hidden rounded-3xl border border-[#181F2F]/40 bg-[#0B0F19]/25 p-6 md:p-8 flex flex-col justify-between group hover:border-[#39D353]/20 transition-all duration-300"
+              className="relative overflow-hidden rounded-3xl border border-mint/15 bg-[#07100D]/25 p-6 md:p-8 flex flex-col justify-between group hover:border-mint/50 transition-all duration-300"
             >
               {/* Subtle background glow on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#39D353]/0 to-[#39D353]/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-br from-mint/0 to-mint/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               <div className="z-10 select-none">
                 {/* Stat Label */}
@@ -1105,10 +1157,10 @@ export default function Home({ setActiveTab }: HomeProps) {
           {servicesData.map((service, i) => (
             <div
               key={i}
-              className="relative overflow-hidden rounded-3xl border border-[#181F2F]/40 bg-[#0B0F19]/25 p-8 md:p-10 flex flex-col sm:flex-row items-center justify-between gap-6 group hover:border-[#39D353]/20 transition-all duration-300 min-h-[220px]"
+              className="relative overflow-hidden rounded-3xl border border-mint/15 bg-[#07100D]/25 p-8 md:p-10 flex flex-col sm:flex-row items-center justify-between gap-6 group hover:border-mint/50 transition-all duration-300 min-h-[220px]"
             >
               {/* Subtle background glow on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#39D353]/0 to-[#39D353]/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-br from-mint/0 to-mint/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               {/* Text Area */}
               <div className="flex-1 flex flex-col justify-center select-none text-left z-10">
@@ -1166,8 +1218,8 @@ const servicesData = [
     description: "Crafting beautiful interfaces and accessible user experiences that balance aesthetics with engineering functionality.",
     visual: (
       <div className="w-28 h-28 relative flex items-center justify-center">
-        <div className="absolute inset-0 bg-blue-500/5 blur-xl rounded-full" />
-        <svg className="w-20 h-20 text-blue-400/30" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div className="absolute inset-0 bg-mint/5 blur-xl rounded-full" />
+        <svg className="w-20 h-20 text-mint/30" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <motion.circle
             cx="50" cy="50" r="30"
             stroke="currentColor" strokeWidth="1" strokeDasharray="3,3"
@@ -1208,7 +1260,7 @@ const servicesData = [
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              style={{ border: `1px solid ${i === 0 ? '#8B5CF6' : i === 1 ? '#B0FF92' : '#3B82F6'}` }}
+              style={{ border: `1px solid ${i === 0 ? '#8B5CF6' : i === 1 ? '#B0FF92' : '#8FFFD1'}` }}
               className="absolute w-full h-full rounded-full opacity-40 border-dashed"
             />
           ))}
@@ -1273,8 +1325,8 @@ const servicesData = [
             />
           </div>
           {/* Right cloud/api icon */}
-          <div className="w-6 h-6 border border-dashed border-[#3B82F6]/40 rounded-full flex items-center justify-center relative animate-pulse">
-            <svg className="w-3.5 h-3.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <div className="w-6 h-6 border border-dashed border-mint/45 rounded-full flex items-center justify-center relative animate-pulse">
+            <svg className="w-3.5 h-3.5 text-mint" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
             </svg>
           </div>

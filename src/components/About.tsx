@@ -1,5 +1,10 @@
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { 
+  Atom, Code, Globe, Terminal, Database, Cloud, Shield, Sparkles, 
+  Zap, GitBranch, Lock, Server, Link2, Layers, Cpu, Milestone 
+} from "lucide-react";
+import SpotlightCard from "./SpotlightCard";
 import portraitImg from "../assets/Samad_Portrait.jpeg";
 import resumePdf from "../assets/resume.pdf";
 
@@ -157,6 +162,44 @@ const tickerItems = [
 /* ─────────────────────────────────────────────
    SkillCard — portfolio native theme
 ───────────────────────────────────────────── */
+/* ─────────────────────────────────────────────
+   SkillCard — portfolio native theme
+───────────────────────────────────────────── */
+function getSkillIcon(skill: string) {
+  const s = skill.toLowerCase();
+  if (s.includes("react")) return <Atom className="w-3.5 h-3.5" />;
+  if (s.includes("next.js")) return <Globe className="w-3.5 h-3.5" />;
+  if (s.includes("typescript")) return <Code className="w-3.5 h-3.5" />;
+  if (s.includes("tailwind")) return <Layers className="w-3.5 h-3.5" />;
+  if (s.includes("framer motion") || s.includes("zustand") || s.includes("redux")) return <Cpu className="w-3.5 h-3.5" />;
+  if (s.includes("vite")) return <Zap className="w-3.5 h-3.5" />;
+  
+  if (s.includes("python")) return <Terminal className="w-3.5 h-3.5" />;
+  if (s.includes("fastapi")) return <Zap className="w-3.5 h-3.5" />;
+  if (s.includes("tornado")) return <Cpu className="w-3.5 h-3.5" />;
+  if (s.includes("api") || s.includes("restful")) return <Link2 className="w-3.5 h-3.5" />;
+  if (s.includes("microservices")) return <Server className="w-3.5 h-3.5" />;
+  
+  if (s.includes("gemini") || s.includes("llm") || s.includes("rag") || s.includes("prompt") || s.includes("ai")) {
+    return <Sparkles className="w-3.5 h-3.5" />;
+  }
+  
+  if (s.includes("postgre") || s.includes("db") || s.includes("database")) return <Database className="w-3.5 h-3.5" />;
+  if (s.includes("etl")) return <Layers className="w-3.5 h-3.5" />;
+  
+  if (s.includes("aws") || s.includes("azure") || s.includes("cloud")) return <Cloud className="w-3.5 h-3.5" />;
+  if (s.includes("docker")) return <Server className="w-3.5 h-3.5" />;
+  if (s.includes("git")) return <GitBranch className="w-3.5 h-3.5" />;
+  if (s.includes("ci/cd")) return <Server className="w-3.5 h-3.5" />;
+  
+  if (s.includes("security") || s.includes("appsec")) return <Shield className="w-3.5 h-3.5" />;
+  if (s.includes("access management") || s.includes("identity")) return <Lock className="w-3.5 h-3.5" />;
+  if (s.includes("solid") || s.includes("oop") || s.includes("patterns")) return <Layers className="w-3.5 h-3.5" />;
+  if (s.includes("agile") || s.includes("sdlc")) return <Milestone className="w-3.5 h-3.5" />;
+  
+  return <Code className="w-3.5 h-3.5" />;
+}
+
 function SkillCard({
   card,
   index,
@@ -174,21 +217,17 @@ function SkillCard({
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.75, delay: index * 0.06, ease }}
       whileHover={{ y: -3, transition: { duration: 0.3, ease } }}
-      className={`group relative rounded-3xl overflow-hidden ${card.span
-        } border border-[#181F2F] bg-[#0B0F19] hover:border-[#39D353]/30 transition-all duration-300`}
+      className={card.span}
     >
-      {/* Hover mint glow — matches portfolio card hover */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-gradient-to-br from-[#39D353]/3 to-transparent" />
-
-      {/* Top shimmer on hover */}
-      <div className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-[#39D353]/30 to-transparent" />
-
-      {/* Card body */}
-      <div className="relative z-10 p-6 h-full flex flex-col gap-5">
-
+      <SpotlightCard
+        className="h-full"
+        contentClassName="p-6 flex flex-col gap-5 w-full h-full"
+        glowColor="rgba(var(--theme-mint-rgb), 0.05)"
+        hoverBorderColor="rgba(var(--theme-mint-rgb), 0.35)"
+      >
         {/* Header pill — same style as Home bento pills */}
         <div className="flex items-center gap-3">
-          <div className="px-3 py-1 bg-[#111622] border border-[#181F2F] rounded-full text-[11px] font-Spline_Sans_Mono text-accent flex items-center gap-1.5 w-fit group-hover:border-[#39D353]/25 transition-colors duration-300">
+          <div className="px-3 py-1 bg-mint/[0.04] border border-mint/20 rounded-full text-[11px] font-Spline_Sans_Mono text-accent flex items-center gap-1.5 w-fit group-hover:border-[rgba(var(--theme-mint-rgb),0.35)] transition-colors duration-300">
             <span className="text-white/70 group-hover:text-highlight transition-colors duration-300">
               {card.icon}
             </span>
@@ -211,16 +250,17 @@ function SkillCard({
               key={i}
               whileHover={{ scale: 1.04, y: -1 }}
               transition={{ duration: 0.2 }}
-              className="inline-flex items-center px-3 py-1.5 rounded-full text-[11px] font-Spline_Sans_Mono cursor-default select-none
-                bg-[#111622] border border-[#181F2F] text-accent/70
-                group-hover:border-[#39D353]/15 hover:!border-[#39D353]/40 hover:!text-highlight
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-Spline_Sans_Mono cursor-default select-none
+                bg-mint/[0.03] border border-mint/10 text-accent/75
+                group-hover:border-mint/25 hover:!border-mint/55 hover:!text-highlight hover:bg-mint/10 hover:shadow-[0_0_12px_rgba(143,255,209,0.12)]
                 transition-all duration-200"
             >
-              {skill}
+              {getSkillIcon(skill)}
+              <span>{skill}</span>
             </motion.span>
           ))}
         </div>
-      </div>
+      </SpotlightCard>
     </motion.div>
   );
 }
@@ -233,19 +273,16 @@ function SkillTicker() {
   return (
     <div className="relative overflow-hidden py-1">
       {/* Edge fades match the black background */}
-      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0B0F19] to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0B0F19] to-transparent z-10 pointer-events-none" />
-      <div
-        className="flex whitespace-nowrap"
-        style={{ animation: "marquee 40s linear infinite" }}
-      >
+      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#07100D] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#07100D] to-transparent z-10 pointer-events-none" />
+      <div className="custom-marquee">
         {doubled.map((item, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-3 mx-3 font-Spline_Sans_Mono text-[11px] uppercase tracking-[0.2em] text-accent/30 hover:text-highlight transition-colors duration-300 cursor-default select-none"
+            className="inline-flex items-center gap-3 mx-4 font-Spline_Sans_Mono text-[11px] uppercase tracking-[0.2em] text-mint/80 text-glow-mint hover:text-white transition-all duration-300 cursor-default select-none"
           >
             {item}
-            <span className="w-[3px] h-[3px] rounded-full bg-highlight/25 shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-highlight/50 shadow-[0_0_6px_#B0FF92] shrink-0" />
           </span>
         ))}
       </div>
@@ -580,13 +617,13 @@ export default function About() {
       </div>
 
       {/* Ticker strip — matches portfolio card style */}
-      <div className="mt-3 rounded-3xl overflow-hidden py-4 border border-[#181F2F] bg-[#0B0F19] hover:border-[#39D353]/20 transition-colors duration-300">
+      <div className="mt-3 rounded-3xl overflow-hidden py-4 border border-mint/15 bg-[#07100D]/95 hover:border-mint/30 transition-colors duration-300">
         <SkillTicker />
       </div>
 
       <RevealBlock delay={0.1} className="mt-16 mb-40">
         <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-[#181F2F] to-transparent" />
+          <div className="h-px flex-1 bg-gradient-to-r from-mint/10 to-transparent" />
           <div className="flex items-center gap-3">
             {["Developer", "•", "Designer", "•", "Builder"].map((w, i) => (
               <span
@@ -598,7 +635,7 @@ export default function About() {
               </span>
             ))}
           </div>
-          <div className="h-px flex-1 bg-gradient-to-l from-[#181F2F] to-transparent" />
+          <div className="h-px flex-1 bg-gradient-to-l from-mint/10 to-transparent" />
         </div>
       </RevealBlock>
     </motion.div>

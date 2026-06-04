@@ -108,4 +108,21 @@ body {
   }
 }
 
+/* GPU-Accelerated Seamless Horizontal Marquee */
+.custom-marquee {
+  display: flex;
+  width: max-content;
+  animation: custom-marquee-scroll 35s linear infinite;
+  will-change: transform;
+}
+
+@keyframes custom-marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 

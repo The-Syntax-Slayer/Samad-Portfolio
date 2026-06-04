@@ -199,7 +199,7 @@ export default function App() {
       {/* 4. Fixed Dock Navigation Bar */}
       <nav className="fixed flex justify-center items-end w-full h-20 bottom-6 z-50 pointer-events-none">
         {isMobile ? (
-          <div className="mx-4 flex h-fit w-[90%] max-w-[380px] items-center justify-between rounded-[28px] border border-[#404040]/70 bg-[#000000a6] p-2 px-3 backdrop-blur-xl pointer-events-auto shadow-2xl">
+          <div className="mx-4 flex h-14 w-[90%] max-w-[380px] items-center justify-between rounded-full border border-white/5 bg-[#080b11]/70 p-1.5 px-3 backdrop-blur-2xl pointer-events-auto shadow-[0_15px_35px_rgba(0,0,0,0.6)]">
             {mobileTabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -208,33 +208,32 @@ export default function App() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className="flex flex-col items-center justify-center flex-1 h-full py-1 text-center cursor-pointer transition-colors duration-200"
+                  className="relative flex flex-col items-center justify-center flex-1 h-full py-1 text-center cursor-pointer transition-colors duration-200 rounded-full"
+                  style={{ WebkitTapHighlightColor: "transparent" }}
                 >
+                  {/* Sliding active indicator pill behind */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTabPillMobile"
+                      className="absolute inset-x-1 inset-y-0.5 bg-mint/10 border border-mint/20 rounded-full shadow-[0_0_12px_rgba(143,255,209,0.06)]"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+
                   {/* Icon */}
-                  <Icon className={`w-5 h-5 transition-transform duration-200 ${isActive ? "text-mint scale-105" : "text-accent/60"}`} />
+                  <Icon className={`w-4 h-4 relative z-10 transition-transform duration-200 ${isActive ? "text-mint scale-105" : "text-accent/50"}`} />
                   
                   {/* Text Label */}
-                  <span className={`text-[9px] font-semibold font-Spline_Sans_Mono uppercase tracking-wider mt-1.5 transition-colors duration-200 ${isActive ? "text-mint" : "text-white/40"}`}>
+                  <span className={`text-[8px] font-semibold font-Spline_Sans_Mono uppercase tracking-wider mt-0.5 relative z-10 transition-colors duration-200 ${isActive ? "text-mint" : "text-white/30"}`}>
                     {tab.label}
                   </span>
-
-                  {/* Active Indicator Dot below text label */}
-                  <div className="h-1.5 w-1.5 mt-1 flex justify-center items-center">
-                    {isActive && (
-                      <motion.div
-                        layoutId="active-indicator-mobile"
-                        className="h-1 w-1 rounded-full bg-mint shadow-[0_0_6px_#8FFFD1]"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </div>
                 </button>
               );
             })}
           </div>
         ) : (
-          <div className="mx-3 flex h-fit w-fit items-end gap-3 rounded-[24px] border border-[#404040]/70 bg-[#000000a6] p-2.5 backdrop-blur-xl transition-all duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-auto shadow-2xl">
-            <div className="flex gap-2.5 relative">
+          <div className="mx-3 flex h-16 items-center gap-2 rounded-full border border-white/5 bg-[#080b11]/70 p-2 backdrop-blur-2xl pointer-events-auto shadow-[0_15px_35px_rgba(0,0,0,0.6)]">
+            <div className="flex gap-2 relative">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
@@ -246,22 +245,38 @@ export default function App() {
                     onClick={() => setActiveTab(tab.id)}
                     onMouseEnter={() => setHoveredTab(tab.id)}
                     onMouseLeave={() => setHoveredTab(null)}
-                    className={`group relative flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] border transition-all duration-300 hover:-translate-y-1 cursor-pointer ${isActive
-                        ? "border-mint/40 bg-[#191919] text-mint shadow-[0_4px_12px_rgba(143,255,209,0.15),inset_0_1px_3px_rgba(0,0,0,0.4)]"
-                        : "border-[#404040]/40 bg-[#191919] text-accent/60 hover:bg-[#222222] hover:text-accent hover:border-accent/20 hover:shadow-[0_4px_12px_rgba(255,255,255,0.02)]"
-                      }`}
+                    className="relative flex h-12 w-12 items-center justify-center rounded-full transition-colors duration-300 hover:text-white cursor-pointer"
+                    style={{ WebkitTapHighlightColor: "transparent" }}
                   >
+                    {/* Sliding active highlight background */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeTabPill"
+                        className="absolute inset-0 bg-mint/10 border border-mint/20 rounded-full shadow-[0_0_15px_rgba(143,255,209,0.08)]"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+
+                    {/* Sliding hover highlight background */}
+                    {isHovered && !isActive && (
+                      <motion.div
+                        layoutId="hoverTabPill"
+                        className="absolute inset-0 bg-white/[0.04] rounded-full"
+                        transition={{ type: "spring", stiffness: 450, damping: 30 }}
+                      />
+                    )}
+
                     {/* Sliding tooltip label above dock */}
                     <AnimatePresence>
                       {isHovered && !isMobile && (
                         <motion.div
                           initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                          animate={{ opacity: 1, y: -45, scale: 1 }}
+                          animate={{ opacity: 1, y: -48, scale: 1 }}
                           exit={{ opacity: 0, y: 10, scale: 0.95 }}
                           transition={{ duration: 0.15, ease: "easeOut" }}
-                          className="px-2.5 py-1 bg-[#222222] rounded-lg absolute border border-accent/10 pointer-events-none z-50 shadow-xl"
+                          className="px-2.5 py-1 bg-[#0f1422] rounded-lg border border-white/5 pointer-events-none absolute z-50 shadow-xl"
                         >
-                          <p className="text-[10px] font-light font-Spline_Sans_Mono text-mint leading-none uppercase tracking-wider">
+                          <p className="text-[10px] font-medium font-Spline_Sans_Mono text-mint leading-none uppercase tracking-wider">
                             {tab.label}
                           </p>
                         </motion.div>
@@ -269,16 +284,7 @@ export default function App() {
                     </AnimatePresence>
 
                     {/* Icon */}
-                    <Icon className="w-5 h-5 transition-transform duration-200 group-hover:scale-105" />
-
-                    {/* Active Indicator Dot */}
-                    {isActive && (
-                      <motion.div
-                        layoutId="active-indicator"
-                        className="absolute bottom-1 h-1.5 w-1.5 rounded-full bg-mint shadow-sm shadow-mint/50"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
+                    <Icon className={`w-5 h-5 relative z-10 transition-all duration-300 ${isActive ? "text-mint scale-105 drop-shadow-glow" : "text-accent/50 group-hover:text-white/85"}`} />
                   </button>
                 );
               })}
