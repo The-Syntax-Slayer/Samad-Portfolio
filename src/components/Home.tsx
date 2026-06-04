@@ -23,6 +23,42 @@ export default function Home({ setActiveTab }: HomeProps) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
+  // Typewriter effect for roles
+  const roles = useMemo(() => ["Software Engineer", "Full-Stack Developer", "AI Specialist"], []);
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+  const [currentText, setCurrentText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(100);
+
+  useEffect(() => {
+    let timer: any;
+    const activeRole = roles[currentRoleIndex];
+
+    if (isDeleting) {
+      timer = setTimeout(() => {
+        setCurrentText((prev) => prev.slice(0, -1));
+        setTypingSpeed(40);
+      }, typingSpeed);
+    } else {
+      timer = setTimeout(() => {
+        setCurrentText(activeRole.slice(0, currentText.length + 1));
+        setTypingSpeed(100);
+      }, typingSpeed);
+    }
+
+    if (!isDeleting && currentText === activeRole) {
+      timer = setTimeout(() => {
+        setIsDeleting(true);
+      }, 2000);
+    } else if (isDeleting && currentText === "") {
+      setIsDeleting(false);
+      setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+      setTypingSpeed(200);
+    }
+
+    return () => clearTimeout(timer);
+  }, [currentText, isDeleting, currentRoleIndex, roles, typingSpeed]);
+
   // Springs for smooth movement
   const springX = useSpring(mouseX, { stiffness: 100, damping: 20 });
   const springY = useSpring(mouseY, { stiffness: 100, damping: 20 });
@@ -248,7 +284,7 @@ export default function Home({ setActiveTab }: HomeProps) {
         </div>
 
         {/* C. Centered Luxury Typography */}
-        <div className="flex flex-col justify-center items-center text-center select-none z-10 py-16 relative -translate-y-10 md:-translate-y-16">
+        <div className="flex flex-col justify-center items-center text-center select-none z-10 py-16 relative -translate-y-32 md:-translate-y-16">
 
           {/* Centered mobile-only clock */}
           {isMobile && (
@@ -256,7 +292,7 @@ export default function Home({ setActiveTab }: HomeProps) {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="flex items-center gap-2 mb-6"
+              className="flex items-center gap-2 mb-4"
             >
               <span className="text-[11px] font-Spline_Sans_Mono tracking-[0.25em] text-white/90 uppercase font-light">
                 INDIA <span className="text-[#8FFFD1] mx-1">✦</span> {timeString}
@@ -285,10 +321,11 @@ export default function Home({ setActiveTab }: HomeProps) {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8, ease }}
-            className="mt-8 px-4 py-1.5 border border-mint/20 bg-mint/5 backdrop-blur-md rounded-full shadow-[0_0_20px_rgba(143,255,209,0.15),inset_0_1px_1px_rgba(255,255,255,0.05)] flex items-center gap-1.5"
+            className="mt-5 md:mt-8 px-5 py-1.5 border border-mint/20 bg-mint/5 backdrop-blur-md rounded-full shadow-[0_0_20px_rgba(143,255,209,0.15),inset_0_1px_1px_rgba(255,255,255,0.05)] flex items-center justify-center w-[200px] sm:w-[240px] md:w-[260px] mx-auto select-none shrink-0"
           >
-            <span className="text-[9px] md:text-[10px] font-Spline_Sans_Mono tracking-[0.2em] text-[#8FFFD1] uppercase font-semibold text-glow-mint">
-              SOFTWARE ENGINEER <span className="text-[#8FFFD1] md:text-white/30 mx-1.5">✦</span> FULL-STACK DEVELOPER <span className="text-[#8FFFD1] md:text-white/30 mx-1.5">✦</span> AI SPECIALIST
+            <span className="text-[9px] md:text-[10px] font-Spline_Sans_Mono tracking-[0.15em] text-[#8FFFD1] uppercase font-semibold text-glow-mint whitespace-nowrap">
+              {currentText}
+              <span className="animate-pulse ml-0.5 font-bold">|</span>
             </span>
           </motion.div>
 
@@ -296,7 +333,7 @@ export default function Home({ setActiveTab }: HomeProps) {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 0.8 }}
             transition={{ delay: 1, duration: 0.8, ease }}
-            className="text-accent/80 text-sm md:text-base font-light mt-6 font-serif-display italic tracking-wide max-w-[40ch]"
+            className="text-accent/80 text-xs md:text-sm font-light mt-4 md:mt-6 font-serif-display italic tracking-wide max-w-[41ch] md:max-w-[45ch] px-4 md:px-0 leading-relaxed md:leading-normal text-center"
           >
             Integrating high-performance Full-Stack applications with advanced Generative AI. Based in Bandra, Mumbai.
           </motion.p>

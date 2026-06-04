@@ -8,7 +8,6 @@ import Work from "./components/Work";
 import Connect from "./components/Connect";
 import Footer from "./components/Footer";
 import cloudBg from "./assets/cloud.webp";
-import ThemeSwitcher from "./components/ThemeSwitcher";
 import ParticleBackground from "./components/ParticleBackground";
 import BootLoader from "./components/BootLoader";
 import AIAssistant from "./components/AIAssistant";
@@ -89,8 +88,7 @@ export default function App() {
     <ReactLenis root options={{ lerp: 0.1, duration: 1.0, smoothWheel: true }}>
       <div className="w-screen min-h-screen relative flex flex-col items-center justify-between text-accent selection:bg-mint selection:text-black">
 
-      {/* Theme Customization Floating Panel */}
-      <ThemeSwitcher />
+
 
       {/* Floating AI Chat Assistant */}
       <AIAssistant />
