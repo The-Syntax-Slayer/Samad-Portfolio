@@ -45,12 +45,41 @@ export default function Connect() {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
     setIsSubmitting(true);
-    // Simulate inquiry transmission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    setFormData({ name: "", email: "", subject: "", message: "" });
-    setTimeout(() => setIsSuccess(false), 3000);
+
+    try {
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "YOUR_ACCESS_KEY_HERE";
+      
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || "Portfolio Inquiry from " + formData.name,
+          message: formData.message,
+          from_name: "Samad Portfolio Bot",
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setIsSuccess(true);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setTimeout(() => setIsSuccess(false), 3000);
+      } else {
+        console.error("Web3Forms Submission Error:", result);
+        alert("Submission failed. Please check if VITE_WEB3FORMS_ACCESS_KEY is set in your .env file.");
+      }
+    } catch (err) {
+      console.error("Submission Network Error:", err);
+      alert("Something went wrong while sending the message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleBackToTop = () => {
