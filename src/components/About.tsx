@@ -87,22 +87,22 @@ const timelineData = {
   ],
   education: [
     {
-      degree: "B.Sc. Computer Science",
+      degree: "B.Sc. in Computer Science",
       institution: "M.P.S.P.S College — University of Mumbai",
-      period: "2023 – 2026",
-      details: "CGPA: 8.25 / 10 (Graduate 2026). Specialization in core algorithms, database designs, and object-oriented programming."
+      period: "2023 – 2026 (Graduated)",
+      details: "CGPA: 8.25 / 10. Focus on Advanced Software Engineering, Distributed Systems, Algorithms, Database Designs, and Object-Oriented programming architectures."
     },
     {
-      degree: "HSC — Science",
+      degree: "Higher Secondary Certificate (HSC)",
       institution: "RD National College, Maharashtra Board",
       period: "2022 – 2023",
-      details: "Completed standard higher-secondary curriculum in biology, physics, chemistry, mathematics, and information technology."
+      details: "Science Stream | Score: 50.00%. Completed core curriculum covering biology, physics, chemistry, mathematics, and information technology."
     },
     {
-      degree: "SSC (High School)",
-      institution: "K.E.P School, Maharashtra Board",
+      degree: "Secondary School Certificate (SSC)",
+      institution: "K.E.P School, Bandra (Maharashtra Board)",
       period: "2020 – 2021",
-      details: "Graduated with 85.5% overall score, scoring high honors in science and mathematics."
+      details: "Score: 85.50%. Graduated with honors, demonstrating excellent academic performance and strong foundational skills in science and mathematics."
     }
   ],
   certifications: [
