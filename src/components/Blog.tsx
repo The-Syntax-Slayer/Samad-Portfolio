@@ -69,7 +69,7 @@ function renderMarkdownContent(text: string) {
 
     // List items check
     const isNumList = /^\d+\.\s+/.test(trimmedLine);
-    const isBulletList = trimmedLine.startsWith("* ");
+    const isBulletList = trimmedLine.startsWith("* ") || trimmedLine.startsWith("- ");
 
     if (isNumList) {
       if (currentListType && currentListType !== 'ol') {
@@ -95,7 +95,7 @@ function renderMarkdownContent(text: string) {
         currentListItems = [];
       }
       currentListType = 'ul';
-      currentListItems.push(trimmedLine.replace(/^\*\s+/, ""));
+      currentListItems.push(trimmedLine.replace(/^[*-]\s+/, ""));
       continue;
     }
 
@@ -275,7 +275,7 @@ function parseInlineElements(text: string): React.ReactNode[] {
 
     // Push formatted element
     if (earliest.type === "bold" && earliest.match) {
-      parts.push(<strong key={keyIdx++} className="text-white/90 font-semibold">{earliest.match[1]}</strong>);
+      parts.push(<strong key={keyIdx++} className="text-white/90 font-semibold">{parseInlineElements(earliest.match[1])}</strong>);
       currentText = currentText.substring(earliest.index + earliest.match[0].length);
     } else if (earliest.type === "code" && earliest.match) {
       parts.push(
@@ -293,7 +293,7 @@ function parseInlineElements(text: string): React.ReactNode[] {
           rel="noreferrer" 
           className="text-mint hover:underline hover:text-highlight transition-colors duration-200"
         >
-          {earliest.match[1]}
+          {parseInlineElements(earliest.match[1])}
         </a>
       );
       currentText = currentText.substring(earliest.index + earliest.match[0].length);
