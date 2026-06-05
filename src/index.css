@@ -101,11 +101,37 @@ body {
   filter: drop-shadow(0 0 8px rgba(143, 255, 209, 0.4));
 }
 
-/* Custom Cursor Hiding for Fine Pointers (Desktop) */
+/* Custom Cursor Hiding for Fine Pointers (Desktop) - Restricted to body elements to preserve system pointer on scrollbar */
 @media (pointer: fine) {
-  html, body, a, button, input, select, textarea, [role="button"], .clickable-cursor {
+  body:not(.show-native-cursor), body:not(.show-native-cursor) * {
     cursor: none !important;
   }
+}
+
+/* Custom Premium Scrollbar for Webkit Browsers */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(143, 255, 209, 0.15);
+  border-radius: 99px;
+  border: 2px solid #000000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(143, 255, 209, 0.45);
+}
+
+/* Firefox scrollbar support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(143, 255, 209, 0.15) #000000;
 }
 
 /* GPU-Accelerated Seamless Horizontal Marquee */

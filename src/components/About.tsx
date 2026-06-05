@@ -62,6 +62,62 @@ const interests = [
   { label: "Emerging Technologies", icon: "◈" },
 ];
 
+const timelineData = {
+  experience: [
+    {
+      role: "Software Developer Intern — AI & Full-Stack",
+      company: "Arova Technologies, Mumbai",
+      period: "July 2024 – Oct 2025",
+      points: [
+        "Designed and developed full-stack Python + React applications end-to-end, applying OOP principles and SOLID design patterns.",
+        "Integrated LLMs via Google Gemini API into enterprise systems to automate content pipelines and deliver decision-support analytics.",
+        "Engineered structured prompt templates and output validators that improved LLM accuracy and consistency in production.",
+        "Architected Intern-Flow, a multi-tier platform featuring React, Supabase PostgreSQL, real-time auth, and automated reporting."
+      ]
+    },
+    {
+      role: "Data & Analytics Specialist",
+      company: "Freelance, Mumbai",
+      period: "Sep 2022 – Jul 2023",
+      points: [
+        "Delivered data entry, cleaning, QA, and structured reporting across a sustained 10-month engagement, resolving data integrity errors.",
+        "Developed advanced Excel dashboards (pivot tables, conditional formatting) for enterprise analytics and tracking workflows."
+      ]
+    }
+  ],
+  education: [
+    {
+      degree: "B.Sc. Computer Science",
+      institution: "M.P.S.P.S College — University of Mumbai",
+      period: "2023 – 2026",
+      details: "CGPA: 8.25 / 10 (Graduate 2026). Specialization in core algorithms, database designs, and object-oriented programming."
+    },
+    {
+      degree: "HSC — Science",
+      institution: "RD National College, Maharashtra Board",
+      period: "2022 – 2023",
+      details: "Completed standard higher-secondary curriculum in biology, physics, chemistry, mathematics, and information technology."
+    },
+    {
+      degree: "SSC (High School)",
+      institution: "K.E.P School, Maharashtra Board",
+      period: "2020 – 2021",
+      details: "Graduated with 85.5% overall score, scoring high honors in science and mathematics."
+    }
+  ],
+  certifications: [
+    "Google Data Analytics Professional Certificate — Google",
+    "IBM AI Developer Professional Certificate — IBM",
+    "IBM DevOps & Software Engineering — IBM",
+    "Meta Front-End Developer Certificate — Meta",
+    "AWS Cloud Practitioner Essentials — Amazon Web Services",
+    "Google Cloud Digital Leader — Google Cloud",
+    "Azure Enterprise Data Analyst Associate — Microsoft",
+    "GitHub Foundations Certificate — GitHub",
+    "Generative AI: Prompt Engineering — Coursera"
+  ]
+};
+
 /* ─────────────────────────────────────────────
    Skills section data  — portfolio theme tokens
    Card bg : #0B0F19   Border: #181F2F
@@ -512,6 +568,91 @@ export default function About() {
               - but crafting experiences that feel intentional, human, and lasting.
             </p>
           </RevealBlock>
+        </div>
+      </div>
+
+      {/* Experience & Education Timeline */}
+      <ElegantDivider />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mt-16 md:mt-24 mb-16 md:mb-28">
+        <RevealBlock delay={0.05} className="lg:col-span-3">
+          <p className="font-Spline_Sans_Mono text-[10px] tracking-[0.3em] uppercase text-white/20 lg:pt-1 sticky top-24">
+            Timeline
+          </p>
+        </RevealBlock>
+        <div className="lg:col-span-9 flex flex-col gap-14">
+          {/* Experience Timeline */}
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-xs text-mint">◈</span>
+              <h3 className="font-Spline_Sans_Mono text-xs uppercase tracking-widest text-white/80">
+                Experience
+              </h3>
+            </div>
+            <div className="relative pl-6 border-l border-white/10 flex flex-col gap-10">
+              {timelineData.experience.map((exp, idx) => (
+                <div key={idx} className="relative group">
+                  {/* Glowing Node */}
+                  <div className="absolute -left-[30px] top-1.5 w-3 h-3 rounded-full bg-black border border-mint/40 group-hover:bg-mint group-hover:border-mint transition-colors duration-300 shadow-[0_0_8px_rgba(143,255,209,0.2)]" />
+                  
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-3">
+                    <h4 className="text-white font-medium text-[15px]">{exp.role}</h4>
+                    <span className="font-Spline_Sans_Mono text-[10px] text-mint/60">{exp.period}</span>
+                  </div>
+                  <p className="text-accent/65 font-light text-xs mb-3 italic">{exp.company}</p>
+                  <ul className="flex flex-col gap-2.5">
+                    {exp.points.map((pt, pIdx) => (
+                      <li key={pIdx} className="text-accent/45 text-xs font-light leading-relaxed flex items-start gap-2">
+                        <span className="text-mint/40 mt-1 shrink-0 text-[8px]">▪</span>
+                        <span>{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Education Timeline */}
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-xs text-mint">◈</span>
+              <h3 className="font-Spline_Sans_Mono text-xs uppercase tracking-widest text-white/80">
+                Education
+              </h3>
+            </div>
+            <div className="relative pl-6 border-l border-white/10 flex flex-col gap-10">
+              {timelineData.education.map((edu, idx) => (
+                <div key={idx} className="relative group">
+                  {/* Glowing Node */}
+                  <div className="absolute -left-[30px] top-1.5 w-3 h-3 rounded-full bg-black border border-mint/40 group-hover:bg-mint group-hover:border-mint transition-colors duration-300 shadow-[0_0_8px_rgba(143,255,209,0.2)]" />
+                  
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+                    <h4 className="text-white font-medium text-[15px]">{edu.degree}</h4>
+                    <span className="font-Spline_Sans_Mono text-[10px] text-mint/60">{edu.period}</span>
+                  </div>
+                  <p className="text-accent/65 font-light text-xs mb-2 italic">{edu.institution}</p>
+                  <p className="text-accent/45 text-xs font-light leading-relaxed">{edu.details}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Certifications Block */}
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-xs text-mint">◈</span>
+              <h3 className="font-Spline_Sans_Mono text-xs uppercase tracking-widest text-white/80">
+                Certifications
+              </h3>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {timelineData.certifications.map((cert, idx) => (
+                <span key={idx} className="px-3.5 py-2 rounded-xl border border-white/5 bg-white/[0.01] hover:border-mint/30 hover:bg-mint/[0.02] text-accent/60 hover:text-white text-xs font-light transition-all duration-300 cursor-default select-none">
+                  {cert}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 

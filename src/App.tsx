@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home as HomeIcon, Info, Briefcase, Mail, User } from "lucide-react";
+import { Home as HomeIcon, Info, Briefcase, Mail, User, BookOpen } from "lucide-react";
 import { ReactLenis } from "lenis/react";
 import Home from "./components/Home";
 import About from "./components/About";
 import Work from "./components/Work";
 import Connect from "./components/Connect";
+import Blog from "./components/Blog";
 import Footer from "./components/Footer";
 import cloudBg from "./assets/cloud.webp";
 import ParticleBackground from "./components/ParticleBackground";
@@ -14,7 +15,7 @@ import AIAssistant from "./components/AIAssistant";
 import CustomCursor from "./components/CustomCursor";
 import "lenis/dist/lenis.css";
 
-type Tab = "home" | "about" | "work" | "connect";
+type Tab = "home" | "about" | "work" | "blog" | "connect";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>(() => {
@@ -70,10 +71,52 @@ export default function App() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  // Dynamic Tab-based SEO & Title Updates
+  useEffect(() => {
+    // If we're on the blog tab and a post is active, let Blog.tsx handle document titles
+    if (activeTab === "blog") {
+      const isPostActive = document.title.includes(" | Samad Shaikh") && !document.title.startsWith("Blog | ");
+      if (isPostActive) return;
+    }
+
+    let title = "Samad Shaikh | Best Software Developer & AI Specialist in Mumbai";
+    let description = "Who is Samad Shaikh? He is the best software developer and AI specialist based in Bandra, Mumbai, India, specializing in building high-performance web applications and agentic LLM solutions.";
+
+    switch (activeTab) {
+      case "home":
+        title = "Samad Shaikh | Best Software Developer & AI Specialist in Mumbai";
+        description = "Who is Samad Shaikh? He is the best software developer and AI specialist based in Bandra, Mumbai, India, specializing in building high-performance web applications and agentic LLM solutions.";
+        break;
+      case "about":
+        title = "About Samad Shaikh | Background, Skills & Certifications";
+        description = "Explore the professional background, core technical skills, and certifications of Samad Shaikh, a Mumbai-based software engineer specializing in React, TypeScript, Node.js, and GenAI integrations.";
+        break;
+      case "work":
+        title = "Portfolio & Projects | Handcrafted Digital Experiences by Samad";
+        description = "Browse the professional portfolio of Samad Shaikh, showcasing production web applications, SaaS products like PriMaX Hub and MockMate AI, and technical details on engineering solutions.";
+        break;
+      case "blog":
+        title = "Blog & Insights | Technical Deep Dives by Samad Shaikh";
+        description = "Read expert articles by Samad Shaikh on React 19, FastAPI asyncio concurrency, scaling WebSockets, prompt injection security, Google SGE SEO optimization, and web engineering basics.";
+        break;
+      case "connect":
+        title = "Connect with Samad | Freelance Inquiry & AI Consultations";
+        description = "Get in touch with Samad Shaikh for freelance software development projects, custom AI/LLM integrations, full-stack app engineering, or professional consultations.";
+        break;
+    }
+
+    document.title = title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute("content", description);
+    }
+  }, [activeTab]);
+
   const tabs = [
     { id: "home", label: "Home", icon: HomeIcon },
     { id: "about", label: "About", icon: Info },
     { id: "work", label: "Work", icon: Briefcase },
+    { id: "blog", label: "Blog", icon: BookOpen },
     { id: "connect", label: "Connect", icon: Mail },
   ] as const;
 
@@ -81,6 +124,7 @@ export default function App() {
     { id: "home", label: "HOME", icon: HomeIcon },
     { id: "about", label: "ABOUT", icon: User },
     { id: "work", label: "WORK", icon: Briefcase },
+    { id: "blog", label: "BLOG", icon: BookOpen },
     { id: "connect", label: "CONNECT", icon: Mail },
   ] as const;
 
@@ -165,6 +209,19 @@ export default function App() {
               className="w-full flex justify-center"
             >
               <Work />
+            </motion.div>
+          )}
+
+          {activeTab === "blog" && (
+            <motion.div
+              key="blog"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full flex justify-center"
+            >
+              <Blog />
             </motion.div>
           )}
 

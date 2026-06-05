@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
@@ -6,6 +6,8 @@ export default function CustomCursor() {
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
+
+  const isDraggingScrollbar = useRef(false);
 
   // Position MotionValues
   const cursorX = useMotionValue(-100);
@@ -28,11 +30,28 @@ export default function CustomCursor() {
     const handleMouseMove = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
-      if (!isVisible) setIsVisible(true);
+      
+      const rightEdge = window.innerWidth - 20;
+      const bottomEdge = window.innerHeight - 20;
+      const nearScroll = e.clientX >= rightEdge || e.clientY >= bottomEdge;
+      
+      const target = e.target as HTMLElement | null;
+      const isOverInput = target ? !!target.closest("input, textarea, pre, code, select") : false;
+      
+      const shouldShowNative = nearScroll || isOverInput || isDraggingScrollbar.current;
+
+      if (shouldShowNative) {
+        document.body.classList.add("show-native-cursor");
+        setIsVisible(false);
+      } else {
+        document.body.classList.remove("show-native-cursor");
+        setIsVisible(true);
+      }
     };
 
     const handleMouseLeave = () => {
       setIsVisible(false);
+      document.body.classList.remove("show-native-cursor");
     };
 
     const handleMouseEnter = () => {
@@ -41,12 +60,23 @@ export default function CustomCursor() {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const isClickable = target.closest("a, button, input, textarea, select, [role='button'], .clickable-cursor, iframe");
+      const isClickable = target.closest("a, button, [role='button'], .clickable-cursor, iframe");
       setIsHovered(!!isClickable);
     };
 
-    const handleMouseDown = () => setIsClicking(true);
-    const handleMouseUp = () => setIsClicking(false);
+    const handleMouseDown = (e: MouseEvent) => {
+      setIsClicking(true);
+      const rightEdge = window.innerWidth - 20;
+      const bottomEdge = window.innerHeight - 20;
+      if (e.clientX >= rightEdge || e.clientY >= bottomEdge) {
+        isDraggingScrollbar.current = true;
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsClicking(false);
+      isDraggingScrollbar.current = false;
+    };
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseleave", handleMouseLeave);
@@ -63,8 +93,9 @@ export default function CustomCursor() {
       window.removeEventListener("mouseover", handleMouseOver);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
+      document.body.classList.remove("show-native-cursor");
     };
-  }, [cursorX, cursorY, isVisible]);
+  }, [cursorX, cursorY]);
 
   if (isMobile || !isVisible) return null;
 
