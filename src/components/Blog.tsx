@@ -7,7 +7,7 @@ import SpotlightCard from "./SpotlightCard";
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 // Lightweight, zero-dependency stateful Markdown-to-HTML Parser for custom styled text
-function renderMarkdownContent(text: string) {
+function renderMarkdownContent(text: string, onSelectPost?: (slug: string) => void) {
   const lines = text.split('\n');
   const blocks: Array<{
     type: 'code' | 'h2' | 'h3' | 'h4' | 'hr' | 'ol' | 'ul' | 'p';
@@ -160,77 +160,47 @@ function renderMarkdownContent(text: string) {
     });
   }
 
-  return blocks.map((block, index) => {
+  // Map blocks to styled components
+  return blocks.map((block, i) => {
     switch (block.type) {
-      case 'hr':
-        return (
-          <hr key={index} className="my-8 border-t border-white/10" />
-        );
-      
       case 'code':
         return (
-          <div key={index} className="my-6 rounded-2xl overflow-hidden border border-white/5 bg-[#05080c]/85 shadow-lg relative group w-full">
-            <div className="px-4 py-2 bg-white/[0.01] border-b border-white/5 flex items-center justify-between">
-              <span className="font-Spline_Sans_Mono text-[9px] text-accent/35 uppercase tracking-widest">{block.language || "code"}</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-mint/50 shadow-[0_0_6px_rgba(143,255,209,0.3)]" />
+          <div key={i} className="my-8 rounded-2xl border border-white/5 bg-black/45 overflow-hidden font-Spline_Sans_Mono relative group/code shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            <div className="flex items-center justify-between px-5 py-3 border-b border-white/5 bg-white/[0.01]">
+              <div className="flex gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                <span className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                <span className="w-2.5 h-2.5 rounded-full bg-white/10" />
+              </div>
+              <span className="text-[10px] text-accent/30 tracking-widest uppercase font-medium">{block.language || 'code'}</span>
             </div>
-            <pre className="p-4 overflow-x-auto font-Spline_Sans_Mono text-[11px] md:text-xs text-mint/85 leading-relaxed max-w-full">
+            <pre className="p-5 overflow-x-auto text-[11px] md:text-xs text-accent/85 leading-relaxed selection:bg-mint selection:text-black">
               <code>{block.content}</code>
             </pre>
           </div>
         );
-
-      case 'h4':
-        return (
-          <h4 key={index} className="font-serif-display text-white/95 text-[15px] md:text-base font-semibold mt-6 mb-3 tracking-tight leading-snug">
-            {parseInlineElements(block.content)}
-          </h4>
-        );
-
-      case 'h3':
-        return (
-          <h3 key={index} className="font-serif-display text-white/95 text-lg md:text-xl font-medium mt-8 mb-4 tracking-tight leading-snug">
-            {parseInlineElements(block.content)}
-          </h3>
-        );
-
       case 'h2':
-        return (
-          <h2 key={index} className="font-serif-display text-white/95 text-xl md:text-2xl font-medium mt-10 mb-5 tracking-tight leading-snug">
-            {parseInlineElements(block.content)}
-          </h2>
-        );
-
+        return <h2 key={i} className="font-serif-display text-white/90 text-2xl md:text-3xl font-medium tracking-tight mt-12 mb-4 leading-tight">{parseInlineElements(block.content, onSelectPost)}</h2>;
+      case 'h3':
+        return <h3 key={i} className="font-serif-display text-white/95 text-xl md:text-2xl font-medium tracking-tight mt-10 mb-4 leading-tight">{parseInlineElements(block.content, onSelectPost)}</h3>;
+      case 'h4':
+        return <h4 key={i} className="font-serif-display text-white/95 text-lg font-medium tracking-tight mt-8 mb-3 leading-tight">{parseInlineElements(block.content, onSelectPost)}</h4>;
+      case 'hr':
+        return <div key={i} className="w-full h-px bg-gradient-to-r from-mint/20 via-white/5 to-transparent my-10" />;
       case 'ol':
         return (
-          <ol key={index} className="my-4 flex flex-col gap-2.5 pl-5 list-decimal">
-            {block.items?.map((item, itemIdx) => (
-              <li key={itemIdx} className="text-accent/75 text-[14px] md:text-[15px] font-normal leading-relaxed pl-1">
-                {parseInlineElements(item)}
-              </li>
-            ))}
+          <ol key={i} className="list-decimal pl-6 my-6 flex flex-col gap-2.5 text-accent/70 font-light text-[13px] md:text-[14px] leading-relaxed">
+            {block.items?.map((item, idx) => <li key={idx}>{parseInlineElements(item, onSelectPost)}</li>)}
           </ol>
         );
-
       case 'ul':
         return (
-          <ul key={index} className="my-4 flex flex-col gap-2.5 pl-2">
-            {block.items?.map((item, itemIdx) => (
-              <li key={itemIdx} className="text-accent/75 text-[14px] md:text-[15px] font-normal leading-relaxed flex items-start gap-3">
-                <span className="text-mint mt-1.5 shrink-0 text-[8px]">▪</span>
-                <span>{parseInlineElements(item)}</span>
-              </li>
-            ))}
+          <ul key={i} className="list-disc pl-6 my-6 flex flex-col gap-2.5 text-accent/70 font-light text-[13px] md:text-[14px] leading-relaxed">
+            {block.items?.map((item, idx) => <li key={idx}>{parseInlineElements(item, onSelectPost)}</li>)}
           </ul>
         );
-
       case 'p':
-        return (
-          <p key={index} className="text-accent/75 text-[14px] md:text-[15px] font-normal leading-[1.8] my-3.5 max-w-[75ch]">
-            {parseInlineElements(block.content)}
-          </p>
-        );
-
+        return <p key={i} className="text-accent/70 font-light text-[13.5px] md:text-[14.5px] leading-relaxed mb-6 whitespace-pre-line">{parseInlineElements(block.content, onSelectPost)}</p>;
       default:
         return null;
     }
@@ -238,15 +208,14 @@ function renderMarkdownContent(text: string) {
 }
 
 // Helper to parse bold, inline code, and markdown links
-function parseInlineElements(text: string): React.ReactNode[] {
+function parseInlineElements(text: string, onSelectPost?: (slug: string) => void): React.ReactNode[] {
+  const boldRegex = /\*\*([^*]+)\*\*/g;
+  const codeRegex = /`([^`]+)`/g;
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+
   const parts: React.ReactNode[] = [];
   let currentText = text;
   let keyIdx = 0;
-
-  // Regex patterns
-  const boldRegex = /\*\*([^*]+)\*\*/;
-  const codeRegex = /`([^`]+)`/;
-  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/;
 
   while (currentText.length > 0) {
     const boldMatch = boldRegex.exec(currentText);
@@ -275,7 +244,7 @@ function parseInlineElements(text: string): React.ReactNode[] {
 
     // Push formatted element
     if (earliest.type === "bold" && earliest.match) {
-      parts.push(<strong key={keyIdx++} className="text-white/90 font-semibold">{parseInlineElements(earliest.match[1])}</strong>);
+      parts.push(<strong key={keyIdx++} className="text-white/90 font-semibold">{parseInlineElements(earliest.match[1], onSelectPost)}</strong>);
       currentText = currentText.substring(earliest.index + earliest.match[0].length);
     } else if (earliest.type === "code" && earliest.match) {
       parts.push(
@@ -285,15 +254,29 @@ function parseInlineElements(text: string): React.ReactNode[] {
       );
       currentText = currentText.substring(earliest.index + earliest.match[0].length);
     } else if (earliest.type === "link" && earliest.match) {
+      const href = earliest.match[2];
+      const isInternal = href.startsWith("/") || href.includes("samadshaikh.dev") || href.includes("localhost");
+
       parts.push(
         <a 
           key={keyIdx++} 
-          href={earliest.match[2]} 
-          target="_blank" 
+          href={href} 
+          target={isInternal ? "_self" : "_blank"} 
           rel="noreferrer" 
           className="text-mint hover:underline hover:text-highlight transition-colors duration-200"
+          onClick={(e) => {
+            if (isInternal && onSelectPost) {
+              const queryStr = href.split("?")[1] || "";
+              const urlParams = new URLSearchParams(queryStr);
+              const slug = urlParams.get("blog");
+              if (slug) {
+                e.preventDefault();
+                onSelectPost(slug);
+              }
+            }
+          }}
         >
-          {parseInlineElements(earliest.match[1])}
+          {parseInlineElements(earliest.match[1], onSelectPost)}
         </a>
       );
       currentText = currentText.substring(earliest.index + earliest.match[0].length);
@@ -487,6 +470,40 @@ export default function Blog() {
   const [scrollProgress, setScrollProgress] = useState(0);
   
   const contentRef = useRef<HTMLDivElement>(null);
+
+  // Parse blog slug from URL search params on mount & popstate
+  useEffect(() => {
+    const syncPostFromUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get("blog");
+      if (slug) {
+        const post = blogPosts.find(p => p.slug === slug);
+        if (post) {
+          setSelectedPost(post);
+        } else {
+          setSelectedPost(null);
+        }
+      } else {
+        setSelectedPost(null);
+      }
+    };
+
+    syncPostFromUrl();
+    window.addEventListener("popstate", syncPostFromUrl);
+    return () => window.removeEventListener("popstate", syncPostFromUrl);
+  }, []);
+
+  const handleSelectPost = (post: BlogPost) => {
+    setSelectedPost(post);
+    window.history.pushState({ tab: "blog" }, "", `/?blog=${post.slug}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleReturnToBlueprints = () => {
+    setSelectedPost(null);
+    window.history.pushState({ tab: "blog" }, "", "/?tab=blog");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   // Filter Categories
   const categories = ["All", "AI", "WebDev", "Backend", "SEO", "AppSec", "DevOps"];
@@ -686,7 +703,7 @@ export default function Blog() {
                   transition={{ duration: 0.6, delay: i * 0.05, ease }}
                   whileHover={{ y: -3, transition: { duration: 0.2 } }}
                   className="cursor-pointer"
-                  onClick={() => setSelectedPost(post)}
+                  onClick={() => handleSelectPost(post)}
                 >
                   <SpotlightCard
                     className="h-full"
@@ -745,7 +762,7 @@ export default function Blog() {
           >
             {/* Return navigation breadcrumb */}
             <button
-              onClick={() => setSelectedPost(null)}
+              onClick={handleReturnToBlueprints}
               className="flex items-center gap-2.5 text-mint/60 hover:text-mint text-[11px] font-Spline_Sans_Mono tracking-wider uppercase mr-auto mb-10 group bg-transparent border-0 cursor-pointer outline-none"
             >
               <ArrowLeft className="w-4 h-4 translate-x-0 group-hover:-translate-x-1 transition-transform duration-200" />
@@ -783,7 +800,12 @@ export default function Blog() {
               
               {/* Primary Article Body */}
               <div ref={contentRef} className="lg:col-span-9 flex flex-col font-sans">
-                {renderMarkdownContent(selectedPost.content)}
+                {renderMarkdownContent(selectedPost.content, (slug) => {
+                  const post = blogPosts.find(p => p.slug === slug);
+                  if (post) {
+                    handleSelectPost(post);
+                  }
+                })}
                 <FeedbackWidget blogTitle={selectedPost.title} blogSlug={selectedPost.slug} />
               </div>
 
@@ -838,10 +860,7 @@ export default function Blog() {
             </div>
 
             <button
-              onClick={() => {
-                setSelectedPost(null);
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+              onClick={handleReturnToBlueprints}
               className="flex items-center gap-2 mx-auto px-5 py-2.5 rounded-full border border-mint/20 bg-mint/5 hover:bg-mint hover:text-black hover:shadow-[0_0_15px_rgba(143,255,209,0.12)] text-mint text-xs font-Spline_Sans_Mono uppercase tracking-wider transition-all duration-300 cursor-pointer outline-none"
             >
               <ArrowLeft className="w-4 h-4" />

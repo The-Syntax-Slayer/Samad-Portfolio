@@ -19,8 +19,18 @@ type Tab = "home" | "about" | "work" | "blog" | "connect";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>(() => {
-    if (typeof window !== "undefined" && window.history.state && window.history.state.tab) {
-      return window.history.state.tab;
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get("tab");
+      if (params.has("blog")) {
+        return "blog";
+      }
+      if (tabParam && ["home", "about", "work", "blog", "connect"].includes(tabParam)) {
+        return tabParam as Tab;
+      }
+      if (window.history.state && window.history.state.tab) {
+        return window.history.state.tab;
+      }
     }
     return "home";
   });
@@ -38,10 +48,16 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [activeTab]);
 
-  // Sync state with browser back/forward buttons (without URL suffixes)
+  // Sync state with browser back/forward buttons
   useEffect(() => {
     const handlePopState = (event: PopStateEvent) => {
-      if (event.state && event.state.tab) {
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get("tab");
+      if (params.has("blog")) {
+        setActiveTab("blog");
+      } else if (tabParam && ["home", "about", "work", "blog", "connect"].includes(tabParam)) {
+        setActiveTab(tabParam as Tab);
+      } else if (event.state && event.state.tab) {
         setActiveTab(event.state.tab);
       } else {
         setActiveTab("home");
@@ -52,14 +68,28 @@ export default function App() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  // Push tab transitions to history state while keeping the URL clean
+  // Push tab transitions to history state with clean, SEO-friendly query suffixes
   useEffect(() => {
     const state = window.history.state;
+    const params = new URLSearchParams(window.location.search);
+    
+    let targetUrl = "/";
+    if (activeTab === "blog") {
+      const blogSlug = params.get("blog");
+      if (blogSlug) {
+        targetUrl = `/?blog=${blogSlug}`;
+      } else {
+        targetUrl = `/?tab=blog`;
+      }
+    } else if (activeTab !== "home") {
+      targetUrl = `/?tab=${activeTab}`;
+    }
+
     if (!state || state.tab !== activeTab) {
       if (!state) {
-        window.history.replaceState({ tab: activeTab }, "", window.location.pathname);
+        window.history.replaceState({ tab: activeTab }, "", targetUrl);
       } else {
-        window.history.pushState({ tab: activeTab }, "", window.location.pathname);
+        window.history.pushState({ tab: activeTab }, "", targetUrl);
       }
     }
   }, [activeTab]);
