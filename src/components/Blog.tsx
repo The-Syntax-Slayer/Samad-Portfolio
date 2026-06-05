@@ -10,7 +10,7 @@ const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 function renderMarkdownContent(text: string) {
   const lines = text.split('\n');
   const blocks: Array<{
-    type: 'code' | 'h2' | 'h3' | 'hr' | 'ol' | 'ul' | 'p';
+    type: 'code' | 'h2' | 'h3' | 'h4' | 'hr' | 'ol' | 'ul' | 'p';
     language?: string;
     content: string;
     items?: string[];
@@ -115,6 +115,11 @@ function renderMarkdownContent(text: string) {
       continue;
     }
 
+    if (trimmedLine.startsWith("#### ")) {
+      blocks.push({ type: 'h4', content: trimmedLine.substring(5) });
+      continue;
+    }
+
     if (trimmedLine.startsWith("### ")) {
       blocks.push({ type: 'h3', content: trimmedLine.substring(4) });
       continue;
@@ -173,6 +178,13 @@ function renderMarkdownContent(text: string) {
               <code>{block.content}</code>
             </pre>
           </div>
+        );
+
+      case 'h4':
+        return (
+          <h4 key={index} className="font-serif-display text-white/95 text-[15px] md:text-base font-semibold mt-6 mb-3 tracking-tight leading-snug">
+            {parseInlineElements(block.content)}
+          </h4>
         );
 
       case 'h3':
