@@ -291,9 +291,6 @@ export default function Connect() {
                 glowColor="rgba(var(--theme-mint-rgb), 0.08)"
                 hoverBorderColor="rgba(var(--theme-mint-rgb), 0.45)"
               >
-                {/* Card reflective overlay line */}
-                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
-
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {/* Name field */}
