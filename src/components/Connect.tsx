@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import logoImg from "../assets/logo.svg";
 import cloudBg from "../assets/cloud.webp";
+import SpotlightCard from "./SpotlightCard";
 
 export default function Connect() {
   const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -283,116 +284,122 @@ export default function Connect() {
               initial={{ y: 35, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4, duration: 1, ease }}
-              className="glass-panel p-6 md:p-8 rounded-3xl border border-[#1A1A1A] bg-[#111111]/45 backdrop-blur-md shadow-2xl relative overflow-hidden text-left"
+              className="w-full"
             >
-              {/* Card reflective overlay line */}
-              <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
+              <SpotlightCard
+                className="p-6 md:p-8 rounded-3xl border border-white/5 bg-white/[0.01] backdrop-blur-xl relative overflow-hidden text-left"
+                glowColor="rgba(var(--theme-mint-rgb), 0.08)"
+                hoverBorderColor="rgba(var(--theme-mint-rgb), 0.45)"
+              >
+                {/* Card reflective overlay line */}
+                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
 
-              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {/* Name field */}
+                <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {/* Name field */}
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="form-name" className="text-[9px] font-Spline_Sans_Mono tracking-widest text-[#A1A1AA] uppercase">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        id="form-name"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        className="w-full bg-black/55 border border-white/10 focus:border-[#8FFFD1] rounded-xl px-4 py-3.5 text-base md:text-sm text-white placeholder-white/35 focus:outline-none focus:ring-4 focus:ring-[#8FFFD1]/5 hover:border-white/20 transition-all duration-300 font-light focus:bg-black/75 focus:shadow-[0_0_15px_rgba(143,255,209,0.1)]"
+                        placeholder="Your name"
+                      />
+                    </div>
+
+                    {/* Email field */}
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="form-email" className="text-[9px] font-Spline_Sans_Mono tracking-widest text-[#A1A1AA] uppercase">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        id="form-email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className="w-full bg-black/55 border border-white/10 focus:border-[#8FFFD1] rounded-xl px-4 py-3.5 text-base md:text-sm text-white placeholder-white/35 focus:outline-none focus:ring-4 focus:ring-[#8FFFD1]/5 hover:border-white/20 transition-all duration-300 font-light focus:bg-black/75 focus:shadow-[0_0_15px_rgba(143,255,209,0.1)]"
+                        placeholder="your@email.com"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Subject field */}
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="form-name" className="text-[9px] font-Spline_Sans_Mono tracking-widest text-[#A1A1AA] uppercase">
-                      Name
+                    <label htmlFor="form-subject" className="text-[9px] font-Spline_Sans_Mono tracking-widest text-[#A1A1AA] uppercase">
+                      Subject
                     </label>
                     <input
                       type="text"
-                      id="form-name"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-[#050505]/40 border border-[#1A1A1A] focus:border-[#8FFFD1] rounded-xl px-4 py-3.5 text-[16px] md:text-xs text-white placeholder-white/15 focus:outline-none focus:ring-4 focus:ring-[#8FFFD1]/5 hover:border-white/10 transition-all duration-300 font-light"
-                      placeholder="Your name"
+                      id="form-subject"
+                      value={formData.subject}
+                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      className="w-full bg-black/55 border border-white/10 focus:border-[#8FFFD1] rounded-xl px-4 py-3.5 text-base md:text-sm text-white placeholder-white/35 focus:outline-none focus:ring-4 focus:ring-[#8FFFD1]/5 hover:border-white/20 transition-all duration-300 font-light focus:bg-black/75 focus:shadow-[0_0_15px_rgba(143,255,209,0.1)]"
+                      placeholder="What project are you building?"
                     />
                   </div>
 
-                  {/* Email field */}
+                  {/* Message field */}
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="form-email" className="text-[9px] font-Spline_Sans_Mono tracking-widest text-[#A1A1AA] uppercase">
-                      Email
+                    <label htmlFor="form-message" className="text-[9px] font-Spline_Sans_Mono tracking-widest text-[#A1A1AA] uppercase">
+                      Message
                     </label>
-                    <input
-                      type="email"
-                      id="form-email"
+                    <textarea
+                      id="form-message"
                       required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-[#050505]/40 border border-[#1A1A1A] focus:border-[#8FFFD1] rounded-xl px-4 py-3.5 text-[16px] md:text-xs text-white placeholder-white/15 focus:outline-none focus:ring-4 focus:ring-[#8FFFD1]/5 hover:border-white/10 transition-all duration-300 font-light"
-                      placeholder="your@email.com"
+                      rows={5}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      className="w-full bg-black/55 border border-white/10 focus:border-[#8FFFD1] rounded-xl px-4 py-3.5 text-base md:text-sm text-white/90 placeholder-white/35 focus:outline-none focus:ring-4 focus:ring-[#8FFFD1]/5 hover:border-white/20 transition-all duration-300 font-light resize-none leading-relaxed focus:bg-black/75 focus:shadow-[0_0_15px_rgba(143,255,209,0.1)]"
+                      placeholder="Tell me about your product details, launch timeline..."
                     />
                   </div>
-                </div>
 
-                {/* Subject field */}
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="form-subject" className="text-[9px] font-Spline_Sans_Mono tracking-widest text-[#A1A1AA] uppercase">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="form-subject"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full bg-[#050505]/40 border border-[#1A1A1A] focus:border-[#8FFFD1] rounded-xl px-4 py-3.5 text-[16px] md:text-xs text-white placeholder-white/15 focus:outline-none focus:ring-4 focus:ring-[#8FFFD1]/5 hover:border-white/10 transition-all duration-300 font-light"
-                    placeholder="What project are you building?"
-                  />
-                </div>
-
-                {/* Message field */}
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="form-message" className="text-[9px] font-Spline_Sans_Mono tracking-widest text-[#A1A1AA] uppercase">
-                    Message
-                  </label>
-                  <textarea
-                    id="form-message"
-                    required
-                    rows={5}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-[#050505]/40 border border-[#1A1A1A] focus:border-[#8FFFD1] rounded-xl px-4 py-3.5 text-[16px] md:text-xs text-white placeholder-white/15 focus:outline-none focus:ring-4 focus:ring-[#8FFFD1]/5 hover:border-white/10 transition-all duration-300 font-light resize-none leading-relaxed"
-                    placeholder="Tell me about your product details, launch timeline..."
-                  />
-                </div>
-
-                {/* Submit button with status feedback */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full mt-2 py-4 border border-[#8FFFD1]/25 hover:border-[#8FFFD1]/60 bg-[#8FFFD1]/5 hover:bg-[#8FFFD1]/10 disabled:opacity-50 rounded-xl text-xs font-Spline_Sans_Mono tracking-widest text-white hover:text-[#8FFFD1] transition-all duration-500 cursor-pointer shadow-[0_4px_25px_rgba(0,0,0,0.6)] hover:shadow-[0_0_20px_rgba(143,255,209,0.2)] flex items-center justify-center gap-2 group relative overflow-hidden"
-                >
-                  <AnimatePresence mode="wait">
-                    {isSuccess ? (
-                      <motion.span
-                        key="success"
-                        initial={{ y: 15, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -15, opacity: 0 }}
-                        className="text-[#8FFFD1]"
-                      >
-                        Message Transmitted ✦
-                      </motion.span>
-                    ) : isSubmitting ? (
-                      <motion.span
-                        key="submitting"
-                        initial={{ y: 15, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -15, opacity: 0 }}
-                        className="flex items-center gap-2"
-                      >
-                        <svg className="animate-spin h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                        </svg>
-                        Transmitting...
-                      </motion.span>
-                    ) : (
-                      <span className="flex items-center gap-1">
-                        Send Message <span className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">↗</span>
-                      </span>
-                    )}
-                  </AnimatePresence>
-                </button>
-              </form>
+                  {/* Submit button with status feedback */}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full mt-2 py-4 border border-[#8FFFD1]/25 hover:border-[#8FFFD1]/60 bg-[#8FFFD1]/5 hover:bg-[#8FFFD1]/10 disabled:opacity-50 rounded-xl text-xs font-Spline_Sans_Mono tracking-widest text-white hover:text-[#8FFFD1] transition-all duration-500 cursor-pointer shadow-[0_4px_25px_rgba(0,0,0,0.6)] hover:shadow-[0_0_20px_rgba(143,255,209,0.35)] flex items-center justify-center gap-2 group relative overflow-hidden"
+                  >
+                    <AnimatePresence mode="wait">
+                      {isSuccess ? (
+                        <motion.span
+                          key="success"
+                          initial={{ y: 15, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          exit={{ y: -15, opacity: 0 }}
+                          className="text-[#8FFFD1]"
+                        >
+                          Message Transmitted ✦
+                        </motion.span>
+                      ) : isSubmitting ? (
+                        <motion.span
+                          key="submitting"
+                          initial={{ y: 15, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          exit={{ y: -15, opacity: 0 }}
+                          className="flex items-center gap-2"
+                        >
+                          <svg className="animate-spin h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                          </svg>
+                          Transmitting...
+                        </motion.span>
+                      ) : (
+                        <span className="flex items-center gap-1">
+                          Send Message <span className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">↗</span>
+                        </span>
+                      )}
+                    </AnimatePresence>
+                  </button>
+                </form>
+              </SpotlightCard>
             </motion.div>
           </div>
         </div>
