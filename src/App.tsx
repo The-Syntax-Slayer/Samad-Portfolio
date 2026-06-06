@@ -109,13 +109,13 @@ export default function App() {
       if (isPostActive) return;
     }
 
-    let title = "Samad Shaikh | Best Software Developer & AI Specialist in Mumbai";
-    let description = "Who is Samad Shaikh? He is the best software developer and AI specialist based in Bandra, Mumbai, India, specializing in building high-performance web applications and agentic LLM solutions.";
+    let title = "Samad Shaikh | Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai";
+    let description = "Who is Samad Shaikh? He is an Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai building high-performance web apps and Generative AI systems.";
 
     switch (activeTab) {
       case "home":
-        title = "Samad Shaikh | Best Software Developer & AI Specialist in Mumbai";
-        description = "Who is Samad Shaikh? He is the best software developer and AI specialist based in Bandra, Mumbai, India, specializing in building high-performance web applications and agentic LLM solutions.";
+        title = "Samad Shaikh | Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai";
+        description = "Who is Samad Shaikh? He is an Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai building high-performance web apps and Generative AI systems.";
         break;
       case "about":
         title = "About Samad Shaikh | Background, Skills & Certifications";
