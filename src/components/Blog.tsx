@@ -550,29 +550,56 @@ export default function Blog() {
 
       const blogSchema = {
         "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": selectedPost.title,
-        "description": selectedPost.metaDescription || selectedPost.excerpt,
-        "datePublished": isoDate,
-        "author": {
-          "@type": "Person",
-          "name": "Samad Shaikh",
-          "url": "https://www.samadshaikh.dev"
-        },
-        "publisher": {
-          "@type": "Person",
-          "name": "Samad Shaikh",
-          "url": "https://www.samadshaikh.dev",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://www.samadshaikh.dev/Samad_Portrait.jpeg"
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": selectedPost.title,
+            "description": selectedPost.metaDescription || selectedPost.excerpt,
+            "datePublished": isoDate,
+            "author": {
+              "@type": "Person",
+              "name": "Samad Shaikh",
+              "url": "https://www.samadshaikh.dev"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Samad Shaikh",
+              "url": "https://www.samadshaikh.dev",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.samadshaikh.dev/Samad_Portrait.jpeg"
+              }
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `${window.location.origin}/?blog=${selectedPost.slug}`
+            },
+            "keywords": selectedPost.tags.join(", ")
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.samadshaikh.dev"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://www.samadshaikh.dev/?tab=blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": selectedPost.title,
+                "item": `${window.location.origin}/?blog=${selectedPost.slug}`
+              }
+            ]
           }
-        },
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": `${window.location.origin}/?blog=${selectedPost.slug}`
-        },
-        "keywords": selectedPost.tags.join(", ")
+        ]
       };
 
       schemaScript.textContent = JSON.stringify(blogSchema);

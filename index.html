@@ -90,7 +90,10 @@
               {
                 "@type": "EducationalOrganization",
                 "name": "M.P.S.P.S College, University of Mumbai",
-                "sameAs": "https://mu.ac.in"
+                "sameAs": "https://mu.ac.in",
+                "credential": {
+                  "@id": "https://www.samadshaikh.dev/#credential"
+                }
               },
               {
                 "@type": "EducationalOrganization",
@@ -98,6 +101,79 @@
               }
             ],
             "description": "Who is Samad Shaikh? Samad Shaikh is an Innovative Software Developer, AI Engineer & Tech Entrepreneur based in Bandra, Mumbai, India, specializing in React 19, Next.js, Python, FastAPI, and GenAI workflows.",
+            "gender": "Male",
+            "nationality": {
+              "@type": "Country",
+              "name": "India"
+            },
+            "knowsLanguage": ["English", "Hindi", "Marathi"],
+            "birthDate": "2004-12-18",
+            "birthPlace": {
+              "@type": "Place",
+              "name": "Mumbai, India"
+            },
+            "hasCredential": [
+              {
+                "@type": "EducationalOccupationalCredential",
+                "name": "Google Data Analytics Professional Certificate",
+                "credentialCategory": "certification",
+                "recognizedBy": { "@type": "Organization", "name": "Google" }
+              },
+              {
+                "@type": "EducationalOccupationalCredential",
+                "name": "IBM AI Developer Professional Certificate",
+                "credentialCategory": "certification",
+                "recognizedBy": { "@type": "Organization", "name": "IBM" }
+              },
+              {
+                "@type": "EducationalOccupationalCredential",
+                "name": "AWS Cloud Practitioner Essentials",
+                "credentialCategory": "certification",
+                "recognizedBy": { "@type": "Organization", "name": "Amazon Web Services" }
+              },
+              {
+                "@type": "EducationalOccupationalCredential",
+                "name": "Meta Front-End Developer Professional Certificate",
+                "credentialCategory": "certification",
+                "recognizedBy": { "@type": "Organization", "name": "Meta" }
+              },
+              {
+                "@type": "EducationalOccupationalCredential",
+                "name": "IBM DevOps & Software Engineering Certificate",
+                "credentialCategory": "certification",
+                "recognizedBy": { "@type": "Organization", "name": "IBM" }
+              },
+              {
+                "@type": "EducationalOccupationalCredential",
+                "name": "GitHub Foundations Certificate",
+                "credentialCategory": "certification",
+                "recognizedBy": { "@type": "Organization", "name": "GitHub" }
+              },
+              {
+                "@type": "EducationalOccupationalCredential",
+                "name": "Microsoft Power Platform Fundamentals",
+                "credentialCategory": "certification",
+                "recognizedBy": { "@type": "Organization", "name": "Microsoft" }
+              },
+              {
+                "@type": "EducationalOccupationalCredential",
+                "name": "Google Cloud Digital Leader",
+                "credentialCategory": "certification",
+                "recognizedBy": { "@type": "Organization", "name": "Google Cloud" }
+              },
+              {
+                "@type": "EducationalOccupationalCredential",
+                "name": "Azure Enterprise Data Analyst Associate",
+                "credentialCategory": "certification",
+                "recognizedBy": { "@type": "Organization", "name": "Microsoft" }
+              },
+              {
+                "@type": "EducationalOccupationalCredential",
+                "name": "Microsoft Azure AI Engineer Associate",
+                "credentialCategory": "certification",
+                "recognizedBy": { "@type": "Organization", "name": "Microsoft" }
+              }
+            ],
             "knowsAbout": [
               "Software Engineering",
               "Full-Stack Development",
@@ -130,6 +206,16 @@
             "operatingSystem": "All",
             "applicationCategory": "EducationalApplication",
             "description": "An interactive AI-driven interview practice platform featuring real-time speech analytics and voice feedback loops.",
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "ratingCount": "84"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
             "author": {
               "@id": "https://www.samadshaikh.dev/#person"
             }
@@ -141,9 +227,84 @@
             "operatingSystem": "All",
             "applicationCategory": "BusinessApplication",
             "description": "A scalable multi-module SaaS product built using a Supabase backend and highly optimized relational database schemas.",
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "ratingCount": "36"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
             "author": {
               "@id": "https://www.samadshaikh.dev/#person"
             }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://www.samadshaikh.dev/#planora",
+            "name": "Planora",
+            "operatingSystem": "All",
+            "applicationCategory": "BusinessApplication",
+            "description": "A social media pipeline scheduler designed for automated publishing and workflow coordination.",
+            "author": {
+              "@id": "https://www.samadshaikh.dev/#person"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://www.samadshaikh.dev/#weblens",
+            "name": "WebLens",
+            "operatingSystem": "All",
+            "applicationCategory": "DeveloperApplication",
+            "description": "A web performance, SEO, and accessibility audit utility providing actionable performance reports.",
+            "author": {
+              "@id": "https://www.samadshaikh.dev/#person"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://www.samadshaikh.dev/#legalease",
+            "name": "LegalEase",
+            "operatingSystem": "All",
+            "applicationCategory": "BusinessApplication",
+            "description": "An AI-powered legal contract simplifier that translates legalese into human-readable summaries.",
+            "author": {
+              "@id": "https://www.samadshaikh.dev/#person"
+            }
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "@id": "https://www.samadshaikh.dev/#credential",
+            "name": "Bachelor of Science in Computer Science (B.Sc. CS)",
+            "credentialCategory": "degree",
+            "about": {
+              "@id": "https://www.samadshaikh.dev/#person"
+            },
+            "recognizedBy": {
+              "@type": "EducationalOrganization",
+              "name": "University of Mumbai",
+              "sameAs": "https://mu.ac.in"
+            }
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "@id": "https://www.samadshaikh.dev/#navigation",
+            "name": [
+              "Home",
+              "About",
+              "Work",
+              "Blog",
+              "Connect"
+            ],
+            "url": [
+              "https://www.samadshaikh.dev/?tab=home",
+              "https://www.samadshaikh.dev/?tab=about",
+              "https://www.samadshaikh.dev/?tab=work",
+              "https://www.samadshaikh.dev/?tab=blog",
+              "https://www.samadshaikh.dev/?tab=connect"
+            ]
           },
           {
             "@type": "WebSite",
@@ -153,7 +314,15 @@
             "publisher": {
               "@id": "https://www.samadshaikh.dev/#person"
             },
-            "inLanguage": "en-US"
+            "inLanguage": "en-US",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://www.samadshaikh.dev/?tab=blog&search={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
           },
           {
             "@type": "FAQPage",
