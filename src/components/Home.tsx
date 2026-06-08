@@ -268,7 +268,7 @@ export default function Home({ setActiveTab }: HomeProps) {
         {/* B. Top Navigation Bar */}
         <div className="w-full max-w-6xl px-6 md:px-8 flex justify-between items-center z-10 pt-4">
           <div className="flex items-center gap-3">
-            <img src={logoImg} alt="Samad Shaikh - Best Software Developer & AI Specialist in Bandra, Mumbai" className="h-8 w-auto object-contain" />
+            <img src={logoImg} alt="Samad Shaikh - Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai" className="h-8 w-auto object-contain" />
             <span className="text-white text-xs font-Spline_Sans_Mono tracking-widest font-light uppercase">
               Samad Shaikh
             </span>

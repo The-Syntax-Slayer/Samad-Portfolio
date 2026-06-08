@@ -388,7 +388,7 @@ export default function About() {
             <motion.div style={{ y: imageY, scale: imageScale }} className="w-full h-full">
               <img
                 src={portraitImg}
-                alt="Samad Shaikh - Best Software Developer and AI Specialist in Bandra, Mumbai"
+                alt="Samad Shaikh - Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai"
                 className="w-full h-full object-cover object-center"
                 draggable={false}
               />
