@@ -224,6 +224,7 @@ export default function Footer({ setActiveTab }: FooterProps) {
                 { name: "GitHub", url: "https://github.com/The-Syntax-Slayer" },
                 { name: "LinkedIn", url: "https://linkedin.com/in/samad-ai" },
                 { name: "Resume", url: "https://samadshaikh.me" },
+                { name: "Wikidata", url: "https://www.wikidata.org/wiki/Q140129387" },
                 { name: "Email", url: `mailto:${email}` },
               ].map((link) => (
                 <a
