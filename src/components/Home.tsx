@@ -19,6 +19,15 @@ interface HomeProps {
   setActiveTab?: (tab: "home" | "about" | "work" | "connect") => void;
 }
 
+const RANDOM_PARTICLES = Array.from({ length: 12 }).map((_, i) => ({
+  id: i,
+  x: `${Math.random() * 100}%`,
+  y: `${Math.random() * 100}%`,
+  scale: Math.random() * 0.4 + 0.3,
+  opacity: Math.random() * 0.3 + 0.1,
+  duration: 10 + Math.random() * 12,
+}));
+
 export default function Home({ setActiveTab }: HomeProps) {
   const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -47,13 +56,15 @@ export default function Home({ setActiveTab }: HomeProps) {
 
   // Typewriter effect for roles
   const roles = useMemo(() => ["Software Engineer", "Full-Stack Developer", "AI Specialist"], []);
+
+
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [typingSpeed, setTypingSpeed] = useState(100);
 
   useEffect(() => {
-    let timer: any;
+    let timer: ReturnType<typeof setTimeout>;
     const activeRole = roles[currentRoleIndex];
 
     if (isDeleting) {
@@ -73,9 +84,11 @@ export default function Home({ setActiveTab }: HomeProps) {
         setIsDeleting(true);
       }, 2000);
     } else if (isDeleting && currentText === "") {
-      setIsDeleting(false);
-      setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
-      setTypingSpeed(200);
+      timer = setTimeout(() => {
+        setIsDeleting(false);
+        setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+        setTypingSpeed(200);
+      }, 0);
     }
 
     return () => clearTimeout(timer);
@@ -252,21 +265,21 @@ export default function Home({ setActiveTab }: HomeProps) {
         </motion.div>
 
         {/* Floating background particles */}
-        {Array.from({ length: 12 }).map((_, i) => (
+        {RANDOM_PARTICLES.map((p) => (
           <motion.div
-            key={i}
+            key={p.id}
             initial={{
-              x: Math.random() * 100 + "%",
-              y: Math.random() * 100 + "%",
-              scale: Math.random() * 0.4 + 0.3,
-              opacity: Math.random() * 0.3 + 0.1,
+              x: p.x,
+              y: p.y,
+              scale: p.scale,
+              opacity: p.opacity,
             }}
             animate={{
               y: ["0%", "-15%", "0%"],
               x: ["0%", "3%", "0%"],
             }}
             transition={{
-              duration: 10 + Math.random() * 12,
+              duration: p.duration,
               repeat: Infinity,
               ease: "easeInOut",
             }}

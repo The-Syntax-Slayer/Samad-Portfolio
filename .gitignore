@@ -12,6 +12,13 @@ lerna-debug.log*
 /.agents
 graphify-out
 
+# Lighthouse
+
+lighthouse-mobile-report.json
+lighthouse-desktop-report.json
+lighthouse-report.json
+
+# Node
 node_modules
 dist
 dist-ssr

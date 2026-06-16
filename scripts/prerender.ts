@@ -22,7 +22,7 @@ function markdownToHtml(md: string): string {
   let inCode = false;
   let codeBlock = '';
 
-  for (let line of lines) {
+  for (const line of lines) {
     const trimmedLine = line.trim();
     if (trimmedLine.startsWith('```')) {
       if (inCode) {
@@ -96,7 +96,7 @@ function parseBlogDate(dateStr: string): string {
     if (!isNaN(d.getTime())) {
       return d.toISOString().split('T')[0];
     }
-  } catch (e) {
+  } catch {
     // ignore
   }
   return '2026-06-16';
@@ -167,7 +167,7 @@ async function runPrerender() {
     const tabDir = path.join(DIST_DIR, tab.name);
     ensureDir(tabDir);
 
-    let html = indexHtml
+    const html = indexHtml
       .replace(/<title>.*?<\/title>/g, `<title>${tab.title}</title>`)
       .replace(/<meta name="description" content=".*?" \/>/g, `<meta name="description" content="${tab.description}" />`)
       .replace(/<meta property="og:title" content=".*?" \/>/g, `<meta property="og:title" content="${tab.title}" />`)
@@ -253,7 +253,7 @@ async function runPrerender() {
       </article>
     `;
 
-    let html = indexHtml
+    const html = indexHtml
       .replace(/<title>.*?<\/title>/g, `<title>${post.title} | Samad Shaikh</title>`)
       .replace(/<meta name="description" content=".*?" \/>/g, `<meta name="description" content="${post.metaDescription || post.excerpt}" />`)
       .replace(/<meta name="keywords" content=".*?" \/>/g, `<meta name="keywords" content="${post.metaKeywords || post.tags.join(', ')}" />`)
