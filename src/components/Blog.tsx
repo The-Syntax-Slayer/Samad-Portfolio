@@ -266,6 +266,17 @@ function parseInlineElements(text: string, onSelectPost?: (slug: string) => void
           className="text-mint hover:underline hover:text-highlight transition-colors duration-200"
           onClick={(e) => {
             if (isInternal && onSelectPost) {
+              try {
+                const urlObj = new URL(href, window.location.origin);
+                const pathParts = urlObj.pathname.split("/").filter(Boolean);
+                if (pathParts[0] === "blog" && pathParts[1]) {
+                  e.preventDefault();
+                  onSelectPost(pathParts[1]);
+                  return;
+                }
+              } catch (err) {
+                // fallback
+              }
               const queryStr = href.split("?")[1] || "";
               const urlParams = new URLSearchParams(queryStr);
               const slug = urlParams.get("blog");
@@ -404,10 +415,11 @@ function FeedbackWidget({ blogTitle, blogSlug }: { blogTitle: string; blogSlug: 
           <div className="flex flex-col gap-4">
             {/* Identity Info */}
             <div className="flex flex-col gap-2">
-              <label className="text-[10px] font-Spline_Sans_Mono text-accent/35 uppercase tracking-wider">
+              <label htmlFor="feedback-name" className="text-[10px] font-Spline_Sans_Mono text-accent/35 uppercase tracking-wider">
                 Identity Handle
               </label>
               <input
+                id="feedback-name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -419,10 +431,11 @@ function FeedbackWidget({ blogTitle, blogSlug }: { blogTitle: string; blogSlug: 
 
             {/* Note Area */}
             <div className="flex flex-col gap-2">
-              <label className="text-[10px] font-Spline_Sans_Mono text-accent/35 uppercase tracking-wider">
+              <label htmlFor="feedback-message" className="text-[10px] font-Spline_Sans_Mono text-accent/35 uppercase tracking-wider">
                 Feedback Message
               </label>
               <textarea
+                id="feedback-message"
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 rows={4}
@@ -471,11 +484,19 @@ export default function Blog() {
   
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Parse blog slug from URL search params on mount & popstate
+  // Parse blog slug from URL search params or clean paths on mount & popstate
   useEffect(() => {
     const syncPostFromUrl = () => {
-      const params = new URLSearchParams(window.location.search);
-      const slug = params.get("blog");
+      const pathname = window.location.pathname;
+      const pathParts = pathname.split("/").filter(Boolean);
+      let slug: string | null = null;
+      if (pathParts[0] === "blog" && pathParts[1]) {
+        slug = pathParts[1];
+      } else {
+        const params = new URLSearchParams(window.location.search);
+        slug = params.get("blog");
+      }
+
       if (slug) {
         const post = blogPosts.find(p => p.slug === slug);
         if (post) {
@@ -495,13 +516,13 @@ export default function Blog() {
 
   const handleSelectPost = (post: BlogPost) => {
     setSelectedPost(post);
-    window.history.pushState({ tab: "blog" }, "", `/?blog=${post.slug}`);
+    window.history.pushState({ tab: "blog" }, "", `/blog/${post.slug}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleReturnToBlueprints = () => {
     setSelectedPost(null);
-    window.history.pushState({ tab: "blog" }, "", "/?tab=blog");
+    window.history.pushState({ tab: "blog" }, "", "/blog");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -572,7 +593,7 @@ export default function Blog() {
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": `${window.location.origin}/?blog=${selectedPost.slug}`
+              "@id": `${window.location.origin}/blog/${selectedPost.slug}`
             },
             "keywords": selectedPost.tags.join(", ")
           },
@@ -589,13 +610,13 @@ export default function Blog() {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Blog",
-                "item": "https://www.samadshaikh.dev/?tab=blog"
+                "item": "https://www.samadshaikh.dev/blog"
               },
               {
                 "@type": "ListItem",
                 "position": 3,
                 "name": selectedPost.title,
-                "item": `${window.location.origin}/?blog=${selectedPost.slug}`
+                "item": `${window.location.origin}/blog/${selectedPost.slug}`
               }
             ]
           }

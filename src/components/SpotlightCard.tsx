@@ -29,6 +29,8 @@ export default function SpotlightCard({
     cardRef.current.style.setProperty("--mouse-y", `${y}px`);
   };
 
+  const isClickable = !!props.onClick;
+
   return (
     <div
       ref={cardRef}
@@ -37,6 +39,14 @@ export default function SpotlightCard({
       style={{
         ...props.style
       }}
+      role={isClickable ? "button" : undefined}
+      tabIndex={isClickable ? 0 : undefined}
+      onKeyDown={isClickable ? (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          (props.onClick as any)(e);
+        }
+      } : undefined}
       {...props}
     >
       {/* Cursor-Following Spotlight Background Glow */}

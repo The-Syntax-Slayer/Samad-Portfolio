@@ -1,0 +1,12 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
+    { "src": "/llms.txt", "dest": "/llms.txt" },
+    { "src": "/llms-full.txt", "dest": "/llms-full.txt" },
+    { "src": "/8f5b82098b67489ab5ff15e76a6cfb12.txt", "dest": "/8f5b82098b67489ab5ff15e76a6cfb12.txt" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}

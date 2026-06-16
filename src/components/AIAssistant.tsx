@@ -303,11 +303,13 @@ Here is your professional context:
                 placeholder="Ask me a question..."
                 value={inputVal}
                 onChange={(e) => setInputVal(e.target.value)}
+                aria-label="Ask a question"
                 className="flex-grow bg-white/[0.02] border border-white/5 focus:border-mint rounded-xl px-4 py-2.5 text-xs text-white placeholder-white/20 focus:outline-none transition-colors"
               />
               <button
                 type="submit"
                 disabled={!inputVal.trim() || isTyping}
+                aria-label="Submit query"
                 className="w-9 h-9 rounded-xl bg-mint/5 border border-mint/20 hover:bg-mint/10 flex items-center justify-center text-mint hover:text-white disabled:opacity-30 disabled:hover:bg-mint/5 transition-all cursor-pointer"
               >
                 <Send className="w-4 h-4" />
@@ -320,6 +322,7 @@ Here is your professional context:
       {/* Floating Toggle Bubble */}
       <button
         onClick={() => setIsOpen(!isOpen)}
+        aria-label="Toggle AI Assistant"
         className={`w-9 h-9 rounded-xl border border-white/10 bg-black/40 hover:bg-white/5 hover:border-white/20 flex items-center justify-center text-accent/60 hover:text-white transition-all duration-300 shadow-md cursor-pointer relative shrink-0 ${
           isOpen
             ? "border-mint bg-mint/5 text-mint rotate-90"

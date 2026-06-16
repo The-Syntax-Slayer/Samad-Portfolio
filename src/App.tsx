@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Home as HomeIcon, Info, Briefcase, Mail, User, BookOpen } from "lucide-react";
 import { ReactLenis } from "lenis/react";
@@ -18,8 +18,17 @@ import "lenis/dist/lenis.css";
 type Tab = "home" | "about" | "work" | "blog" | "connect";
 
 export default function App() {
+  const [, startTransition] = useTransition();
   const [activeTab, setActiveTab] = useState<Tab>(() => {
     if (typeof window !== "undefined") {
+      const pathname = window.location.pathname;
+      const pathParts = pathname.split("/").filter(Boolean);
+      if (pathParts.length > 0) {
+        const primarySegment = pathParts[0].toLowerCase();
+        if (["about", "work", "blog", "connect"].includes(primarySegment)) {
+          return primarySegment as Tab;
+        }
+      }
       const params = new URLSearchParams(window.location.search);
       const tabParam = params.get("tab");
       if (params.has("blog")) {
@@ -43,6 +52,12 @@ export default function App() {
     return false;
   });
 
+  const handleTabChange = (tab: Tab) => {
+    startTransition(() => {
+      setActiveTab(tab);
+    });
+  };
+
   // Automatically scroll to top when changing tabs
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -51,6 +66,15 @@ export default function App() {
   // Sync state with browser back/forward buttons
   useEffect(() => {
     const handlePopState = (event: PopStateEvent) => {
+      const pathname = window.location.pathname;
+      const pathParts = pathname.split("/").filter(Boolean);
+      if (pathParts.length > 0) {
+        const primarySegment = pathParts[0].toLowerCase();
+        if (["about", "work", "blog", "connect"].includes(primarySegment)) {
+          setActiveTab(primarySegment as Tab);
+          return;
+        }
+      }
       const params = new URLSearchParams(window.location.search);
       const tabParam = params.get("tab");
       if (params.has("blog")) {
@@ -68,24 +92,29 @@ export default function App() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  // Push tab transitions to history state with clean, SEO-friendly query suffixes
+  // Push tab transitions to history state with clean, SEO-friendly paths
   useEffect(() => {
     const state = window.history.state;
     const params = new URLSearchParams(window.location.search);
     
     let targetUrl = "/";
     if (activeTab === "blog") {
-      const blogSlug = params.get("blog");
+      const pathname = window.location.pathname;
+      const pathParts = pathname.split("/").filter(Boolean);
+      let blogSlug = params.get("blog");
+      if (pathParts[0] === "blog" && pathParts[1]) {
+        blogSlug = pathParts[1];
+      }
       if (blogSlug) {
-        targetUrl = `/?blog=${blogSlug}`;
+        targetUrl = `/blog/${blogSlug}`;
       } else {
-        targetUrl = `/?tab=blog`;
+        targetUrl = `/blog`;
       }
     } else if (activeTab !== "home") {
-      targetUrl = `/?tab=${activeTab}`;
+      targetUrl = `/${activeTab}`;
     }
 
-    if (!state || state.tab !== activeTab) {
+    if (!state || state.tab !== activeTab || window.location.pathname !== targetUrl) {
       if (!state) {
         window.history.replaceState({ tab: activeTab }, "", targetUrl);
       } else {
@@ -212,7 +241,7 @@ export default function App() {
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               className="w-full flex justify-center"
             >
-              <Home setActiveTab={setActiveTab} />
+              <Home setActiveTab={handleTabChange} />
             </motion.div>
           )}
 
@@ -270,7 +299,7 @@ export default function App() {
         </AnimatePresence>
 
         {/* 3. Persistent Page Footer */}
-        <Footer setActiveTab={setActiveTab} />
+        <Footer setActiveTab={handleTabChange} />
       </div>
 
       {/* 4. Fixed Dock Navigation Bar */}
@@ -284,7 +313,7 @@ export default function App() {
               return (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => handleTabChange(tab.id)}
                   className="relative flex flex-col items-center justify-center flex-1 h-full py-1 text-center cursor-pointer transition-colors duration-200 rounded-full"
                   style={{ WebkitTapHighlightColor: "transparent" }}
                 >
@@ -319,7 +348,7 @@ export default function App() {
                 return (
                   <button
                     key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
+                    onClick={() => handleTabChange(tab.id)}
                     onMouseEnter={() => setHoveredTab(tab.id)}
                     onMouseLeave={() => setHoveredTab(null)}
                     className="relative flex h-12 w-12 items-center justify-center rounded-full transition-colors duration-300 hover:text-white cursor-pointer"

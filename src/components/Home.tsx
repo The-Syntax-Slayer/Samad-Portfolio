@@ -389,6 +389,7 @@ export default function Home({ setActiveTab }: HomeProps) {
               href="https://github.com/The-Syntax-Slayer"
               target="_blank"
               rel="noreferrer"
+              aria-label="GitHub Profile"
               className="w-9 h-9 rounded-xl border border-white/5 bg-black/40 hover:bg-[#8FFFD1]/5 hover:border-[#8FFFD1]/30 flex items-center justify-center text-accent/60 hover:text-[#8FFFD1] transition-all duration-300 shadow-md group relative cursor-pointer"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -401,6 +402,7 @@ export default function Home({ setActiveTab }: HomeProps) {
               href="https://www.linkedin.com/in/samad-ai"
               target="_blank"
               rel="noreferrer"
+              aria-label="LinkedIn Profile"
               className="w-9 h-9 rounded-xl border border-white/5 bg-black/40 hover:bg-[#8FFFD1]/5 hover:border-[#8FFFD1]/30 flex items-center justify-center text-accent/60 hover:text-[#8FFFD1] transition-all duration-300 shadow-md group relative cursor-pointer"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -411,6 +413,7 @@ export default function Home({ setActiveTab }: HomeProps) {
 
             <a
               href="mailto:sxmxd.1825@gmail.com"
+              aria-label="Email Samad Shaikh"
               className="w-9 h-9 rounded-xl border border-white/5 bg-black/40 hover:bg-[#8FFFD1]/5 hover:border-[#8FFFD1]/30 flex items-center justify-center text-accent/60 hover:text-[#8FFFD1] transition-all duration-300 shadow-md group relative cursor-pointer"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -426,6 +429,7 @@ export default function Home({ setActiveTab }: HomeProps) {
               target="_blank"
               rel="noreferrer"
               title="Download Resume"
+              aria-label="View Resume"
               className="w-9 h-9 rounded-xl border border-white/5 bg-black/40 hover:bg-[#8FFFD1]/5 hover:border-[#8FFFD1]/30 flex items-center justify-center text-accent/60 hover:text-[#8FFFD1] transition-all duration-300 shadow-md group relative cursor-pointer"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -645,6 +649,7 @@ export default function Home({ setActiveTab }: HomeProps) {
             <button
               onClick={() => setMapZoom(!mapZoom)}
               title={mapZoom ? "Lock map" : "Interact with map"}
+              aria-label={mapZoom ? "Lock map zoom" : "Enable map interaction"}
               className="absolute bottom-4 right-5 w-7 h-7 rounded-full bg-[#0D1E30]/90 border border-mint/25 flex items-center justify-center text-mint/70 hover:text-mint cursor-pointer select-none z-30 hover:border-mint/60 hover:shadow-[0_0_8px_rgba(var(--theme-mint-rgb),0.3)] transition-all duration-200"
             >
               {mapZoom ? <Minus className="w-3 h-3" /> : <Plus className="w-3 h-3" />}
@@ -657,6 +662,7 @@ export default function Home({ setActiveTab }: HomeProps) {
               href="https://github.com/The-Syntax-Slayer"
               target="_blank"
               rel="noreferrer"
+              aria-label="GitHub Profile"
               className="h-[90px] block rounded-2xl"
             >
               <SpotlightCard
@@ -672,6 +678,7 @@ export default function Home({ setActiveTab }: HomeProps) {
               href="https://linkedin.com/in/samad-ai"
               target="_blank"
               rel="noreferrer"
+              aria-label="LinkedIn Profile"
               className="h-[90px] block rounded-2xl"
             >
               <SpotlightCard
@@ -685,6 +692,7 @@ export default function Home({ setActiveTab }: HomeProps) {
             </a>
             <a
               href="mailto:sxmxd.1825@gmail.com"
+              aria-label="Email Samad Shaikh"
               className="h-[90px] block rounded-2xl"
             >
               <SpotlightCard
@@ -846,6 +854,7 @@ export default function Home({ setActiveTab }: HomeProps) {
           href="https://github.com/The-Syntax-Slayer"
           target="_blank"
           rel="noreferrer"
+          aria-label="GitHub Activity — The Syntax Slayer"
           className="md:col-span-2 h-[270px] block rounded-3xl"
         >
           <SpotlightCard

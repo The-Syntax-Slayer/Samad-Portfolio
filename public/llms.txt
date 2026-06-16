@@ -1,0 +1,49 @@
+# Samad Shaikh
+> Professional Software Engineer, Applied GenAI Specialist, and Tech Entrepreneur based in Bandra, Mumbai, India.
+
+## Contact & Social Profiles
+- [Portfolio Link](https://www.samadshaikh.dev)
+- [Resume Link](https://samadshaikh.me)
+- [LinkedIn Profile](https://linkedin.com/in/samad-ai)
+- [GitHub Account](https://github.com/The-Syntax-Slayer)
+- [Instagram Handle](https://www.instagram.com/x0.sammmm/)
+- [about.me Bio](https://about.me/samad_shaikh)
+- [Wikidata Entity](https://www.wikidata.org/wiki/Q140129387)
+
+## Core Technical Competencies
+- Frontend: React 19, Next.js, TypeScript, Tailwind CSS v4, Zustand, Framer Motion
+- Backend: Python (Asyncio), FastAPI, Tornado, Express, Node.js
+- Databases: PostgreSQL, Supabase, pgvector, Redis
+- GenAI: Google Gemini API, RAG Pipelines, Vector Search, Prompt Engineering
+
+## Main Sections
+- [/about](https://www.samadshaikh.dev/about): Professional background, certifications, and educational achievements.
+- [/work](https://www.samadshaikh.dev/work): Projects portfolio showcasing PriMaX Hub, MockMate AI, Planora, and WebLens.
+- [/blog](https://www.samadshaikh.dev/blog): List of technical articles, architectural deep dives, and tutorials.
+- [/connect](https://www.samadshaikh.dev/connect): Contact details, consulting requests, and scheduling links.
+
+## Published Blueprints
+- [/blog/architecting-agentic-rag-gemini-postgresql](https://www.samadshaikh.dev/blog/architecting-agentic-rag-gemini-postgresql): An in-depth blueprint for engineering high-performance, metadata-filtered semantic search pipelines using Google Gemini and pgvector HNSW indexing.
+- [/blog/inside-mockmate-ai-speech-analytics-pipeline](https://www.samadshaikh.dev/blog/inside-mockmate-ai-speech-analytics-pipeline): A technical breakdown of capturing high-fidelity audio chunks, streaming base64 payloads, and analyzing speech metrics using Google Gemini.
+- [/blog/react-19-production-actions-transitions](https://www.samadshaikh.dev/blog/react-19-production-actions-transitions): Leverage React 19's native Action hook system and compilation optimizations to build state-free, highly responsive forms.
+- [/blog/css-glassmorphism-handbook-neon-ui-layouts](https://www.samadshaikh.dev/blog/css-glassmorphism-handbook-neon-ui-layouts): Master the art of backdrop blur filters, radial cursor-spotlight spotlights, and hardware-accelerated Framer Motion spring physics.
+- [/blog/taming-asyncio-tornado-fastapi-concurrency](https://www.samadshaikh.dev/blog/taming-asyncio-tornado-fastapi-concurrency): Learn how to build asynchronous Python servers that manage high-concurrency LLM streaming requests without blocking the event loop.
+- [/blog/scaling-stateful-websockets-fastapi-broadcast](https://www.samadshaikh.dev/blog/scaling-stateful-websockets-fastapi-broadcast): Construct a robust, distributed WebSocket broadcast server using FastAPI and Redis Pub/Sub channels to sync state across multiple server nodes.
+- [/blog/seo-sge-domination-checklist-schema-canonical](https://www.samadshaikh.dev/blog/seo-sge-domination-checklist-schema-canonical): Resolve canonical conflicts, submit sitemaps, index stable images, and configure JSON-LD schemas to dominate search ranks.
+- [/blog/programmatic-seo-nextjs-dynamic-sitemaps](https://www.samadshaikh.dev/blog/programmatic-seo-nextjs-dynamic-sitemaps): Learn how to build high-performance programmatic SEO funnels in Next.js using dynamic routes and Incremental Static Regeneration.
+- [/blog/securing-llm-integrations-preventing-prompt-injection](https://www.samadshaikh.dev/blog/securing-llm-integrations-preventing-prompt-injection): A practical guide to securing database pipelines and implementing validation filters to shield AI integrations from injection threats.
+- [/blog/zero-trust-authentication-jwt-security-best-practices](https://www.samadshaikh.dev/blog/zero-trust-authentication-jwt-security-best-practices): Implement secure authentication workflows with HttpOnly cookies, CSRF protection, and JWT rotation in Python and Node.js.
+- [/blog/how-i-built-primax-hub-supabase-architecture](https://www.samadshaikh.dev/blog/how-i-built-primax-hub-supabase-architecture): Case study on scaling a 4-module SaaS with PostgreSQL Row-Level Security policies and real-time state synchronization.
+- [/blog/multi-stage-docker-builds-minimized-aws-lambda](https://www.samadshaikh.dev/blog/multi-stage-docker-builds-minimized-aws-lambda): Optimize container footprints using multi-stage Docker builds to run fast, scalable backends on AWS App Runner and Lambda.
+- [/blog/introduction-to-html5-semantic-web-accessibility-seo](https://www.samadshaikh.dev/blog/introduction-to-html5-semantic-web-accessibility-seo): Learn how HTML5 semantic tags transform web page structure to boost SEO visibility and fulfill accessibility standards for assistive screen readers.
+- [/blog/mastering-css-flexbox-grid-responsive-layout-guide](https://www.samadshaikh.dev/blog/mastering-css-flexbox-grid-responsive-layout-guide): Unlock the full power of modern CSS layout engines. Compare Flexbox and Grid, learn visual grid structures, and build production-ready layouts.
+- [/blog/javascript-fundamentals-variables-functions-scope-es6](https://www.samadshaikh.dev/blog/javascript-fundamentals-variables-functions-scope-es6): Master core JavaScript concepts. Understand var vs let vs const, scopes, execution context, closures, arrow functions, and essential ES6+ features.
+- [/blog/understanding-rest-apis-http-json-endpoints](https://www.samadshaikh.dev/blog/understanding-rest-apis-http-json-endpoints): Learn the core concepts of REST APIs. Understand HTTP methods, status codes, JSON payloads, and how to structure clean endpoints.
+- [/blog/git-github-simplified-version-control-collaboration](https://www.samadshaikh.dev/blog/git-github-simplified-version-control-collaboration): Learn version control from scratch. Master core Git commands, branching, resolving merge conflicts, and collaborating on GitHub.
+- [/blog/getting-started-node-express-web-server](https://www.samadshaikh.dev/blog/getting-started-node-express-web-server): Build a production-grade Node.js and Express backend. Understand middleware, routing, status handling, request parsing, and security configurations.
+- [/blog/absolute-beginners-guide-to-seo-ranking-higher](https://www.samadshaikh.dev/blog/absolute-beginners-guide-to-seo-ranking-higher): A comprehensive roadmap to Search Engine Optimization (SEO). Learn how search engines crawl, render, index, and rank web pages, and master on-page semantic HTML, structured data, and Core Web Vitals.
+- [/blog/sql-vs-nosql-choosing-right-database](https://www.samadshaikh.dev/blog/sql-vs-nosql-choosing-right-database): A deep-dive analysis comparing relational (SQL) and non-relational (NoSQL) database architectures. Understand ACID transactions, BASE consistency, data modeling, horizontal scaling, and when to use which.
+- [/blog/web-security-fundamentals-https-ssl-cors](https://www.samadshaikh.dev/blog/web-security-fundamentals-https-ssl-cors): A comprehensive developer's guide to core web security concepts. Demystify how HTTPS works, how SSL/TLS certificates secure channels, and how to configure Cross-Origin Resource Sharing (CORS) safely.
+- [/blog/demystifying-ai-ml-dl-beginners-blueprint](https://www.samadshaikh.dev/blog/demystifying-ai-ml-dl-beginners-blueprint): An intuitive, code-backed guide distinguishing Artificial Intelligence, Machine Learning, Deep Learning, and Generative AI. Learn neural network fundamentals, gradient descent, and build a PyTorch classifier.
+- [/blog/deploying-first-web-application-cloud-hosting](https://www.samadshaikh.dev/blog/deploying-first-web-application-cloud-hosting): A comprehensive developer's guide to cloud deployment. Learn PaaS vs. IaaS hosting models, build containerized applications with Docker, and construct automated CI/CD pipelines with GitHub Actions.
+- [/blog/python-for-beginners-ultimate-web-data-language](https://www.samadshaikh.dev/blog/python-for-beginners-ultimate-web-data-language): Discover why Python is the fastest-growing programming language. Explore Python's clear syntax, learn to build backend APIs using FastAPI, and manipulate datasets with Pandas.

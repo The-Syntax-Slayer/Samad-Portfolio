@@ -6,6 +6,8 @@ import {
 } from "lucide-react";
 import SpotlightCard from "./SpotlightCard";
 import portraitImg from "../assets/Samad_Portrait.jpeg";
+import portraitImgWebp from "../assets/Samad_Portrait.webp";
+import portraitImgAvif from "../assets/Samad_Portrait.avif";
 
 /* ─────────────────────────────────────────────
    Shared helpers
@@ -386,12 +388,17 @@ export default function About() {
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
             <div className="absolute inset-0 z-20 rounded-2xl ring-1 ring-white/8 pointer-events-none" />
             <motion.div style={{ y: imageY, scale: imageScale }} className="w-full h-full">
-              <img
-                src={portraitImg}
-                alt="Samad Shaikh - Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai"
-                className="w-full h-full object-cover object-center"
-                draggable={false}
-              />
+              <picture className="w-full h-full">
+                <source srcSet={portraitImgAvif} type="image/avif" />
+                <source srcSet={portraitImgWebp} type="image/webp" />
+                <img
+                  src={portraitImg}
+                  alt="Samad Shaikh - Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai"
+                  className="w-full h-full object-cover object-center"
+                  draggable={false}
+                  fetchPriority="high"
+                />
+              </picture>
             </motion.div>
             <div className="absolute bottom-0 left-0 right-0 z-30 p-6 flex items-end justify-between">
               <div>

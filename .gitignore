@@ -9,6 +9,8 @@ lerna-debug.log*
 
 /.claude
 /claude-seo
+/.agents
+graphify-out
 
 node_modules
 dist

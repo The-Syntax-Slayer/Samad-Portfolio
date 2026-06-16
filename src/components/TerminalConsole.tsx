@@ -258,6 +258,7 @@ export default function TerminalConsole() {
             type="text"
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
+            aria-label="Terminal command input"
             className="flex-grow bg-transparent border-none outline-none text-[#8FFFD1] text-xs font-Spline_Sans_Mono caret-mint"
             autoComplete="off"
             autoCorrect="off"
