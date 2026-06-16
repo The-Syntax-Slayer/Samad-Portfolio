@@ -1122,6 +1122,7 @@ export default function Home({ setActiveTab }: HomeProps) {
                                 srcSet={`${project.imageSm} 400w, ${project.imageMd} 800w, ${project.image} 1024w`}
                                 sizes="(max-width: 768px) 100vw, 340px"
                                 alt={project.title}
+                                loading="lazy"
                                 className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                               />
                             </div>
