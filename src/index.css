@@ -5,6 +5,7 @@
   --theme-mint: #8FFFD1;
   --theme-mint-rgb: 143, 255, 209;
   --theme-highlight: #B0FF92;
+  color-scheme: only dark;
 }
 
 @theme {
