@@ -48,11 +48,6 @@ export default function App() {
   const [isMobile, setIsMobile] = useState(false);
   const [isBooted, setIsBooted] = useState(() => {
     if (typeof window !== "undefined") {
-      const isLighthouseOrBot = /Lighthouse|Chrome-Lighthouse|Googlebot|bingbot|yandex|baiduspider/i.test(navigator.userAgent);
-      if (isLighthouseOrBot) {
-        sessionStorage.setItem("portfolio-booted", "true");
-        return true;
-      }
       return !!sessionStorage.getItem("portfolio-booted");
     }
     return false;

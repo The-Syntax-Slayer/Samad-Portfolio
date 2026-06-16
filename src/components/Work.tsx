@@ -158,7 +158,6 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           srcSet={`${project.imageSm} 400w, ${project.imageMd} 800w, ${project.image} 1200w`}
           sizes="(max-width: 768px) 100vw, 600px"
           alt={project.title}
-          loading="lazy"
           className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/img:scale-[1.03]"
         />
       </div>

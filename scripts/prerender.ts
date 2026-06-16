@@ -22,7 +22,7 @@ function markdownToHtml(md: string): string {
   let inCode = false;
   let codeBlock = '';
 
-  for (const line of lines) {
+  for (let line of lines) {
     const trimmedLine = line.trim();
     if (trimmedLine.startsWith('```')) {
       if (inCode) {
@@ -96,7 +96,7 @@ function parseBlogDate(dateStr: string): string {
     if (!isNaN(d.getTime())) {
       return d.toISOString().split('T')[0];
     }
-  } catch {
+  } catch (e) {
     // ignore
   }
   return '2026-06-16';
@@ -122,18 +122,12 @@ async function runPrerender() {
   // Read and inline compiled CSS to eliminate render-blocking external stylesheet
   const assetsDir = path.join(DIST_DIR, 'assets');
   let cssContent = '';
-  let portraitAvif = '';
   if (fs.existsSync(assetsDir)) {
     const files = fs.readdirSync(assetsDir);
     const cssFile = files.find(f => f.startsWith('index-') && f.endsWith('.css'));
     if (cssFile) {
       cssContent = fs.readFileSync(path.join(assetsDir, cssFile), 'utf-8');
       console.log(`Read compiled CSS: ${cssFile} (${cssContent.length} bytes)`);
-    }
-    const avifFile = files.find(f => f.startsWith('Samad_Portrait-') && f.endsWith('.avif'));
-    if (avifFile) {
-      portraitAvif = avifFile;
-      console.log(`Found built portrait AVIF: ${portraitAvif}`);
     }
   }
 
@@ -142,18 +136,9 @@ async function runPrerender() {
       /<link rel="stylesheet" crossorigin href="\.\/assets\/index-.*?\.css">/g,
       `<style id="critical-css">${cssContent}</style>`
     );
+    fs.writeFileSync(TEMPLATE_PATH, indexHtml);
+    console.log('Inlined critical CSS inside index.html template');
   }
-
-  if (portraitAvif) {
-    indexHtml = indexHtml.replace(
-      /href="\/Samad_Portrait\.avif"/g,
-      `href="./assets/${portraitAvif}"`
-    );
-    console.log(`Updated preload link for portrait image in template to: ./assets/${portraitAvif}`);
-  }
-
-  fs.writeFileSync(TEMPLATE_PATH, indexHtml);
-  console.log('Inlined critical CSS and updated portrait preload inside index.html template');
 
   // 1. Pre-render basic tab shells
   const staticTabs = [
@@ -167,7 +152,7 @@ async function runPrerender() {
     const tabDir = path.join(DIST_DIR, tab.name);
     ensureDir(tabDir);
 
-    const html = indexHtml
+    let html = indexHtml
       .replace(/<title>.*?<\/title>/g, `<title>${tab.title}</title>`)
       .replace(/<meta name="description" content=".*?" \/>/g, `<meta name="description" content="${tab.description}" />`)
       .replace(/<meta property="og:title" content=".*?" \/>/g, `<meta property="og:title" content="${tab.title}" />`)
@@ -253,7 +238,7 @@ async function runPrerender() {
       </article>
     `;
 
-    const html = indexHtml
+    let html = indexHtml
       .replace(/<title>.*?<\/title>/g, `<title>${post.title} | Samad Shaikh</title>`)
       .replace(/<meta name="description" content=".*?" \/>/g, `<meta name="description" content="${post.metaDescription || post.excerpt}" />`)
       .replace(/<meta name="keywords" content=".*?" \/>/g, `<meta name="keywords" content="${post.metaKeywords || post.tags.join(', ')}" />`)
