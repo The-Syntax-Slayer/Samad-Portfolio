@@ -2,12 +2,26 @@ import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import primaxImg from "../assets/primax.webp";
+import primaxImgSm from "../assets/primax-sm.webp";
+import primaxImgMd from "../assets/primax-md.webp";
 import mmImg from "../assets/mm.webp";
+import mmImgSm from "../assets/mm-sm.webp";
+import mmImgMd from "../assets/mm-md.webp";
 import planoraImg from "../assets/planora_2.webp";
+import planoraImgSm from "../assets/planora_2-sm.webp";
+import planoraImgMd from "../assets/planora_2-md.webp";
 import wlImg from "../assets/wl.webp";
+import wlImgSm from "../assets/wl-sm.webp";
+import wlImgMd from "../assets/wl-md.webp";
 import legaleaseImg from "../assets/legalease.webp";
+import legaleaseImgSm from "../assets/legalease-sm.webp";
+import legaleaseImgMd from "../assets/legalease-md.webp";
 import clientsyncImg from "../assets/clientsync.webp";
+import clientsyncImgSm from "../assets/clientsync-sm.webp";
+import clientsyncImgMd from "../assets/clientsync-md.webp";
 import smartmeetImg from "../assets/smartmeet.webp";
+import smartmeetImgSm from "../assets/smartmeet-sm.webp";
+import smartmeetImgMd from "../assets/smartmeet-md.webp";
 
 const projects = [
   {
@@ -18,6 +32,8 @@ const projects = [
     description: "An AI-powered productivity ecosystem that integrates neuroscience growth frameworks to build habits, track performance, and help users crush their daily goals.",
     techStack: ["React", "TypeScript", "Node.js", "MongoDB", "Gemini API"],
     image: primaxImg,
+    imageSm: primaxImgSm,
+    imageMd: primaxImgMd,
     demoLink: "https://primax-sigma.vercel.app/",
     githubLink: "https://github.com/The-Syntax-Slayer/PriMaX-Hub.git",
   },
@@ -29,6 +45,8 @@ const projects = [
     description: "An AI-powered interview preparation platform helping users practice interviews, improve communication skills, analyze resumes, and receive personalized feedback.",
     techStack: ["React", "TypeScript", "Node.js", "MongoDB", "Gemini Pro"],
     image: mmImg,
+    imageSm: mmImgSm,
+    imageMd: mmImgMd,
     demoLink: "https://mock-mate-ai-beta.vercel.app",
     githubLink: "https://github.com/The-Syntax-Slayer/MockMate-AI.git",
   },
@@ -40,6 +58,8 @@ const projects = [
     description: "A social media planner designed to plan content pipelines, schedule posts, and manage content calendars across various platforms.",
     techStack: ["React", "Zustand", "Supabase", "Tailwind CSS", "Vercel"],
     image: planoraImg,
+    imageSm: planoraImgSm,
+    imageMd: planoraImgMd,
     demoLink: "https://planora-social.vercel.app",
     githubLink: "https://github.com/The-Syntax-Slayer/Planora.git",
   },
@@ -51,6 +71,8 @@ const projects = [
     description: "A web analysis platform that provides insights into performance, accessibility, SEO, and overall website quality.",
     techStack: ["React", "PageSpeed API", "Tailwind CSS v4", "Recharts"],
     image: wlImg,
+    imageSm: wlImgSm,
+    imageMd: wlImgMd,
     demoLink: "https://web-lens-seven.vercel.app",
     githubLink: "https://github.com/The-Syntax-Slayer/Web-Lens.git",
   },
@@ -62,6 +84,8 @@ const projects = [
     description: "An AI-powered legal contract analysis platform helping users simplify legal language, check compliance, and extract critical clauses.",
     techStack: ["React", "FastAPI", "Python", "spaCy", "Hugging Face"],
     image: legaleaseImg,
+    imageSm: legaleaseImgSm,
+    imageMd: legaleaseImgMd,
     demoLink: "https://legal-ease-tan.vercel.app/",
     githubLink: "https://github.com/The-Syntax-Slayer/Legal-Ease.git",
   },
@@ -73,6 +97,8 @@ const projects = [
     description: "A client relationship management platform focused on organizing customer data, project workflows, communication, and business operations.",
     techStack: ["React", "Django", "PostgreSQL", "Tailwind CSS", "REST API"],
     image: clientsyncImg,
+    imageSm: clientsyncImgSm,
+    imageMd: clientsyncImgMd,
     demoLink: "https://client-sync-ddcrm.vercel.app",
     githubLink: "https://github.com/The-Syntax-Slayer",
   },
@@ -84,6 +110,8 @@ const projects = [
     description: "An AI-powered meeting summarizer and task planner designed to automatically extract key discussion points, generate summaries, and organize follow-up tasks.",
     techStack: ["React", "FastAPI", "Python", "spaCy", "TypeScript"],
     image: smartmeetImg,
+    imageSm: smartmeetImgSm,
+    imageMd: smartmeetImgMd,
     demoLink: "https://smart-meet.vercel.app",
     githubLink: "https://github.com/The-Syntax-Slayer/Smart-Meet.git",
   }
@@ -127,6 +155,8 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         {/* Landscape Image */}
         <motion.img
           src={project.image}
+          srcSet={`${project.imageSm} 400w, ${project.imageMd} 800w, ${project.image} 1200w`}
+          sizes="(max-width: 768px) 100vw, 600px"
           alt={project.title}
           className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/img:scale-[1.03]"
         />

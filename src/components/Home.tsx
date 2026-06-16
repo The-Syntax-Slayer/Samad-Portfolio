@@ -2,8 +2,14 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
 import { MapPin, Minus, Plus, Briefcase, ArrowRight, Layers, ArrowUpRight, Flame, FileText } from "lucide-react";
 import planoraImg from "../assets/planora.webp";
+import planoraImgSm from "../assets/planora-sm.webp";
+import planoraImgMd from "../assets/planora-md.webp";
 import weblensImg from "../assets/weblens.webp";
+import weblensImgSm from "../assets/weblens-sm.webp";
+import weblensImgMd from "../assets/weblens-md.webp";
 import mockmateImg from "../assets/mockmate.webp";
+import mockmateImgSm from "../assets/mockmate-sm.webp";
+import mockmateImgMd from "../assets/mockmate-md.webp";
 import cloudBg from "../assets/cloud.webp";
 import logoImg from "../assets/logo.svg";
 import TerminalConsole from "./TerminalConsole";
@@ -1113,6 +1119,8 @@ export default function Home({ setActiveTab }: HomeProps) {
                             <div className="flex-1 w-full overflow-hidden bg-[#0C101A] relative">
                               <img
                                 src={project.image}
+                                srcSet={`${project.imageSm} 400w, ${project.imageMd} 800w, ${project.image} 1024w`}
+                                sizes="(max-width: 768px) 100vw, 340px"
                                 alt={project.title}
                                 className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                               />
@@ -1474,6 +1482,8 @@ const projectsList = [
     domain: "planora.ai",
     tags: ["react", "zustand", "supabase", "tailwind"],
     image: planoraImg,
+    imageSm: planoraImgSm,
+    imageMd: planoraImgMd,
   },
   {
     id: "02",
@@ -1482,6 +1492,8 @@ const projectsList = [
     domain: "weblens.dev",
     tags: ["react", "pagespeed-api", "tailwind-v4", "recharts"],
     image: weblensImg,
+    imageSm: weblensImgSm,
+    imageMd: weblensImgMd,
   },
   {
     id: "03",
@@ -1490,6 +1502,8 @@ const projectsList = [
     domain: "mockmate.ai",
     tags: ["react", "typescript", "node.js", "gemini-pro"],
     image: mockmateImg,
+    imageSm: mockmateImgSm,
+    imageMd: mockmateImgMd,
   },
 ];
 
