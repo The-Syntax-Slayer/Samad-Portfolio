@@ -360,9 +360,9 @@ function FeedbackWidget({ blogTitle, blogSlug }: { blogTitle: string; blogSlug: 
           <MessageSquare className="w-5 h-5" />
         </div>
         <div>
-          <h3 className="font-serif-display text-white text-lg md:text-xl font-medium tracking-tight">
+          <h2 className="font-serif-display text-white text-lg md:text-xl font-medium tracking-tight">
             Share Your Decryption Notes
-          </h3>
+          </h2>
           <p className="text-accent/40 text-[10px] font-Spline_Sans_Mono uppercase tracking-widest mt-0.5">
             // Telemetry feedback protocol
           </p>
@@ -374,7 +374,7 @@ function FeedbackWidget({ blogTitle, blogSlug }: { blogTitle: string; blogSlug: 
           <div className="w-12 h-12 rounded-full bg-mint/10 border border-mint/30 flex items-center justify-center text-mint mb-4 shadow-[0_0_15px_rgba(143,255,209,0.2)]">
             <CheckCircle2 className="w-6 h-6" />
           </div>
-          <h4 className="text-white font-medium text-base mb-1">Feedback Packet Encrypted & Sent!</h4>
+          <h3 className="text-white font-medium text-base mb-1">Feedback Packet Encrypted & Sent!</h3>
           <p className="text-accent/60 text-xs max-w-[34ch] leading-relaxed">
             Your telemetry has been successfully routed. Thanks for contributing to the knowledge base.
           </p>

@@ -116,8 +116,29 @@ async function runPrerender() {
     process.exit(1);
   }
 
-  const indexHtml = fs.readFileSync(TEMPLATE_PATH, 'utf-8');
+  let indexHtml = fs.readFileSync(TEMPLATE_PATH, 'utf-8');
   const buildDate = new Date().toISOString().split('T')[0];
+
+  // Read and inline compiled CSS to eliminate render-blocking external stylesheet
+  const assetsDir = path.join(DIST_DIR, 'assets');
+  let cssContent = '';
+  if (fs.existsSync(assetsDir)) {
+    const files = fs.readdirSync(assetsDir);
+    const cssFile = files.find(f => f.startsWith('index-') && f.endsWith('.css'));
+    if (cssFile) {
+      cssContent = fs.readFileSync(path.join(assetsDir, cssFile), 'utf-8');
+      console.log(`Read compiled CSS: ${cssFile} (${cssContent.length} bytes)`);
+    }
+  }
+
+  if (cssContent) {
+    indexHtml = indexHtml.replace(
+      /<link rel="stylesheet" crossorigin href="\.\/assets\/index-.*?\.css">/g,
+      `<style id="critical-css">${cssContent}</style>`
+    );
+    fs.writeFileSync(TEMPLATE_PATH, indexHtml);
+    console.log('Inlined critical CSS inside index.html template');
+  }
 
   // 1. Pre-render basic tab shells
   const staticTabs = [

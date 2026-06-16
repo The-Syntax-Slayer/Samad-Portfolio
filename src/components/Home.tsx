@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo } from "react";
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useState, useEffect, useMemo, useRef } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
 import { MapPin, Minus, Plus, Briefcase, ArrowRight, Layers, ArrowUpRight, Flame, FileText } from "lucide-react";
 import planoraImg from "../assets/planora.webp";
 import weblensImg from "../assets/weblens.webp";
@@ -18,6 +18,9 @@ export default function Home({ setActiveTab }: HomeProps) {
 
   const [isMobile, setIsMobile] = useState(false);
   const [showResume, setShowResume] = useState(true);
+  
+  const mapRef = useRef<HTMLDivElement>(null);
+  const isMapInView = useInView(mapRef, { once: true, margin: "200px" });
   // Live IST Clock
   const [timeString, setTimeString] = useState("");
   // Mouse coordinates for parallax/lighting (using MotionValues to prevent re-renders)
@@ -322,11 +325,9 @@ export default function Home({ setActiveTab }: HomeProps) {
             {/* Background ambient glow behind typography */}
             <div className="absolute w-[300px] h-[120px] bg-[#8FFFD1]/5 blur-[50px] rounded-full pointer-events-none -z-10" />
 
-            <h1 className="font-serif-display font-medium text-[16vw] md:text-[9vw] leading-[0.85] tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white/95 to-white/45 filter drop-shadow-[0_0_30px_rgba(143,255,209,0.15)]">
-              Samad
-            </h1>
-            <h1 className="font-serif-display font-medium text-[16vw] md:text-[9vw] leading-[0.85] tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white/95 to-white/45 filter drop-shadow-[0_0_30px_rgba(143,255,209,0.15)] mt-1">
-              Shaikh
+            <h1 className="font-serif-display font-medium text-[16vw] md:text-[9vw] leading-[0.85] tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white/95 to-white/45 filter drop-shadow-[0_0_30px_rgba(143,255,209,0.15)] flex flex-col items-center">
+              <span>Samad</span>
+              <span className="mt-1">Shaikh</span>
             </h1>
           </motion.div>
 
@@ -552,6 +553,8 @@ export default function Home({ setActiveTab }: HomeProps) {
         transition={{ duration: 0.8, ease }}
         className="w-full max-w-5xl px-4 pb-24 grid grid-cols-1 md:grid-cols-3 gap-3 text-left z-10"
       >
+        {/* Visually Hidden Section Header for Accessibility heading hierarchy */}
+        <h2 className="sr-only">Overview Dashboard</h2>
         {/* Column 1: Map & Socials */}
         <div className="flex flex-col gap-3">
           {/* Map Card — Blueprint Style */}
@@ -560,19 +563,27 @@ export default function Home({ setActiveTab }: HomeProps) {
             glowColor="rgba(var(--theme-mint-rgb), 0.04)"
             hoverBorderColor="rgba(var(--theme-mint-rgb), 0.45)"
           >
-            {/* Real OpenStreetMap — Blueprint Filter (strictly blue and mint green) */}
-            <iframe
-              src="https://maps.google.com/maps?q=19.056892,72.844176&t=&z=14&ie=UTF8&iwloc=&output=embed"
-              className="absolute inset-0 w-full h-full z-0 border-none transition-opacity duration-500 opacity-80 group-hover:opacity-100"
-              style={{
-                filter: "invert(0.9) hue-rotate(180deg) saturate(2) brightness(0.9) contrast(1.2)",
-                pointerEvents: mapZoom ? "auto" : "none",
-                backgroundColor: "#071019",
-              }}
-              loading="lazy"
-              title="Mumbai Blueprint Map"
-              data-darkreader-ignore="true"
-            />
+            {/* Wrapper div to hook the IntersectionObserver ref */}
+            <div ref={mapRef} className="absolute inset-0 w-full h-full z-0">
+              {isMapInView ? (
+                <iframe
+                  src="https://maps.google.com/maps?q=19.056892,72.844176&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                  className="absolute inset-0 w-full h-full border-none transition-opacity duration-500 opacity-80 group-hover:opacity-100"
+                  style={{
+                    filter: "invert(0.9) hue-rotate(180deg) saturate(2) brightness(0.9) contrast(1.2)",
+                    pointerEvents: mapZoom ? "auto" : "none",
+                    backgroundColor: "#071019",
+                  }}
+                  loading="lazy"
+                  title="Mumbai Blueprint Map"
+                  data-darkreader-ignore="true"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-[#071019] flex items-center justify-center">
+                  <span className="text-mint/40 text-[10px] font-Spline_Sans_Mono tracking-widest uppercase animate-pulse">Initializing Telemetry...</span>
+                </div>
+              )}
+            </div>
 
             {/* Blueprint SVG overlays: grid, crosshairs, corner brackets */}
             <svg
@@ -969,7 +980,7 @@ export default function Home({ setActiveTab }: HomeProps) {
           </div>
 
           <div className="text-left">
-            <h4 className="text-xs font-medium text-white">Familiar Technologies</h4>
+            <h3 className="text-xs font-medium text-white">Familiar Technologies</h3>
             <p className="text-[10px] text-accent/50 font-light mt-1 leading-relaxed">
               Focused on full-stack development with modern frontend frameworks and scalable backend API layers.
             </p>

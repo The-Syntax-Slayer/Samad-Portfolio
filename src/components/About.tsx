@@ -591,9 +591,9 @@ export default function About() {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <span className="text-xs text-mint">◈</span>
-              <h3 className="font-Spline_Sans_Mono text-xs uppercase tracking-widest text-white/80">
+              <h2 className="font-Spline_Sans_Mono text-xs uppercase tracking-widest text-white/80">
                 Experience
-              </h3>
+              </h2>
             </div>
             <div className="relative pl-6 border-l border-white/10 flex flex-col gap-10">
               {timelineData.experience.map((exp, idx) => (
@@ -602,7 +602,7 @@ export default function About() {
                   <div className="absolute -left-[30px] top-1.5 w-3 h-3 rounded-full bg-black border border-mint/40 group-hover:bg-mint group-hover:border-mint transition-colors duration-300 shadow-[0_0_8px_rgba(143,255,209,0.2)]" />
                   
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-3">
-                    <h4 className="text-white font-medium text-[15px]">{exp.role}</h4>
+                    <h3 className="text-white font-medium text-[15px]">{exp.role}</h3>
                     <span className="font-Spline_Sans_Mono text-[10px] text-mint/60">{exp.period}</span>
                   </div>
                   <p className="text-accent/65 font-light text-xs mb-3 italic">{exp.company}</p>
@@ -623,9 +623,9 @@ export default function About() {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <span className="text-xs text-mint">◈</span>
-              <h3 className="font-Spline_Sans_Mono text-xs uppercase tracking-widest text-white/80">
+              <h2 className="font-Spline_Sans_Mono text-xs uppercase tracking-widest text-white/80">
                 Education
-              </h3>
+              </h2>
             </div>
             <div className="relative pl-6 border-l border-white/10 flex flex-col gap-10">
               {timelineData.education.map((edu, idx) => (
@@ -634,7 +634,7 @@ export default function About() {
                   <div className="absolute -left-[30px] top-1.5 w-3 h-3 rounded-full bg-black border border-mint/40 group-hover:bg-mint group-hover:border-mint transition-colors duration-300 shadow-[0_0_8px_rgba(143,255,209,0.2)]" />
                   
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-                    <h4 className="text-white font-medium text-[15px]">{edu.degree}</h4>
+                    <h3 className="text-white font-medium text-[15px]">{edu.degree}</h3>
                     <span className="font-Spline_Sans_Mono text-[10px] text-mint/60">{edu.period}</span>
                   </div>
                   <p className="text-accent/65 font-light text-xs mb-2 italic">{edu.institution}</p>
@@ -648,9 +648,9 @@ export default function About() {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <span className="text-xs text-mint">◈</span>
-              <h3 className="font-Spline_Sans_Mono text-xs uppercase tracking-widest text-white/80">
+              <h2 className="font-Spline_Sans_Mono text-xs uppercase tracking-widest text-white/80">
                 Certifications
-              </h3>
+              </h2>
             </div>
             <div className="flex flex-wrap gap-2">
               {timelineData.certifications.map((cert, idx) => (

@@ -20,13 +20,29 @@ export default function SpotlightCard({
 }: SpotlightCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
 
+  const rectRef = useRef<DOMRect | null>(null);
+
+  const handleMouseEnter = () => {
+    if (cardRef.current) {
+      rectRef.current = cardRef.current.getBoundingClientRect();
+    }
+  };
+
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    cardRef.current.style.setProperty("--mouse-x", `${x}px`);
-    cardRef.current.style.setProperty("--mouse-y", `${y}px`);
+    if (!rectRef.current && cardRef.current) {
+      rectRef.current = cardRef.current.getBoundingClientRect();
+    }
+    if (!rectRef.current) return;
+    
+    const x = e.clientX - rectRef.current.left;
+    const y = e.clientY - rectRef.current.top;
+
+    requestAnimationFrame(() => {
+      if (cardRef.current) {
+        cardRef.current.style.setProperty("--mouse-x", `${x}px`);
+        cardRef.current.style.setProperty("--mouse-y", `${y}px`);
+      }
+    });
   };
 
   const isClickable = !!props.onClick;
@@ -34,6 +50,7 @@ export default function SpotlightCard({
   return (
     <div
       ref={cardRef}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       className={`group relative overflow-hidden rounded-3xl border border-mint/15 hover:border-mint/50 bg-[#07100D]/95 backdrop-blur-md transition-all duration-500 spotlight-card-glow ${className}`}
       style={{

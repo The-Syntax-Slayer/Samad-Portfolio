@@ -1,12 +1,13 @@
-import { useState, useEffect, useTransition } from "react";
+import { useState, useEffect, useTransition, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Home as HomeIcon, Info, Briefcase, Mail, User, BookOpen } from "lucide-react";
 import { ReactLenis } from "lenis/react";
 import Home from "./components/Home";
-import About from "./components/About";
-import Work from "./components/Work";
-import Connect from "./components/Connect";
-import Blog from "./components/Blog";
+
+const About = lazy(() => import("./components/About"));
+const Work = lazy(() => import("./components/Work"));
+const Connect = lazy(() => import("./components/Connect"));
+const Blog = lazy(() => import("./components/Blog"));
 import Footer from "./components/Footer";
 import cloudBg from "./assets/cloud.webp";
 import ParticleBackground from "./components/ParticleBackground";
@@ -230,7 +231,7 @@ export default function App() {
       </div>
 
       {/* 2. Scrollable Core Container */}
-      <div className="w-full flex flex-col items-center flex-grow pt-10 pb-0">
+      <main className="w-full flex flex-col items-center flex-grow pt-10 pb-0">
         <AnimatePresence mode="wait">
           {activeTab === "home" && (
             <motion.div
@@ -246,61 +247,85 @@ export default function App() {
           )}
 
           {activeTab === "about" && (
-            <motion.div
-              key="about"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full flex justify-center"
-            >
-              <About />
-            </motion.div>
+            <Suspense fallback={
+              <div className="h-[60vh] w-full flex items-center justify-center">
+                <span className="text-mint font-Spline_Sans_Mono text-xs tracking-widest uppercase animate-pulse">// Decoding bio...</span>
+              </div>
+            }>
+              <motion.div
+                key="about"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full flex justify-center"
+              >
+                <About />
+              </motion.div>
+            </Suspense>
           )}
 
           {activeTab === "work" && (
-            <motion.div
-              key="work"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full flex justify-center"
-            >
-              <Work />
-            </motion.div>
+            <Suspense fallback={
+              <div className="h-[60vh] w-full flex items-center justify-center">
+                <span className="text-mint font-Spline_Sans_Mono text-xs tracking-widest uppercase animate-pulse">// Initializing projects telemetry...</span>
+              </div>
+            }>
+              <motion.div
+                key="work"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full flex justify-center"
+              >
+                <Work />
+              </motion.div>
+            </Suspense>
           )}
 
           {activeTab === "blog" && (
-            <motion.div
-              key="blog"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full flex justify-center"
-            >
-              <Blog />
-            </motion.div>
+            <Suspense fallback={
+              <div className="h-[60vh] w-full flex items-center justify-center">
+                <span className="text-mint font-Spline_Sans_Mono text-xs tracking-widest uppercase animate-pulse">// Parsing blueprints database...</span>
+              </div>
+            }>
+              <motion.div
+                key="blog"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full flex justify-center"
+              >
+                <Blog />
+              </motion.div>
+            </Suspense>
           )}
 
           {activeTab === "connect" && (
-            <motion.div
-              key="connect"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full flex justify-center"
-            >
-              <Connect />
-            </motion.div>
+            <Suspense fallback={
+              <div className="h-[60vh] w-full flex items-center justify-center">
+                <span className="text-mint font-Spline_Sans_Mono text-xs tracking-widest uppercase animate-pulse">// Opening secure uplink...</span>
+              </div>
+            }>
+              <motion.div
+                key="connect"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full flex justify-center"
+              >
+                <Connect />
+              </motion.div>
+            </Suspense>
           )}
         </AnimatePresence>
 
         {/* 3. Persistent Page Footer */}
         <Footer setActiveTab={handleTabChange} />
-      </div>
+      </main>
 
       {/* 4. Fixed Dock Navigation Bar */}
       <nav className="fixed flex justify-center items-end w-full h-20 bottom-6 z-50 pointer-events-none">
@@ -314,6 +339,7 @@ export default function App() {
                 <button
                   key={tab.id}
                   onClick={() => handleTabChange(tab.id)}
+                  aria-label={`Navigate to ${tab.label}`}
                   className="relative flex flex-col items-center justify-center flex-1 h-full py-1 text-center cursor-pointer transition-colors duration-200 rounded-full"
                   style={{ WebkitTapHighlightColor: "transparent" }}
                 >
@@ -351,6 +377,7 @@ export default function App() {
                     onClick={() => handleTabChange(tab.id)}
                     onMouseEnter={() => setHoveredTab(tab.id)}
                     onMouseLeave={() => setHoveredTab(null)}
+                    aria-label={`Navigate to ${tab.label}`}
                     className="relative flex h-12 w-12 items-center justify-center rounded-full transition-colors duration-300 hover:text-white cursor-pointer"
                     style={{ WebkitTapHighlightColor: "transparent" }}
                   >
