@@ -1,7 +1,8 @@
 import os
 from PIL import Image
 
-assets_dir = r"f:\PORTFOLIO\src\assets"
+script_dir = os.path.dirname(os.path.abspath(__file__))
+assets_dir = os.path.join(script_dir, "..", "src", "assets")
 images_to_resize = [
     "primax.webp",
     "mm.webp",
