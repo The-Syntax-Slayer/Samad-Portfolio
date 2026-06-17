@@ -426,7 +426,7 @@ function HorizontalProjects() {
         
         <motion.div style={{ x }} className="flex gap-16 pl-[calc((100vw-min(100vw,1024px))/2+2rem)] pr-24">
           {projects.map((project) => (
-            <div key={project.id} className="w-[80vw] max-w-[950px] shrink-0 flex items-center h-[58vh] relative">
+            <div key={project.id} className="w-[80vw] max-w-[950px] shrink-0 flex items-center h-[68vh] min-h-[520px] relative">
               <HorizontalProjectCard project={project} />
             </div>
           ))}
