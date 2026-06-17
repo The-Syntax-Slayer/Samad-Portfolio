@@ -140,18 +140,18 @@ export default function App() {
     }
 
     let title = "Samad Shaikh | Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai";
-    let description = "Who is Samad Shaikh? He is an Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai building high-performance web apps and Generative AI systems.";
+    let description = "Who is Samad Shaikh? A professional Software Engineer and AI Specialist in Mumbai building high-performance web apps and Generative AI systems.";
     let path = activeTab === "home" ? "" : activeTab;
     let schemaJson: any = null;
 
     switch (activeTab) {
       case "home":
         title = "Samad Shaikh | Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai";
-        description = "Who is Samad Shaikh? He is an Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai building high-performance web apps and Generative AI systems.";
+        description = "Who is Samad Shaikh? A professional Software Engineer and AI Specialist in Mumbai building high-performance web apps and Generative AI systems.";
         break;
       case "about":
         title = "About Samad Shaikh | Background, Skills & Certifications";
-        description = "Explore the professional background, core technical skills, and certifications of Samad Shaikh, a Mumbai-based software engineer specializing in React, TypeScript, Node.js, and GenAI integrations.";
+        description = "Explore the skills, certifications, and background of Samad Shaikh, a software engineer specializing in React, TypeScript, Node.js, and Generative AI.";
         schemaJson = {
           "@context": "https://schema.org",
           "@type": "AboutPage",
@@ -165,7 +165,7 @@ export default function App() {
         break;
       case "work":
         title = "Portfolio & Projects | Handcrafted Digital Experiences by Samad";
-        description = "Browse the professional portfolio of Samad Shaikh, showcasing production web applications, SaaS products like PriMaX Hub and MockMate AI, and technical details on engineering solutions.";
+        description = "Browse the professional portfolio of Samad Shaikh, showcasing production SaaS products like PriMaX Hub, MockMate AI, and full-stack web applications.";
         schemaJson = {
           "@context": "https://schema.org",
           "@type": "CollectionPage",
@@ -189,7 +189,7 @@ export default function App() {
         break;
       case "blog":
         title = "Blog & Insights | Technical Deep Dives by Samad Shaikh";
-        description = "Read expert articles by Samad Shaikh on React 19, FastAPI asyncio concurrency, scaling WebSockets, prompt injection security, Google SGE SEO optimization, and web engineering basics.";
+        description = "Read technical articles by Samad Shaikh on React 19, FastAPI asyncio, WebSockets scaling, prompt injection security, and Google SGE SEO optimization.";
         schemaJson = {
           "@context": "https://schema.org",
           "@type": "Blog",
@@ -203,7 +203,7 @@ export default function App() {
         break;
       case "connect":
         title = "Connect with Samad | Freelance Inquiry & AI Consultations";
-        description = "Get in touch with Samad Shaikh for freelance software development projects, custom AI/LLM integrations, full-stack app engineering, or professional consultations.";
+        description = "Connect with Samad Shaikh for freelance software development, custom Generative AI/LLM integrations, full-stack web engineering, or consulting.";
         schemaJson = {
           "@context": "https://schema.org",
           "@type": "ContactPage",

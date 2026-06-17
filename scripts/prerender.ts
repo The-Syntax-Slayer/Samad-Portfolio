@@ -142,10 +142,10 @@ async function runPrerender() {
 
   // 1. Pre-render basic tab shells
   const staticTabs = [
-    { name: 'about', title: 'About Samad Shaikh | Background, Skills & Certifications', description: 'Explore the professional background, core technical skills, and certifications of Samad Shaikh, a Mumbai-based software engineer specializing in React, TypeScript, Node.js, and GenAI integrations.' },
-    { name: 'work', title: 'Portfolio & Projects | Handcrafted Digital Experiences by Samad', description: 'Browse the professional portfolio of Samad Shaikh, showcasing production web applications, SaaS products like PriMaX Hub and MockMate AI, and technical details on engineering solutions.' },
-    { name: 'blog', title: 'Blog & Insights | Technical Deep Dives by Samad Shaikh', description: 'Read expert articles by Samad Shaikh on React 19, FastAPI asyncio concurrency, scaling WebSockets, prompt injection security, Google SGE SEO optimization, and web engineering basics.' },
-    { name: 'connect', title: 'Connect with Samad | Freelance Inquiry & AI Consultations', description: 'Get in touch with Samad Shaikh for freelance software development projects, custom AI/LLM integrations, full-stack app engineering, or professional consultations.' }
+    { name: 'about', title: 'About Samad Shaikh | Background, Skills & Certifications', description: 'Explore the skills, certifications, and background of Samad Shaikh, a software engineer specializing in React, TypeScript, Node.js, and Generative AI.' },
+    { name: 'work', title: 'Portfolio & Projects | Handcrafted Digital Experiences by Samad', description: 'Browse the professional portfolio of Samad Shaikh, showcasing production SaaS products like PriMaX Hub, MockMate AI, and full-stack web applications.' },
+    { name: 'blog', title: 'Blog & Insights | Technical Deep Dives by Samad Shaikh', description: 'Read technical articles by Samad Shaikh on React 19, FastAPI asyncio, WebSockets scaling, prompt injection security, and Google SGE SEO optimization.' },
+    { name: 'connect', title: 'Connect with Samad | Freelance Inquiry & AI Consultations', description: 'Connect with Samad Shaikh for freelance software development, custom Generative AI/LLM integrations, full-stack web engineering, or consulting.' }
   ];
 
   for (const tab of staticTabs) {
