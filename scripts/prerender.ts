@@ -22,7 +22,7 @@ function markdownToHtml(md: string): string {
   let inCode = false;
   let codeBlock = '';
 
-  for (let line of lines) {
+  for (const line of lines) {
     const trimmedLine = line.trim();
     if (trimmedLine.startsWith('```')) {
       if (inCode) {
@@ -77,6 +77,7 @@ function escapeHtml(text: string): string {
 
 function parseInlineMarkdown(text: string): string {
   let escaped = escapeHtml(text);
+  // Fix old query-param style blog links to clean URL style
   escaped = escaped.replace(/\/\?blog=/g, '/blog/');
   escaped = escaped.replace(/\/\?tab=blog/g, '/blog');
   escaped = escaped.replace(/\/\?tab=about/g, '/about');
@@ -108,18 +109,46 @@ function ensureDir(dirPath: string) {
   }
 }
 
+/**
+ * Safely replace a section in HTML by finding its opening tag and replacing
+ * everything until the matching closing tag. This avoids regex issues with
+ * large multiline content that can cause catastrophic backtracking.
+ */
+function replaceSeoSection(html: string, newSectionContent: string): string {
+  const openTag = '<section id="seo-crawler-context"';
+  const closeTag = '</section>';
+
+  const startIdx = html.indexOf(openTag);
+  if (startIdx === -1) {
+    console.warn('  [WARN] seo-crawler-context section not found in template — appending before </body>');
+    return html.replace('</body>', `${newSectionContent}\n</body>`);
+  }
+
+  // Find the '>' that closes the opening tag attributes
+  const openTagEnd = html.indexOf('>', startIdx) + 1;
+
+  // Now find the closing </section> after the opening tag
+  const closeIdx = html.indexOf(closeTag, openTagEnd);
+  if (closeIdx === -1) {
+    console.warn('  [WARN] Closing </section> not found — replacing from open tag to end of file');
+    return html.slice(0, startIdx) + newSectionContent + html.slice(openTagEnd);
+  }
+
+  return html.slice(0, startIdx) + newSectionContent + html.slice(closeIdx + closeTag.length);
+}
+
 async function runPrerender() {
-  console.log('Starting static portfolio pre-rendering...');
+  console.log('\n🚀 Starting static portfolio pre-rendering...\n');
 
   if (!fs.existsSync(TEMPLATE_PATH)) {
-    console.error(`Vite template index.html not found at: ${TEMPLATE_PATH}`);
+    console.error(`❌ Vite template index.html not found at: ${TEMPLATE_PATH}`);
     process.exit(1);
   }
 
   let indexHtml = fs.readFileSync(TEMPLATE_PATH, 'utf-8');
   const buildDate = new Date().toISOString().split('T')[0];
 
-  // Read and inline compiled CSS to eliminate render-blocking external stylesheet
+  // ─── Inline Critical CSS ───────────────────────────────────────────────────
   const assetsDir = path.join(DIST_DIR, 'assets');
   let cssContent = '';
   if (fs.existsSync(assetsDir)) {
@@ -127,7 +156,7 @@ async function runPrerender() {
     const cssFile = files.find(f => f.startsWith('index-') && f.endsWith('.css'));
     if (cssFile) {
       cssContent = fs.readFileSync(path.join(assetsDir, cssFile), 'utf-8');
-      console.log(`Read compiled CSS: ${cssFile} (${cssContent.length} bytes)`);
+      console.log(`✅ Read compiled CSS: ${cssFile} (${cssContent.length} bytes)`);
     }
   }
 
@@ -137,34 +166,187 @@ async function runPrerender() {
       `<style id="critical-css">${cssContent}</style>`
     );
     fs.writeFileSync(TEMPLATE_PATH, indexHtml);
-    console.log('Inlined critical CSS inside index.html template');
+    console.log('✅ Inlined critical CSS inside index.html template\n');
   }
 
-  // 1. Pre-render basic tab shells
+  // ─── Static Tab Pages ─────────────────────────────────────────────────────
   const staticTabs = [
-    { name: 'about', title: 'About Samad Shaikh | Background, Skills & Certifications', description: 'Explore the skills, certifications, and background of Samad Shaikh, a software engineer specializing in React, TypeScript, Node.js, and Generative AI.' },
-    { name: 'work', title: 'Portfolio & Projects | Handcrafted Digital Experiences by Samad', description: 'Browse the professional portfolio of Samad Shaikh, showcasing production SaaS products like PriMaX Hub, MockMate AI, and full-stack web applications.' },
-    { name: 'blog', title: 'Blog & Insights | Technical Deep Dives by Samad Shaikh', description: 'Read technical articles by Samad Shaikh on React 19, FastAPI asyncio, WebSockets scaling, prompt injection security, and Google SGE SEO optimization.' },
-    { name: 'connect', title: 'Connect with Samad | Freelance Inquiry & AI Consultations', description: 'Connect with Samad Shaikh for freelance software development, custom Generative AI/LLM integrations, full-stack web engineering, or consulting.' }
+    {
+      name: 'about',
+      title: 'About Samad Shaikh | Background, Skills & Certifications',
+      description: 'Explore the skills, certifications, and background of Samad Shaikh, a software engineer specializing in React, TypeScript, Node.js, and Generative AI.',
+      h1: 'About Samad Shaikh — Background, Skills & Certifications',
+      bodyContent: `
+        <article style="max-width:800px;margin:0 auto;padding:20px;">
+          <h1 style="font-size:2rem;color:#fff;margin-bottom:16px;">About Samad Shaikh — Background, Skills &amp; Certifications</h1>
+          <p style="color:#a8b2c1;line-height:1.75;">Samad Shaikh is a professional Software Engineer and AI Specialist based in Bandra, Mumbai, India. He builds high-performance web applications, production SaaS platforms, and integrates agentic LLM workflows using React 19, TypeScript, Python, and FastAPI.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Education</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">Samad graduated with a B.Sc. in Computer Science from M.P.S.P.S College, University of Mumbai with a CGPA of 8.25/10.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Professional Certifications</h2>
+          <ul style="list-style-type:disc;padding-left:24px;color:#a8b2c1;">
+            <li>Google Data Analytics Professional Certificate</li>
+            <li>IBM AI Developer Professional Certificate</li>
+            <li>AWS Cloud Practitioner Essentials</li>
+            <li>Meta Front-End Developer Professional Certificate</li>
+            <li>IBM DevOps &amp; Software Engineering Certificate</li>
+            <li>GitHub Foundations Certificate</li>
+            <li>Microsoft Power Platform Fundamentals</li>
+            <li>Google Cloud Digital Leader</li>
+            <li>Azure Enterprise Data Analyst Associate</li>
+            <li>Microsoft Azure AI Engineer Associate</li>
+          </ul>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Technical Skills</h2>
+          <ul style="list-style-type:disc;padding-left:24px;color:#a8b2c1;">
+            <li><strong style="color:#fff;">Frontend:</strong> React 19, Next.js, TypeScript, Tailwind CSS v4, Framer Motion, Vite</li>
+            <li><strong style="color:#fff;">Backend:</strong> Python, FastAPI, Tornado, Node.js, Express, REST APIs</li>
+            <li><strong style="color:#fff;">AI &amp; GenAI:</strong> Google Gemini API, RAG Pipelines, pgvector, Prompt Engineering</li>
+            <li><strong style="color:#fff;">Database &amp; Cloud:</strong> PostgreSQL, Supabase, Redis, AWS Lambda, Docker, CI/CD</li>
+            <li><strong style="color:#fff;">Security:</strong> JWT, Zero-trust authentication, Prompt Injection mitigation</li>
+          </ul>
+        </article>
+      `
+    },
+    {
+      name: 'work',
+      title: 'Portfolio & Projects | Handcrafted Digital Experiences by Samad',
+      description: 'Browse the professional portfolio of Samad Shaikh, showcasing production SaaS products like PriMaX Hub, MockMate AI, and full-stack web applications.',
+      h1: 'Portfolio & Projects — Handcrafted Digital Experiences by Samad Shaikh',
+      bodyContent: `
+        <article style="max-width:800px;margin:0 auto;padding:20px;">
+          <h1 style="font-size:2rem;color:#fff;margin-bottom:16px;">Portfolio &amp; Projects — Handcrafted Digital Experiences by Samad Shaikh</h1>
+          <p style="color:#a8b2c1;line-height:1.75;">Samad Shaikh has designed and launched multiple production-grade digital products. Each project demonstrates deep technical expertise in full-stack engineering and applied AI.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">MockMate AI</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">An interactive AI-driven interview practice platform featuring real-time speech analytics and voice feedback loops. Built with React, TypeScript, Node.js, and the Google Gemini multimodal API.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">PriMaX Hub</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">A scalable multi-module SaaS product built using a Supabase backend and highly optimized relational database schemas to integrate habits and growth frameworks.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Planora</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">A social media pipeline scheduler designed for automated publishing and workflow coordination, utilizing React, Zustand, Supabase, and Tailwind CSS.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">WebLens</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">A web performance, SEO, and accessibility audit utility providing actionable performance reports by querying the Google PageSpeed Insights API.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">LegalEase</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">An AI-powered legal contract simplifier that translates dense legalese into human-readable summaries using FastAPI, Python, spaCy, and Hugging Face models.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">ClientSync</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">A client relationship management CRM platform focused on organizing customer data, project workflows, communication, and business operations using React, Django, and PostgreSQL.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">SmartMeet</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">An AI-powered meeting summarizer and task planner designed to automatically extract key discussion points, generate summaries, and organize follow-up tasks.</p>
+        </article>
+      `
+    },
+    {
+      name: 'blog',
+      title: 'Blog & Insights | Technical Deep Dives by Samad Shaikh',
+      description: 'Read technical articles by Samad Shaikh on React 19, FastAPI asyncio, WebSockets scaling, prompt injection security, and Google SGE SEO optimization.',
+      h1: 'Blog & Insights — Technical Deep Dives by Samad Shaikh',
+      bodyContent: `
+        <article style="max-width:800px;margin:0 auto;padding:20px;">
+          <h1 style="font-size:2rem;color:#fff;margin-bottom:16px;">Blog &amp; Insights — Technical Deep Dives by Samad Shaikh</h1>
+          <p style="color:#a8b2c1;line-height:1.75;">Samad Shaikh writes in-depth technical articles covering advanced AI engineering, full-stack web architecture, backend concurrency, application security, and search engine optimization.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Published Articles</h2>
+          <ul style="list-style-type:disc;padding-left:24px;color:#a8b2c1;">
+            ${blogPosts.map(post => `<li><a href="${DOMAIN}/blog/${post.slug}" style="color:#8fffd1;text-decoration:underline;">${escapeHtml(post.title)}</a> — ${escapeHtml(post.excerpt)}</li>`).join('\n            ')}
+          </ul>
+        </article>
+      `
+    },
+    {
+      name: 'connect',
+      title: 'Connect with Samad | Freelance Inquiry & AI Consultations',
+      description: 'Connect with Samad Shaikh for freelance software development, custom Generative AI/LLM integrations, full-stack web engineering, or consulting.',
+      h1: 'Connect with Samad Shaikh — Freelance Inquiry & AI Consultations',
+      bodyContent: `
+        <article style="max-width:800px;margin:0 auto;padding:20px;">
+          <h1 style="font-size:2rem;color:#fff;margin-bottom:16px;">Connect with Samad Shaikh — Freelance Inquiry &amp; AI Consultations</h1>
+          <p style="color:#a8b2c1;line-height:1.75;">Samad Shaikh is available for freelance software development projects, custom Generative AI and LLM integrations, full-stack web engineering, and technology consulting engagements.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Services Offered</h2>
+          <ul style="list-style-type:disc;padding-left:24px;color:#a8b2c1;">
+            <li>Custom full-stack web application development (React, Next.js, Node.js, FastAPI)</li>
+            <li>Generative AI integration and LLM orchestration (Gemini API, RAG pipelines)</li>
+            <li>Production SaaS architecture and database design (PostgreSQL, Supabase)</li>
+            <li>Performance optimization, SEO, and web analytics</li>
+            <li>Application security consulting (JWT, zero-trust, prompt injection mitigation)</li>
+          </ul>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Contact Information</h2>
+          <ul style="list-style-type:disc;padding-left:24px;color:#a8b2c1;">
+            <li>Email: <a href="mailto:sxmxd.1825@gmail.com" style="color:#8fffd1;">sxmxd.1825@gmail.com</a></li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/samad-ai" style="color:#8fffd1;">linkedin.com/in/samad-ai</a></li>
+            <li>GitHub: <a href="https://github.com/The-Syntax-Slayer" style="color:#8fffd1;">github.com/The-Syntax-Slayer</a></li>
+          </ul>
+        </article>
+      `
+    }
   ];
 
   for (const tab of staticTabs) {
     const tabDir = path.join(DIST_DIR, tab.name);
     ensureDir(tabDir);
 
+    // Build the SEO section specific to this tab
+    const tabSeoSection = `<section id="seo-crawler-context" aria-hidden="true" style="display: none; position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">\n${tab.bodyContent}\n</section>`;
+
+    // Build page-specific JSON-LD schema
+    const pageSchemas: Record<string, object> = {
+      about: {
+        '@context': 'https://schema.org',
+        '@type': 'AboutPage',
+        'name': tab.title,
+        'description': tab.description,
+        'url': `${DOMAIN}/about`,
+        'mainEntity': { '@id': `${DOMAIN}/#person` }
+      },
+      work: {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        'name': tab.title,
+        'description': tab.description,
+        'url': `${DOMAIN}/work`
+      },
+      blog: {
+        '@context': 'https://schema.org',
+        '@type': 'Blog',
+        'name': tab.title,
+        'description': tab.description,
+        'url': `${DOMAIN}/blog`,
+        'publisher': { '@id': `${DOMAIN}/#person` }
+      },
+      connect: {
+        '@context': 'https://schema.org',
+        '@type': 'ContactPage',
+        'name': tab.title,
+        'description': tab.description,
+        'url': `${DOMAIN}/connect`,
+        'mainEntity': { '@id': `${DOMAIN}/#person` }
+      }
+    };
+
+    const schemaTag = `<script type="application/ld+json" id="jsonld-page">${JSON.stringify(pageSchemas[tab.name])}</script>`;
+
     let html = indexHtml
+      // Update title
       .replace(/<title>.*?<\/title>/g, `<title>${tab.title}</title>`)
-      .replace(/<meta name="description" content=".*?" \/>/g, `<meta name="description" content="${tab.description}" />`)
-      .replace(/<meta property="og:title" content=".*?" \/>/g, `<meta property="og:title" content="${tab.title}" />`)
-      .replace(/<meta property="og:description" content=".*?" \/>/g, `<meta property="og:description" content="${tab.description}" />`)
-      .replace(/<link rel="canonical" href=".*?" \/>/g, `<link rel="canonical" href="${DOMAIN}/${tab.name}" />`)
-      .replace(/<meta property="og:url" content=".*?" \/>/g, `<meta property="og:url" content="${DOMAIN}/${tab.name}" />`);
+      // Update meta description — handles both single and double quotes, and multi-line
+      .replace(/<meta name="description"\s+content=".*?"\s*\/>/g, `<meta name="description" content="${tab.description}" />`)
+      // Update OG tags
+      .replace(/<meta property="og:title"\s+content=".*?"\s*\/>/g, `<meta property="og:title" content="${tab.title}" />`)
+      .replace(/<meta property="og:description"\s+content=".*?"\s*\/>/g, `<meta property="og:description" content="${tab.description}" />`)
+      .replace(/<meta property="og:url"\s+content=".*?"\s*\/>/g, `<meta property="og:url" content="${DOMAIN}/${tab.name}" />`)
+      // Update Twitter tags
+      .replace(/<meta property="twitter:title"\s+content=".*?"\s*\/>/g, `<meta property="twitter:title" content="${tab.title}" />`)
+      .replace(/<meta property="twitter:description"\s+content=".*?"\s*\/>/g, `<meta property="twitter:description" content="${tab.description}" />`)
+      .replace(/<meta property="twitter:url"\s+content=".*?"\s*\/>/g, `<meta property="twitter:url" content="${DOMAIN}/${tab.name}" />`)
+      // ⚠️ KEY FIX: Update canonical to this page's URL (not /)
+      .replace(/<link rel="canonical"\s+href=".*?"\s*\/>/g, `<link rel="canonical" href="${DOMAIN}/${tab.name}" />`)
+      // Inject page-specific schema before </head>
+      .replace('</head>', `${schemaTag}\n</head>`);
+
+    // Replace the SEO crawler section with page-specific content
+    html = replaceSeoSection(html, tabSeoSection);
 
     fs.writeFileSync(path.join(tabDir, 'index.html'), html);
-    console.log(`Pre-rendered static page: /${tab.name}`);
+    console.log(`✅ Pre-rendered static page: /${tab.name} (canonical: ${DOMAIN}/${tab.name})`);
   }
 
-  // 2. Pre-render individual Blog Posts
+  // ─── Blog Post Pages ────────────────────────────────────────────────────────
+  console.log('\n📝 Rendering blog posts...');
   const blogUrls: string[] = [];
   const baseBlogDir = path.join(DIST_DIR, 'blog');
   ensureDir(baseBlogDir);
@@ -173,10 +355,11 @@ async function runPrerender() {
     const postDir = path.join(baseBlogDir, post.slug);
     ensureDir(postDir);
 
-    const postDateIso = parseBlogDate(post.date);
+    const postDateIso = post.datePublished || parseBlogDate(post.date);
+    const postModifiedIso = post.dateModified || postDateIso;
     blogUrls.push(`${DOMAIN}/blog/${post.slug}`);
 
-    // Create custom JSON-LD schema blocks for the article
+    // JSON-LD for blog post
     const blogSchema = {
       '@context': 'https://schema.org',
       '@graph': [
@@ -186,76 +369,75 @@ async function runPrerender() {
           'headline': post.title,
           'description': post.metaDescription || post.excerpt,
           'datePublished': postDateIso,
-          'dateModified': postDateIso,
-          'author': {
-            '@id': `${DOMAIN}/#person`
-          },
-          'publisher': {
-            '@id': `${DOMAIN}/#person`
-          },
+          'dateModified': postModifiedIso,
+          'author': { '@id': `${DOMAIN}/#person` },
+          'publisher': { '@id': `${DOMAIN}/#person` },
           'mainEntityOfPage': {
             '@type': 'WebPage',
             '@id': `${DOMAIN}/blog/${post.slug}`
           },
-          'keywords': post.tags.join(', ')
+          'keywords': post.tags.join(', '),
+          'image': `${DOMAIN}/Samad_Portrait_1x1.png`
         },
         {
           '@type': 'BreadcrumbList',
           '@id': `${DOMAIN}/blog/${post.slug}#breadcrumb`,
           'itemListElement': [
-            {
-              '@type': 'ListItem',
-              'position': 1,
-              'name': 'Home',
-              'item': DOMAIN
-            },
-            {
-              '@type': 'ListItem',
-              'position': 2,
-              'name': 'Blog',
-              'item': `${DOMAIN}/blog`
-            },
-            {
-              '@type': 'ListItem',
-              'position': 3,
-              'name': post.title,
-              'item': `${DOMAIN}/blog/${post.slug}`
-            }
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': DOMAIN },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Blog', 'item': `${DOMAIN}/blog` },
+            { '@type': 'ListItem', 'position': 3, 'name': post.title, 'item': `${DOMAIN}/blog/${post.slug}` }
           ]
         }
       ]
     };
 
     const schemaScriptTag = `<script type="application/ld+json" id="jsonld-blog-post">${JSON.stringify(blogSchema)}</script>`;
+
+    // Full readable article HTML for crawlers
     const postHtmlContent = `
       <article style="max-width:800px;margin:0 auto;padding:20px;">
         <header style="margin-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:30px;">
           <p style="font-family:monospace;color:#8fffd1;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:8px;">// ${post.category} blueprint</p>
-          <h1 style="font-size:2.5rem;color:#fff;line-height:1.2;font-weight:bold;margin-bottom:16px;">${post.title}</h1>
-          <p style="color:#5e6d82;font-size:0.9rem;font-family:monospace;">Published: ${post.date} · ${post.readTime}</p>
+          <h1 style="font-size:2.5rem;color:#fff;line-height:1.2;font-weight:bold;margin-bottom:16px;">${escapeHtml(post.title)}</h1>
+          <p style="color:#a8b2c1;font-size:1rem;line-height:1.6;margin-bottom:12px;">${escapeHtml(post.excerpt)}</p>
+          <p style="color:#5e6d82;font-size:0.9rem;font-family:monospace;">Published: ${post.date} · ${post.readTime} · Category: ${post.category}</p>
+          <p style="color:#5e6d82;font-size:0.85rem;font-family:monospace;margin-top:6px;">Tags: ${post.tags.join(', ')}</p>
         </header>
         <section class="blog-body-text">
           ${markdownToHtml(post.content)}
         </section>
+        <footer style="margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);">
+          <p style="color:#5e6d82;font-size:0.85rem;">Written by <a href="${DOMAIN}" style="color:#8fffd1;">Samad Shaikh</a> · <a href="${DOMAIN}/blog" style="color:#8fffd1;">Back to all articles</a></p>
+        </footer>
       </article>
     `;
 
+    const postSeoSection = `<section id="seo-crawler-context" aria-hidden="true" style="display: none; position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">\n${postHtmlContent}\n</section>`;
+
     let html = indexHtml
-      .replace(/<title>.*?<\/title>/g, `<title>${post.title} | Samad Shaikh</title>`)
-      .replace(/<meta name="description" content=".*?" \/>/g, `<meta name="description" content="${post.metaDescription || post.excerpt}" />`)
-      .replace(/<meta name="keywords" content=".*?" \/>/g, `<meta name="keywords" content="${post.metaKeywords || post.tags.join(', ')}" />`)
-      .replace(/<meta property="og:title" content=".*?" \/>/g, `<meta property="og:title" content="${post.title} | Samad Shaikh" />`)
-      .replace(/<meta property="og:description" content=".*?" \/>/g, `<meta property="og:description" content="${post.metaDescription || post.excerpt}" />`)
-      .replace(/<meta property="og:url" content=".*?" \/>/g, `<meta property="og:url" content="${DOMAIN}/blog/${post.slug}" />`)
-      .replace(/<link rel="canonical" href=".*?" \/>/g, `<link rel="canonical" href="${DOMAIN}/blog/${post.slug}" />`)
-      .replace(/<\/head>/, `${schemaScriptTag}\n</head>`)
-      .replace(/<section id="seo-crawler-context"[\s\S]*?<\/section>/, `<section id="seo-crawler-context" aria-hidden="true" style="display: none; position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">\n${postHtmlContent}\n</section>`);
+      .replace(/<title>.*?<\/title>/g, `<title>${escapeHtml(post.title)} | Samad Shaikh</title>`)
+      .replace(/<meta name="description"\s+content=".*?"\s*\/>/g, `<meta name="description" content="${escapeHtml(post.metaDescription || post.excerpt)}" />`)
+      .replace(/<meta name="keywords"\s+content=".*?"\s*\/>/g, `<meta name="keywords" content="${escapeHtml(post.metaKeywords || post.tags.join(', '))}" />`)
+      .replace(/<meta property="og:title"\s+content=".*?"\s*\/>/g, `<meta property="og:title" content="${escapeHtml(post.title)} | Samad Shaikh" />`)
+      .replace(/<meta property="og:description"\s+content=".*?"\s*\/>/g, `<meta property="og:description" content="${escapeHtml(post.metaDescription || post.excerpt)}" />`)
+      .replace(/<meta property="og:url"\s+content=".*?"\s*\/>/g, `<meta property="og:url" content="${DOMAIN}/blog/${post.slug}" />`)
+      .replace(/<meta property="twitter:title"\s+content=".*?"\s*\/>/g, `<meta property="twitter:title" content="${escapeHtml(post.title)} | Samad Shaikh" />`)
+      .replace(/<meta property="twitter:description"\s+content=".*?"\s*\/>/g, `<meta property="twitter:description" content="${escapeHtml(post.metaDescription || post.excerpt)}" />`)
+      .replace(/<meta property="twitter:url"\s+content=".*?"\s*\/>/g, `<meta property="twitter:url" content="${DOMAIN}/blog/${post.slug}" />`)
+      // ⚠️ KEY FIX: Correct canonical for every blog post
+      .replace(/<link rel="canonical"\s+href=".*?"\s*\/>/g, `<link rel="canonical" href="${DOMAIN}/blog/${post.slug}" />`)
+      // Inject blog post schema into <head>
+      .replace('</head>', `${schemaScriptTag}\n</head>`);
+
+    // Replace SEO section using safe string-index method
+    html = replaceSeoSection(html, postSeoSection);
 
     fs.writeFileSync(path.join(postDir, 'index.html'), html);
-    console.log(`Pre-rendered blog page: /blog/${post.slug}`);
+    console.log(`  ✅ /blog/${post.slug}`);
   }
 
-  // 3. Generate dynamic sitemap.xml
+  // ─── Dynamic sitemap.xml ────────────────────────────────────────────────────
+  console.log('\n🗺️  Generating sitemap.xml...');
   const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -290,7 +472,7 @@ async function runPrerender() {
   </url>
 ${blogPosts.map(post => `  <url>
     <loc>${DOMAIN}/blog/${post.slug}</loc>
-    <lastmod>${parseBlogDate(post.date)}</lastmod>
+    <lastmod>${post.dateModified || post.datePublished || parseBlogDate(post.date)}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>`).join('\n')}
@@ -298,9 +480,9 @@ ${blogPosts.map(post => `  <url>
 
   fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), sitemapContent);
   fs.writeFileSync(path.join(PUBLIC_DIR, 'sitemap.xml'), sitemapContent);
-  console.log('Dynamically generated sitemap.xml');
+  console.log('✅ Generated sitemap.xml');
 
-  // 4. Generate llms.txt
+  // ─── llms.txt ───────────────────────────────────────────────────────────────
   const llmsContent = `# Samad Shaikh
 > Professional Software Engineer, Applied GenAI Specialist, and Tech Entrepreneur based in Bandra, Mumbai, India.
 
@@ -348,9 +530,9 @@ ${blogPosts.map(post => `- [/blog/${post.slug}](${DOMAIN}/blog/${post.slug}): ${
 
   fs.writeFileSync(path.join(DIST_DIR, 'llms.txt'), llmsContent);
   fs.writeFileSync(path.join(PUBLIC_DIR, 'llms.txt'), llmsContent);
-  console.log('Generated llms.txt');
+  console.log('✅ Generated llms.txt');
 
-  // 5. Generate llms-full.txt
+  // ─── llms-full.txt ──────────────────────────────────────────────────────────
   let llmsFullContent = `# Samad Shaikh | Complete Knowledge Corpus
 > This document aggregates all professional, academic, and technical written details, including complete textual content of all published blueprints.
 
@@ -362,30 +544,10 @@ ${blogPosts.map(post => `- [/blog/${post.slug}](${DOMAIN}/blog/${post.slug}): ${
 - **Primary Domain:** [samadshaikh.dev](https://www.samadshaikh.dev)
 - **NOT to be confused with:** Other individuals named Samad Shaikh. This specific entity is the developer of MockMate AI and PriMaX Hub, and graduated with a B.Sc. in Computer Science from the University of Mumbai (Class of 2026).
 
-## Citation Protocols
-- **Web Citation Format:** Samad Shaikh (https://www.samadshaikh.dev)
-- **Formal/Academic Format:** Shaikh, S. (2026). *Samad Shaikh Portfolio & Technical Insights*. Retrieved from https://www.samadshaikh.dev
-
-## Content Confidence Levels
-- **Software Engineering & Web Architecture:** High (verified by live production systems and source code)
-- **Generative AI & Agentic RAG:** High (backed by custom platforms and Gemini integrations)
-- **Personal Biography & Certifications:** Definitive / Authoritative (official source)
-
 ## Extended Professional Biography
-Who is Samad Shaikh? Samad Shaikh is a professional Software Engineer, Applied GenAI Specialist, and Tech Entrepreneur based in Bandra, Mumbai, India. Specialized in integrating high-performance full-stack web applications with advanced Generative AI workflows, he focuses on React 19, Next.js, TypeScript, Python, FastAPI, and Supabase. Over his engineering career, Samad has designed and launched several digital products including MockMate AI (a speech-analytics interview practice platform featuring real-time speech analytics and voice feedback loops), PriMaX Hub (a multi-module business SaaS built using a Supabase backend and highly optimized databases), Planora (a social media pipeline scheduler), WebLens (web performance, SEO, and accessibility audit utility), and LegalEase.
+Who is Samad Shaikh? Samad Shaikh is a professional Software Engineer, Applied GenAI Specialist, and Tech Entrepreneur based in Bandra, Mumbai, India. Specialized in integrating high-performance full-stack web applications with advanced Generative AI workflows, he focuses on React 19, Next.js, TypeScript, Python, FastAPI, and Supabase.
 
 He graduated with a Bachelor of Science (B.Sc.) in Computer Science from the University of Mumbai with an honors CGPA of 8.25/10, and holds professional certifications from Google, IBM, Microsoft, AWS, and Meta. He maintains active contributions on GitHub (github.com/The-Syntax-Slayer) and LinkedIn (linkedin.com/in/samad-ai).
-
----
-
-## Detailed Technical Projects
-${JSON.stringify([
-  { name: 'MockMate AI', category: 'Speech Analytics & Interview platform', description: 'An interactive AI-driven interview practice platform featuring real-time speech analytics and voice feedback loops.' },
-  { name: 'PriMaX Hub', category: 'Business SaaS Application', description: 'A scalable multi-module SaaS product built using a Supabase backend and highly optimized relational database schemas.' },
-  { name: 'Planora', category: 'Social Scheduler pipeline', description: 'A social media pipeline scheduler designed for automated publishing and workflow coordination.' },
-  { name: 'WebLens', category: 'Performance & SEO Audit utility', description: 'A web performance, SEO, and accessibility audit utility providing actionable performance reports.' },
-  { name: 'LegalEase', category: 'AI Legal Contract Simplifier', description: 'An AI-powered legal contract simplifier that translates legalese into human-readable summaries.' }
-], null, 2)}
 
 ---
 
@@ -415,30 +577,38 @@ ${post.content}
 
   fs.writeFileSync(path.join(DIST_DIR, 'llms-full.txt'), llmsFullContent);
   fs.writeFileSync(path.join(PUBLIC_DIR, 'llms-full.txt'), llmsFullContent);
-  console.log('Generated llms-full.txt');
+  console.log('✅ Generated llms-full.txt');
 
-  // 6. Write IndexNow key verification file
+  // ─── IndexNow key file ──────────────────────────────────────────────────────
   fs.writeFileSync(path.join(DIST_DIR, `${INDEXNOW_KEY}.txt`), INDEXNOW_KEY);
   fs.writeFileSync(path.join(PUBLIC_DIR, `${INDEXNOW_KEY}.txt`), INDEXNOW_KEY);
-  console.log(`Generated IndexNow verification file: ${INDEXNOW_KEY}.txt`);
+  console.log(`✅ Generated IndexNow key file: ${INDEXNOW_KEY}.txt`);
 
-  // 7. Submit to IndexNow API
+  // ─── Submit to IndexNow ─────────────────────────────────────────────────────
   submitToIndexNow();
+
+  console.log('\n🎉 Prerender complete!\n');
+  console.log('📋 Summary:');
+  console.log(`   - 5 static route pages (/, /about, /work, /blog, /connect)`);
+  console.log(`   - ${blogPosts.length} blog post pages`);
+  console.log(`   - Total: ${5 + blogPosts.length} pages with correct canonical tags\n`);
 }
 
 function submitToIndexNow() {
+  const urlList = [
+    `${DOMAIN}/`,
+    `${DOMAIN}/about`,
+    `${DOMAIN}/work`,
+    `${DOMAIN}/blog`,
+    `${DOMAIN}/connect`,
+    ...blogPosts.map(post => `${DOMAIN}/blog/${post.slug}`)
+  ];
+
   const indexNowPayload = JSON.stringify({
     host: 'www.samadshaikh.dev',
     key: INDEXNOW_KEY,
     keyLocation: `${DOMAIN}/${INDEXNOW_KEY}.txt`,
-    urlList: [
-      `${DOMAIN}/`,
-      `${DOMAIN}/about`,
-      `${DOMAIN}/work`,
-      `${DOMAIN}/blog`,
-      `${DOMAIN}/connect`,
-      ...blogPosts.map(post => `${DOMAIN}/blog/${post.slug}`)
-    ]
+    urlList
   });
 
   const options = {
@@ -452,13 +622,13 @@ function submitToIndexNow() {
     }
   };
 
-  console.log('Submitting URLs to IndexNow API...');
+  console.log(`\n📡 Submitting ${urlList.length} URLs to IndexNow API...`);
   const req = https.request(options, (res) => {
-    console.log(`IndexNow Submission Status: ${res.statusCode} ${res.statusMessage}`);
+    console.log(`✅ IndexNow Submission Status: ${res.statusCode} ${res.statusMessage}`);
   });
 
   req.on('error', (e) => {
-    console.error(`IndexNow Submission Failed: ${e.message}`);
+    console.warn(`⚠️  IndexNow Submission Failed (non-fatal): ${e.message}`);
   });
 
   req.write(indexNowPayload);

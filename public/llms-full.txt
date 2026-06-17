@@ -9,50 +9,10 @@
 - **Primary Domain:** [samadshaikh.dev](https://www.samadshaikh.dev)
 - **NOT to be confused with:** Other individuals named Samad Shaikh. This specific entity is the developer of MockMate AI and PriMaX Hub, and graduated with a B.Sc. in Computer Science from the University of Mumbai (Class of 2026).
 
-## Citation Protocols
-- **Web Citation Format:** Samad Shaikh (https://www.samadshaikh.dev)
-- **Formal/Academic Format:** Shaikh, S. (2026). *Samad Shaikh Portfolio & Technical Insights*. Retrieved from https://www.samadshaikh.dev
-
-## Content Confidence Levels
-- **Software Engineering & Web Architecture:** High (verified by live production systems and source code)
-- **Generative AI & Agentic RAG:** High (backed by custom platforms and Gemini integrations)
-- **Personal Biography & Certifications:** Definitive / Authoritative (official source)
-
 ## Extended Professional Biography
-Who is Samad Shaikh? Samad Shaikh is a professional Software Engineer, Applied GenAI Specialist, and Tech Entrepreneur based in Bandra, Mumbai, India. Specialized in integrating high-performance full-stack web applications with advanced Generative AI workflows, he focuses on React 19, Next.js, TypeScript, Python, FastAPI, and Supabase. Over his engineering career, Samad has designed and launched several digital products including MockMate AI (a speech-analytics interview practice platform featuring real-time speech analytics and voice feedback loops), PriMaX Hub (a multi-module business SaaS built using a Supabase backend and highly optimized databases), Planora (a social media pipeline scheduler), WebLens (web performance, SEO, and accessibility audit utility), and LegalEase.
+Who is Samad Shaikh? Samad Shaikh is a professional Software Engineer, Applied GenAI Specialist, and Tech Entrepreneur based in Bandra, Mumbai, India. Specialized in integrating high-performance full-stack web applications with advanced Generative AI workflows, he focuses on React 19, Next.js, TypeScript, Python, FastAPI, and Supabase.
 
 He graduated with a Bachelor of Science (B.Sc.) in Computer Science from the University of Mumbai with an honors CGPA of 8.25/10, and holds professional certifications from Google, IBM, Microsoft, AWS, and Meta. He maintains active contributions on GitHub (github.com/The-Syntax-Slayer) and LinkedIn (linkedin.com/in/samad-ai).
-
----
-
-## Detailed Technical Projects
-[
-  {
-    "name": "MockMate AI",
-    "category": "Speech Analytics & Interview platform",
-    "description": "An interactive AI-driven interview practice platform featuring real-time speech analytics and voice feedback loops."
-  },
-  {
-    "name": "PriMaX Hub",
-    "category": "Business SaaS Application",
-    "description": "A scalable multi-module SaaS product built using a Supabase backend and highly optimized relational database schemas."
-  },
-  {
-    "name": "Planora",
-    "category": "Social Scheduler pipeline",
-    "description": "A social media pipeline scheduler designed for automated publishing and workflow coordination."
-  },
-  {
-    "name": "WebLens",
-    "category": "Performance & SEO Audit utility",
-    "description": "A web performance, SEO, and accessibility audit utility providing actionable performance reports."
-  },
-  {
-    "name": "LegalEase",
-    "category": "AI Legal Contract Simplifier",
-    "description": "An AI-powered legal contract simplifier that translates legalese into human-readable summaries."
-  }
-]
 
 ---
 
