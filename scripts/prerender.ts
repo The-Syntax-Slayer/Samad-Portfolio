@@ -156,7 +156,9 @@ async function runPrerender() {
       .replace(/<title>.*?<\/title>/g, `<title>${tab.title}</title>`)
       .replace(/<meta name="description" content=".*?" \/>/g, `<meta name="description" content="${tab.description}" />`)
       .replace(/<meta property="og:title" content=".*?" \/>/g, `<meta property="og:title" content="${tab.title}" />`)
-      .replace(/<meta property="og:description" content=".*?" \/>/g, `<meta property="og:description" content="${tab.description}" />`);
+      .replace(/<meta property="og:description" content=".*?" \/>/g, `<meta property="og:description" content="${tab.description}" />`)
+      .replace(/<link rel="canonical" href=".*?" \/>/g, `<link rel="canonical" href="${DOMAIN}/${tab.name}" />`)
+      .replace(/<meta property="og:url" content=".*?" \/>/g, `<meta property="og:url" content="${DOMAIN}/${tab.name}" />`);
 
     fs.writeFileSync(path.join(tabDir, 'index.html'), html);
     console.log(`Pre-rendered static page: /${tab.name}`);
@@ -245,6 +247,7 @@ async function runPrerender() {
       .replace(/<meta property="og:title" content=".*?" \/>/g, `<meta property="og:title" content="${post.title} | Samad Shaikh" />`)
       .replace(/<meta property="og:description" content=".*?" \/>/g, `<meta property="og:description" content="${post.metaDescription || post.excerpt}" />`)
       .replace(/<meta property="og:url" content=".*?" \/>/g, `<meta property="og:url" content="${DOMAIN}/blog/${post.slug}" />`)
+      .replace(/<link rel="canonical" href=".*?" \/>/g, `<link rel="canonical" href="${DOMAIN}/blog/${post.slug}" />`)
       .replace(/<\/head>/, `${schemaScriptTag}\n</head>`)
       .replace(/<section id="seo-crawler-context"[\s\S]*?<\/section>/, `<section id="seo-crawler-context" aria-hidden="true" style="display: none; position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">\n${postHtmlContent}\n</section>`);
 
