@@ -5,6 +5,8 @@ export const blog02: BlogPost = {
   title: "Inside MockMate AI: Designing a Real-Time Audio & Speech Analytics Pipeline",
   slug: "inside-mockmate-ai-speech-analytics-pipeline",
   date: "June 2, 2026",
+  datePublished: "2026-06-02",
+  dateModified: "2026-06-16",
   readTime: "12 min read",
   excerpt: "A technical breakdown of capturing high-fidelity audio chunks, streaming base64 payloads, and analyzing speech metrics using Google Gemini.",
   category: "AI",

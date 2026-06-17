@@ -5,6 +5,8 @@ export const blog01: BlogPost = {
   title: "Architecting Agentic RAG: Production AI Knowledge Systems with Gemini & PostgreSQL",
   slug: "architecting-agentic-rag-gemini-postgresql",
   date: "June 4, 2026",
+  datePublished: "2026-06-04",
+  dateModified: "2026-06-15",
   readTime: "12 min read",
   excerpt: "An in-depth blueprint for engineering high-performance, metadata-filtered semantic search pipelines using Google Gemini and pgvector HNSW indexing.",
   category: "AI",

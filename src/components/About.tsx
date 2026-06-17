@@ -110,11 +110,13 @@ const timelineData = {
   certifications: [
     "Google Data Analytics Professional Certificate — Google",
     "IBM AI Developer Professional Certificate — IBM",
-    "IBM DevOps & Software Engineering — IBM",
-    "Meta Front-End Developer Certificate — Meta",
+    "IBM DevOps & Software Engineering Certificate — IBM",
+    "Meta Front-End Developer Professional Certificate — Meta",
     "AWS Cloud Practitioner Essentials — Amazon Web Services",
     "Google Cloud Digital Leader — Google Cloud",
     "Azure Enterprise Data Analyst Associate — Microsoft",
+    "Microsoft Azure AI Engineer Associate — Microsoft",
+    "Microsoft Power Platform Fundamentals — Microsoft",
     "GitHub Foundations Certificate — GitHub",
     "Generative AI: Prompt Engineering — Coursera"
   ]
@@ -397,6 +399,9 @@ export default function About() {
                   className="w-full h-full object-cover object-center"
                   draggable={false}
                   fetchPriority="high"
+                  loading="eager"
+                  width={600}
+                  height={800}
                 />
               </picture>
             </motion.div>
@@ -573,6 +578,33 @@ export default function About() {
               Every project I build is an opportunity to learn, solve problems, and
               create something valuable for real people. Not just shipping features
               - but crafting experiences that feel intentional, human, and lasting.
+            </p>
+          </RevealBlock>
+        </div>
+      </div>
+
+      {/* Philosophy & Approach */}
+      <ElegantDivider />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mt-16 md:mt-24 mb-16 md:mb-28">
+        <RevealBlock delay={0.05} className="lg:col-span-3">
+          <p className="font-Spline_Sans_Mono text-[10px] tracking-[0.3em] uppercase text-white/20 lg:pt-1 sticky top-24">
+            Philosophy
+          </p>
+        </RevealBlock>
+        <div className="lg:col-span-9 flex flex-col gap-6">
+          <RevealBlock delay={0.1}>
+            <h2 className="font-serif-display text-white text-2xl md:text-3xl font-medium tracking-wide">
+              Engineering with <span className="italic font-light text-mint">intent.</span>
+            </h2>
+          </RevealBlock>
+          <RevealBlock delay={0.15}>
+            <p className="font-serif-display text-accent/70 text-base md:text-lg font-light leading-[2] max-w-[56ch]">
+              I don't just write code; I design systems. I believe that software should be robust, clean, and highly performant, but it should also look and feel exceptional. To me, a visual inconsistency is as critical as an unhandled exception. I bridge technical rigor (using async performance paradigms and strict typing) with meticulous visual craftsmanship (fluid animations and harmonic color spaces) to deliver applications that feel premium and organic.
+            </p>
+          </RevealBlock>
+          <RevealBlock delay={0.2}>
+            <p className="font-serif-display text-accent/70 text-base md:text-lg font-light leading-[2] max-w-[56ch]">
+              When integrating artificial intelligence, my goal is utility over hype. I design agentic systems and Retrieval-Augmented Generation (RAG) pipelines that solve concrete user problems, ensuring outputs are fast, structured, and secure.
             </p>
           </RevealBlock>
         </div>

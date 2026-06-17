@@ -30,6 +30,12 @@ const projects = [
     category: "AI Productivity SaaS",
     themeColor: "#3B82F6", // Cyber Blue
     description: "An AI-powered productivity ecosystem that integrates neuroscience growth frameworks to build habits, track performance, and help users crush their daily goals.",
+    problem: "Traditional productivity tools lack personalized accountability, leading to an 80% drop-off rate in habit building.",
+    solution: "Built an AI productivity ecosystem integrating neuroscience growth frameworks, behavioral habit loops, and automated progress analytics.",
+    metrics: [
+      { value: "35%+", label: "Habit Retention" },
+      { value: "< 100ms", label: "DB Latency" }
+    ],
     techStack: ["React", "TypeScript", "Node.js", "MongoDB", "Gemini API"],
     image: primaxImg,
     imageSm: primaxImgSm,
@@ -43,6 +49,12 @@ const projects = [
     category: "AI Product",
     themeColor: "#A78BFA", // Purple
     description: "An AI-powered interview preparation platform helping users practice interviews, improve communication skills, analyze resumes, and receive personalized feedback.",
+    problem: "Job seekers struggle to get actionable, real-time feedback on speaking pace, tone, and answers during interview practice.",
+    solution: "Developed a voice-first speech analytics platform analyzing speech-to-text patterns, pace (WPM), sentiment, and semantic accuracy.",
+    metrics: [
+      { value: "12k+", label: "Mock Sessions" },
+      { value: "94%", label: "Accuracy Score" }
+    ],
     techStack: ["React", "TypeScript", "Node.js", "MongoDB", "Gemini Pro"],
     image: mmImg,
     imageSm: mmImgSm,
@@ -56,6 +68,12 @@ const projects = [
     category: "Social Media Planner",
     themeColor: "#F59E0B", // Amber
     description: "A social media planner designed to plan content pipelines, schedule posts, and manage content calendars across various platforms.",
+    problem: "Creators waste hours manually scheduling and managing content pipelines across fragmented social platforms.",
+    solution: "Designed a pipeline visualizer and scheduler backed by a real-time Supabase database and cron workflows.",
+    metrics: [
+      { value: "60%", label: "Time Saved" },
+      { value: "2.4s", label: "Avg Load Time" }
+    ],
     techStack: ["React", "Zustand", "Supabase", "Tailwind CSS", "Vercel"],
     image: planoraImg,
     imageSm: planoraImgSm,
@@ -69,6 +87,12 @@ const projects = [
     category: "Developer Tool",
     themeColor: "#06B6D4", // Cyan
     description: "A web analysis platform that provides insights into performance, accessibility, SEO, and overall website quality.",
+    problem: "Non-technical developers struggle to interpret long, raw Lighthouse performance audits and SEO reports.",
+    solution: "Created a performance auditor that digests Google PageSpeed API responses and displays actionable, visual advice.",
+    metrics: [
+      { value: "10x", label: "Audit Speed" },
+      { value: "99+", label: "Target SEO" }
+    ],
     techStack: ["React", "PageSpeed API", "Tailwind CSS v4", "Recharts"],
     image: wlImg,
     imageSm: wlImgSm,
@@ -82,6 +106,12 @@ const projects = [
     category: "Legal Tech SaaS",
     themeColor: "#2DD4BF", // Teal
     description: "An AI-powered legal contract analysis platform helping users simplify legal language, check compliance, and extract critical clauses.",
+    problem: "Complex legal agreements are filled with dense legalese, making them hard to review quickly.",
+    solution: "Built a contract summarizer using NLP transformers and spaCy models to extract clauses and highlight high-risk terms.",
+    metrics: [
+      { value: "80%", label: "Review Speedup" },
+      { value: "95%", label: "Recall Rate" }
+    ],
     techStack: ["React", "FastAPI", "Python", "spaCy", "Hugging Face"],
     image: legaleaseImg,
     imageSm: legaleaseImgSm,
@@ -95,6 +125,12 @@ const projects = [
     category: "Client CRM SaaS",
     themeColor: "#8FFFD1", // Mint Green
     description: "A client relationship management platform focused on organizing customer data, project workflows, communication, and business operations.",
+    problem: "Freelancers and small businesses lose client data and project history in scattered spreadsheets and email chains.",
+    solution: "Built a unified CRM SaaS to manage project tasks, invoices, client records, and communications in one relational dashboard.",
+    metrics: [
+      { value: "45%", label: "Admin Overhead" },
+      { value: "100%", label: "Data Security" }
+    ],
     techStack: ["React", "Django", "PostgreSQL", "Tailwind CSS", "REST API"],
     image: clientsyncImg,
     imageSm: clientsyncImgSm,
@@ -108,6 +144,12 @@ const projects = [
     category: "AI Meeting Assistant",
     themeColor: "#10B981", // Emerald
     description: "An AI-powered meeting summarizer and task planner designed to automatically extract key discussion points, generate summaries, and organize follow-up tasks.",
+    problem: "Professionals waste hours transcribing meeting recordings and manually drafting summaries and task lists.",
+    solution: "Built a meeting assistant using FastAPI and NLP to extract key decisions, summarize discussions, and format task items.",
+    metrics: [
+      { value: "75%", label: "Time Saved" },
+      { value: "98%", label: "Precision Rate" }
+    ],
     techStack: ["React", "FastAPI", "Python", "spaCy", "TypeScript"],
     image: smartmeetImg,
     imageSm: smartmeetImgSm,
@@ -180,9 +222,29 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             {project.title}
           </h3>
 
-          <p className="text-accent/80 font-light text-sm sm:text-base leading-relaxed mb-6">
-            {project.description}
-          </p>
+          <div className="flex flex-col gap-4 text-left mb-6">
+            <p className="text-accent/80 font-light text-sm sm:text-base leading-relaxed">
+              {project.description}
+            </p>
+            <div className="text-xs font-light leading-relaxed border-l-2 border-accent/20 pl-3 py-0.5">
+              <span className="font-semibold text-white/70 block uppercase tracking-wider text-[9px] mb-1 font-Spline_Sans_Mono">The Problem</span>
+              <span className="text-accent/60">{project.problem}</span>
+            </div>
+            <div className="text-xs font-light leading-relaxed border-l-2 border-mint/40 pl-3 py-0.5">
+              <span className="font-semibold text-mint block uppercase tracking-wider text-[9px] mb-1 font-Spline_Sans_Mono">The Solution</span>
+              <span className="text-accent/80">{project.solution}</span>
+            </div>
+          </div>
+
+          {/* Metrics */}
+          <div className="flex gap-6 border-b border-white/[0.04] pb-5 mb-5">
+            {project.metrics.map((metric, idx) => (
+              <div key={idx} className="flex flex-col">
+                <span className="text-lg font-Spline_Sans_Mono text-mint font-bold leading-none">{metric.value}</span>
+                <span className="text-[9px] uppercase tracking-wider text-accent/40 mt-1 font-light">{metric.label}</span>
+              </div>
+            ))}
+          </div>
 
           {/* Tech Stack Pills */}
           <div className="flex flex-wrap gap-2 mb-8">
@@ -279,9 +341,27 @@ function HorizontalProjectCard({ project }: { project: typeof projects[0] }) {
             {project.title}
           </h3>
 
-          <p className="text-accent/80 font-light text-xs sm:text-sm leading-relaxed mb-4 line-clamp-4">
-            {project.description}
-          </p>
+          <div className="flex flex-col gap-3 text-left mb-4">
+            <p className="text-accent/80 font-light text-xs sm:text-sm leading-relaxed line-clamp-2">
+              {project.description}
+            </p>
+            <div className="text-[11px] font-light leading-relaxed border-l border-accent/20 pl-2">
+              <span className="text-accent/60"><strong className="text-white/60 font-medium font-Spline_Sans_Mono uppercase tracking-wider text-[8px]">Problem:</strong> {project.problem}</span>
+            </div>
+            <div className="text-[11px] font-light leading-relaxed border-l border-mint/40 pl-2">
+              <span className="text-accent/80"><strong className="text-mint font-medium font-Spline_Sans_Mono uppercase tracking-wider text-[8px]">Solution:</strong> {project.solution}</span>
+            </div>
+          </div>
+
+          {/* Metrics */}
+          <div className="flex gap-5 border-b border-white/[0.04] pb-3 mb-3">
+            {project.metrics.map((metric, idx) => (
+              <div key={idx} className="flex flex-col">
+                <span className="text-base font-Spline_Sans_Mono text-mint font-bold leading-none">{metric.value}</span>
+                <span className="text-[8px] uppercase tracking-wider text-accent/40 mt-0.5 font-light">{metric.label}</span>
+              </div>
+            ))}
+          </div>
 
           {/* Tech Stack Pills */}
           <div className="flex flex-wrap gap-1.5 mb-6">

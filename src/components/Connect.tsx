@@ -426,6 +426,20 @@ export default function Connect() {
             <p className="text-[#A1A1AA] text-xs md:text-sm font-light max-w-[50ch] leading-relaxed">
               Open to building AI products, SaaS platforms, modern web applications, and meaningful digital experiences.
             </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 border-t border-white/5 pt-5 mt-2">
+              <div className="flex flex-col">
+                <span className="text-[10px] font-Spline_Sans_Mono uppercase tracking-wider text-accent/40">Response Time</span>
+                <span className="text-white font-light text-xs mt-1">Under 24 Hours</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] font-Spline_Sans_Mono uppercase tracking-wider text-accent/40">Timezone</span>
+                <span className="text-white font-light text-xs mt-1">IST (UTC +5:30)</span>
+              </div>
+              <div className="flex flex-col col-span-2 sm:col-span-1">
+                <span className="text-[10px] font-Spline_Sans_Mono uppercase tracking-wider text-accent/40">Consulting Types</span>
+                <span className="text-white font-light text-xs mt-1">Freelance, AI Consulting, Contracts</span>
+              </div>
+            </div>
           </div>
 
           <a

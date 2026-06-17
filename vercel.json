@@ -3,6 +3,24 @@
   "trailingSlash": false,
   "headers": [
     {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(png|jpg|jpeg|gif|webp|avif|ico|svg|js|css)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {
@@ -28,14 +46,83 @@
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "geolocation=(), camera=(), microphone=(self)"
         }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "tab",
+          "value": "about"
+        }
+      ],
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "tab",
+          "value": "work"
+        }
+      ],
+      "destination": "/work",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "tab",
+          "value": "blog"
+        }
+      ],
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "tab",
+          "value": "connect"
+        }
+      ],
+      "destination": "/connect",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "blog",
+          "value": "(?<slug>[^/]+)"
+        }
+      ],
+      "destination": "/blog/:slug",
+      "permanent": true
     }
   ],
   "routes": [
     { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
     { "src": "/llms.txt", "dest": "/llms.txt" },
     { "src": "/llms-full.txt", "dest": "/llms-full.txt" },
+    { "src": "/humans.txt", "dest": "/humans.txt" },
+    { "src": "/security.txt", "dest": "/security.txt" },
+    { "src": "/.well-known/security.txt", "dest": "/.well-known/security.txt" },
     { "src": "/8f5b82098b67489ab5ff15e76a6cfb12.txt", "dest": "/8f5b82098b67489ab5ff15e76a6cfb12.txt" },
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/index.html" }

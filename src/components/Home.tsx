@@ -550,6 +550,25 @@ export default function Home({ setActiveTab }: HomeProps) {
 
       </div>
 
+      {/* 1.5 Editorial Biography Transition Section */}
+      <motion.section
+        initial={{ y: 30, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease }}
+        className="w-full max-w-3xl px-6 pt-16 pb-20 text-center select-none z-10"
+      >
+        <span className="font-Spline_Sans_Mono text-[10px] tracking-[0.25em] text-[#8FFFD1] uppercase font-semibold">
+          Editorial Biography
+        </span>
+        <h2 className="font-serif-display text-3xl md:text-4xl font-medium tracking-tight text-white mt-4 mb-6">
+          Architecting solutions with <span className="text-mint font-light italic">engineering precision</span>
+        </h2>
+        <p className="text-accent/75 font-light text-sm sm:text-base leading-relaxed tracking-wide font-serif-display italic">
+          Samad Shaikh is a professional Software Engineer, Applied GenAI Specialist, and Tech Entrepreneur based in Bandra, Mumbai, India. Specialized in architecting and deploying high-performance full-stack web applications, he bridges deep backend concurrency with fluid, pixel-perfect user interfaces. Over his engineering career, Samad has designed and launched several prominent digital products including <span className="text-mint font-normal not-italic">PriMaX Hub</span> (a habits & productivity SaaS platform), <span className="text-mint font-normal not-italic">MockMate AI</span> (a real-time speech analytics interview tool), and <span className="text-mint font-normal not-italic">WebLens</span> (a developer utility for web performance audits). With a Bachelor of Science (B.Sc.) in Computer Science from the University of Mumbai (class of 2026, graduating with honors), he holds 10 industry certifications from Google, IBM, Microsoft, AWS, and Meta. He works closely with startups and enterprises globally, designing high-availability APIs, vector retrieval systems (pgvector/RAG), and modular component ecosystems.
+        </p>
+      </motion.section>
+
       {/* 2. Bento Grid Section (Below the fold - only visible when scrolled down) */}
       <motion.div
         id="bento-grid-section"
@@ -1263,6 +1282,9 @@ export default function Home({ setActiveTab }: HomeProps) {
         </div>
       </motion.div>
 
+      {/* FAQ Section */}
+      <HomeFAQ />
+
       {/* Mobile-only Resume floating button (aligned with Chat icon at bottom-24, fades out on scroll) */}
       <AnimatePresence>
         {showResume && (
@@ -1506,4 +1528,101 @@ const projectsList = [
     imageMd: mockmateImgMd,
   },
 ];
+
+function HomeFAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      q: "Who is Samad Shaikh?",
+      a: "Samad Shaikh is an independent Software Engineer, Applied GenAI Specialist, and Tech Entrepreneur based in Bandra, Mumbai, India. He specializes in full-stack web applications and Generative AI workflows."
+    },
+    {
+      q: "What services does Samad Shaikh offer?",
+      a: "Samad provides full-lifecycle product development, custom Generative AI/LLM integrations (like RAG pipelines and vector search), backend API design (FastAPI/Tornado), and frontend engineering using React 19 and Next.js."
+    },
+    {
+      q: "What is Samad Shaikh's academic background?",
+      a: "Samad holds a Bachelor of Science (B.Sc.) in Computer Science from the University of Mumbai, graduating with honors (8.25/10 CGPA). He also holds 10 professional certifications from Google, IBM, Microsoft, AWS, and Meta."
+    },
+    {
+      q: "What products has Samad Shaikh built?",
+      a: "He has engineered MockMate AI (real-time speech analytics tool), PriMaX Hub (neuroscience habits SaaS), Planora (social scheduler), WebLens (SEO/performance auditor), and LegalEase (AI legal contract simplifier)."
+    },
+    {
+      q: "Is Samad Shaikh available for freelance or consulting?",
+      a: "Yes, Samad is available for freelance software development, Applied AI consulting, and full-stack engineering contracts. You can get in touch with him through the Connect page."
+    },
+    {
+      q: "What is Samad Shaikh's current tech stack?",
+      a: "His primary stack includes React 19, TypeScript, Next.js, Python, FastAPI, Tornado, Supabase, PostgreSQL (with pgvector), Tailwind CSS, and Docker."
+    },
+    {
+      q: "Where is Samad Shaikh located and what is his timezone?",
+      a: "He is located in Bandra, Mumbai, India, and operates primarily in the India Standard Time (IST, UTC+5:30) zone, collaborating with clients worldwide."
+    },
+    {
+      q: "How does MockMate AI analyze speech?",
+      a: "MockMate AI captures microphone inputs using the Web Audio API, serializes the stream into base64, and sends it directly to Google Gemini's multimodal API for real-time speech diagnostics."
+    }
+  ];
+
+  return (
+    <div className="w-full max-w-5xl px-4 pb-20 border-t border-white/5 pt-16 mt-16 flex flex-col z-10 text-left">
+      <div className="flex flex-col md:flex-row gap-10">
+        <div className="w-full md:w-[35%] text-left select-none">
+          <span className="font-Spline_Sans_Mono text-[10px] tracking-[0.2em] text-[#8FFFD1] uppercase font-semibold">
+            FAQ // Decryptions
+          </span>
+          <h2 className="font-serif-display text-3xl md:text-4xl font-medium tracking-tight text-white mt-4">
+            Frequently Asked <span className="text-mint font-light italic">Questions</span>
+          </h2>
+          <p className="text-accent/50 text-xs font-light mt-4 leading-relaxed max-w-[28ch]">
+            Common questions regarding full-stack engineering protocols, AI solutions, location, and consulting services.
+          </p>
+        </div>
+        <div className="w-full md:w-[65%] text-left">
+          <dl className="flex flex-col gap-3">
+            {faqs.map((faq, idx) => {
+              const isOpen = openIndex === idx;
+              return (
+                <div 
+                  key={idx} 
+                  className="rounded-2xl border border-white/5 bg-[#07100D]/10 overflow-hidden transition-all duration-300 hover:border-mint/20"
+                >
+                  <dt>
+                    <button
+                      onClick={() => setOpenIndex(isOpen ? null : idx)}
+                      aria-expanded={isOpen}
+                      className="w-full px-6 py-4 flex items-center justify-between text-left text-white hover:text-mint transition-colors cursor-pointer bg-transparent border-0 outline-none font-Spline_Sans_Mono text-[13px] md:text-sm font-medium tracking-wide"
+                    >
+                      <span>{faq.q}</span>
+                      <span className="text-mint transition-transform duration-300 transform" style={{ transform: isOpen ? "rotate(45deg)" : "rotate(0deg)" }}>
+                        <Plus className="w-4 h-4" />
+                      </span>
+                    </button>
+                  </dt>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.dd
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        <div className="px-6 pb-5 pt-1 text-accent/70 font-light text-xs md:text-[13px] leading-relaxed border-t border-white/5">
+                          {faq.a}
+                        </div>
+                      </motion.dd>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </dl>
+        </div>
+      </div>
+    </div>
+  );
+}
 

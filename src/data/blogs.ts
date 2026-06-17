@@ -28,6 +28,8 @@ export interface BlogPost {
   title: string;
   slug: string;
   date: string;
+  datePublished?: string;
+  dateModified?: string;
   readTime: string;
   excerpt: string;
   category: 'AI' | 'WebDev' | 'Backend' | 'SEO' | 'AppSec' | 'DevOps';

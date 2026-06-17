@@ -22,7 +22,21 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
-User-agent: *
+User-agent: Applebot
 Allow: /
 
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: *
+Allow: /
+Crawl-delay: 1
+
 Sitemap: https://www.samadshaikh.dev/sitemap.xml
+Sitemap: https://www.samadshaikh.dev/llms.txt

@@ -18,6 +18,8 @@ lighthouse-mobile-report.json
 lighthouse-desktop-report.json
 lighthouse-report.json
 
+samadshaikh.dev-audit
+
 # Node
 node_modules
 dist

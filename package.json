@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && tsx scripts/prerender.ts",
+    "build": "tsc -b && vite build && tsx scripts/prerender.ts && node scripts/ping-indexnow.js",
+    "ping-indexnow": "node scripts/ping-indexnow.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },

@@ -141,6 +141,8 @@ export default function App() {
 
     let title = "Samad Shaikh | Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai";
     let description = "Who is Samad Shaikh? He is an Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai building high-performance web apps and Generative AI systems.";
+    let path = activeTab === "home" ? "" : activeTab;
+    let schemaJson: any = null;
 
     switch (activeTab) {
       case "home":
@@ -150,25 +152,117 @@ export default function App() {
       case "about":
         title = "About Samad Shaikh | Background, Skills & Certifications";
         description = "Explore the professional background, core technical skills, and certifications of Samad Shaikh, a Mumbai-based software engineer specializing in React, TypeScript, Node.js, and GenAI integrations.";
+        schemaJson = {
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "name": title,
+          "description": description,
+          "url": "https://www.samadshaikh.dev/about",
+          "mainEntity": {
+            "@id": "https://www.samadshaikh.dev/#person"
+          }
+        };
         break;
       case "work":
         title = "Portfolio & Projects | Handcrafted Digital Experiences by Samad";
         description = "Browse the professional portfolio of Samad Shaikh, showcasing production web applications, SaaS products like PriMaX Hub and MockMate AI, and technical details on engineering solutions.";
+        schemaJson = {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": title,
+          "description": description,
+          "url": "https://www.samadshaikh.dev/work",
+          "mainEntity": {
+            "@type": "ItemList",
+            "name": "Samad Shaikh's Software Engineering & AI Projects",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "url": "https://www.samadshaikh.dev/work#primax", "name": "PriMaX Hub" },
+              { "@type": "ListItem", "position": 2, "url": "https://www.samadshaikh.dev/work#mockmate", "name": "MockMate AI" },
+              { "@type": "ListItem", "position": 3, "url": "https://www.samadshaikh.dev/work#planora", "name": "Planora" },
+              { "@type": "ListItem", "position": 4, "url": "https://www.samadshaikh.dev/work#weblens", "name": "WebLens" },
+              { "@type": "ListItem", "position": 5, "url": "https://www.samadshaikh.dev/work#legalease", "name": "LegalEase" },
+              { "@type": "ListItem", "position": 6, "url": "https://www.samadshaikh.dev/work#clientsync", "name": "ClientSync" },
+              { "@type": "ListItem", "position": 7, "url": "https://www.samadshaikh.dev/work#smartmeet", "name": "SmartMeet" }
+            ]
+          }
+        };
         break;
       case "blog":
         title = "Blog & Insights | Technical Deep Dives by Samad Shaikh";
         description = "Read expert articles by Samad Shaikh on React 19, FastAPI asyncio concurrency, scaling WebSockets, prompt injection security, Google SGE SEO optimization, and web engineering basics.";
+        schemaJson = {
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          "name": title,
+          "description": description,
+          "url": "https://www.samadshaikh.dev/blog",
+          "publisher": {
+            "@id": "https://www.samadshaikh.dev/#person"
+          }
+        };
         break;
       case "connect":
         title = "Connect with Samad | Freelance Inquiry & AI Consultations";
         description = "Get in touch with Samad Shaikh for freelance software development projects, custom AI/LLM integrations, full-stack app engineering, or professional consultations.";
+        schemaJson = {
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": title,
+          "description": description,
+          "url": "https://www.samadshaikh.dev/connect",
+          "mainEntity": {
+            "@id": "https://www.samadshaikh.dev/#person"
+          }
+        };
         break;
     }
 
     document.title = title;
+    
+    // Update Meta Description
     const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute("content", description);
+    if (metaDesc) metaDesc.setAttribute("content", description);
+
+    // Update Open Graph (OG) Meta Tags
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute("content", title);
+
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute("content", description);
+
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute("content", `https://www.samadshaikh.dev/${path}`);
+
+    // Update Twitter Meta Tags
+    const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+    if (twitterTitle) twitterTitle.setAttribute("content", title);
+
+    const twitterDesc = document.querySelector('meta[property="twitter:description"]');
+    if (twitterDesc) twitterDesc.setAttribute("content", description);
+
+    const twitterUrl = document.querySelector('meta[property="twitter:url"]');
+    if (twitterUrl) twitterUrl.setAttribute("content", `https://www.samadshaikh.dev/${path}`);
+
+    // Update Canonical Link
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) {
+      canonicalLink.setAttribute("href", `https://www.samadshaikh.dev/${path}`);
+    }
+
+    // Dynamic JSON-LD injection
+    let scriptTag = document.getElementById("dynamic-jsonld") as HTMLScriptElement;
+    if (schemaJson) {
+      if (!scriptTag) {
+        scriptTag = document.createElement("script");
+        scriptTag.id = "dynamic-jsonld";
+        scriptTag.type = "application/ld+json";
+        document.head.appendChild(scriptTag);
+      }
+      scriptTag.textContent = JSON.stringify(schemaJson);
+    } else {
+      if (scriptTag) {
+        scriptTag.remove();
+      }
     }
   }, [activeTab]);
 

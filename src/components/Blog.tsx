@@ -484,6 +484,21 @@ export default function Blog() {
   
   const contentRef = useRef<HTMLDivElement>(null);
 
+  const getRelatedPosts = (current: BlogPost) => {
+    return blogPosts
+      .filter(post => post.id !== current.id)
+      .map(post => {
+        let score = 0;
+        if (post.category === current.category) score += 3;
+        const matchingTags = post.tags.filter(t => current.tags.includes(t));
+        score += matchingTags.length;
+        return { post, score };
+      })
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3)
+      .map(item => item.post);
+  };
+
   // Parse blog slug from URL search params or clean paths on mount & popstate
   useEffect(() => {
     const syncPostFromUrl = () => {
@@ -561,12 +576,24 @@ export default function Blog() {
       // Format date safely for schema markup
       let isoDate = "2026-06-05";
       try {
-        const parsedDate = new Date(selectedPost.date);
+        const parsedDate = new Date(selectedPost.datePublished || selectedPost.date);
         if (!isNaN(parsedDate.getTime())) {
           isoDate = parsedDate.toISOString().split("T")[0];
         }
       } catch (e) {
         // Fallback
+      }
+
+      let isoDateModified = isoDate;
+      if (selectedPost.dateModified) {
+        try {
+          const parsedModifiedDate = new Date(selectedPost.dateModified);
+          if (!isNaN(parsedModifiedDate.getTime())) {
+            isoDateModified = parsedModifiedDate.toISOString().split("T")[0];
+          }
+        } catch (e) {
+          // Fallback
+        }
       }
 
       const blogSchema = {
@@ -577,6 +604,7 @@ export default function Blog() {
             "headline": selectedPost.title,
             "description": selectedPost.metaDescription || selectedPost.excerpt,
             "datePublished": isoDate,
+            "dateModified": isoDateModified,
             "author": {
               "@type": "Person",
               "name": "Samad Shaikh",
@@ -825,8 +853,14 @@ export default function Blog() {
                 </span>
                 <div className="flex items-center gap-1.5 text-accent/30 text-xs font-Spline_Sans_Mono">
                   <Calendar className="w-3.5 h-3.5" />
-                  <span>{selectedPost.date}</span>
+                  <span>Published: {selectedPost.datePublished || selectedPost.date}</span>
                 </div>
+                {selectedPost.dateModified && (
+                  <div className="flex items-center gap-1.5 text-accent/30 text-xs font-Spline_Sans_Mono">
+                    <Calendar className="w-3.5 h-3.5 text-mint/60" />
+                    <span>Last Updated: {selectedPost.dateModified}</span>
+                  </div>
+                )}
                 <div className="flex items-center gap-1.5 text-accent/30 text-xs font-Spline_Sans_Mono">
                   <Clock className="w-3.5 h-3.5" />
                   <span>{selectedPost.readTime}</span>
@@ -848,13 +882,80 @@ export default function Blog() {
               
               {/* Primary Article Body */}
               <div ref={contentRef} className="lg:col-span-9 flex flex-col font-sans">
+                {/* TL;DR Key Takeaways Box */}
+                <div className="mb-8 p-5 rounded-2xl border border-mint/20 bg-mint/[0.02] backdrop-blur-md">
+                  <h3 className="text-mint font-Spline_Sans_Mono text-[10px] uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-mint animate-pulse" />
+                    TL;DR / Key Telemetry Takeaways
+                  </h3>
+                  <ul className="list-disc pl-5 flex flex-col gap-2 text-accent/80 text-[12.5px] font-light leading-relaxed">
+                    <li><strong>Domain Category:</strong> Specialized blueprint in the field of {selectedPost.category}.</li>
+                    <li><strong>Target Objective:</strong> {selectedPost.excerpt}</li>
+                    <li><strong>Core Protocols Analyzed:</strong> {selectedPost.tags.slice(0, 3).join(", ")}.</li>
+                    <li><strong>Execution Timeframe:</strong> Highly optimized code walkthrough with an estimated {selectedPost.readTime} depth.</li>
+                  </ul>
+                </div>
+
                 {renderMarkdownContent(selectedPost.content, (slug) => {
                   const post = blogPosts.find(p => p.slug === slug);
                   if (post) {
                     handleSelectPost(post);
                   }
                 })}
+
+                {/* Author Biography Section */}
+                <div className="my-10 p-6 rounded-2xl border border-white/5 bg-white/[0.01] flex flex-col sm:flex-row items-center gap-5">
+                  <img 
+                    src="/Samad_Portrait.avif" 
+                    alt="Samad Shaikh" 
+                    className="w-16 h-16 rounded-full object-cover border border-mint/20 shrink-0"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "/Samad_Portrait.jpeg";
+                    }}
+                  />
+                  <div className="flex flex-col text-left">
+                    <h4 className="text-white font-Spline_Sans_Mono text-sm font-semibold tracking-wide uppercase">
+                      Samad Shaikh
+                    </h4>
+                    <p className="text-accent/40 text-[10px] font-Spline_Sans_Mono uppercase tracking-wider mt-0.5">
+                      Software Engineer & AI Specialist, Mumbai
+                    </p>
+                    <p className="text-accent/60 text-xs font-light leading-relaxed mt-2.5">
+                      Samad Shaikh is an independent software engineer and tech entrepreneur based in Bandra, Mumbai, specializing in full-stack React, Next.js, and Generative AI agentic workflows.
+                    </p>
+                    <div className="flex items-center gap-3 mt-3">
+                      <a href="https://github.com/The-Syntax-Slayer" target="_blank" rel="noreferrer" className="text-[10px] font-Spline_Sans_Mono text-mint hover:underline">GitHub</a>
+                      <span className="text-white/10 text-xs">•</span>
+                      <a href="https://www.linkedin.com/in/samad-ai" target="_blank" rel="noreferrer" className="text-[10px] font-Spline_Sans_Mono text-mint hover:underline">LinkedIn</a>
+                      <span className="text-white/10 text-xs">•</span>
+                      <a href="https://www.samadshaikh.dev" className="text-[10px] font-Spline_Sans_Mono text-mint hover:underline">Portfolio</a>
+                    </div>
+                  </div>
+                </div>
+
                 <FeedbackWidget blogTitle={selectedPost.title} blogSlug={selectedPost.slug} />
+
+                {/* Related Posts Section */}
+                <div className="mt-12 border-t border-white/5 pt-10">
+                  <h3 className="text-white font-serif-display text-lg md:text-xl font-medium tracking-tight mb-6">
+                    Related Blueprints
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {getRelatedPosts(selectedPost).map((post) => (
+                      <div 
+                        key={post.id}
+                        onClick={() => handleSelectPost(post)}
+                        className="p-5 rounded-2xl border border-white/5 bg-white/[0.01] hover:border-mint/20 hover:bg-mint/[0.01] transition-all duration-300 cursor-pointer flex flex-col justify-between h-full group"
+                      >
+                        <div className="flex flex-col gap-2">
+                          <span className="text-[8px] font-Spline_Sans_Mono tracking-wider text-mint uppercase">{post.category}</span>
+                          <h4 className="text-white/80 group-hover:text-white text-xs font-semibold leading-snug line-clamp-2 transition-colors duration-200">{post.title}</h4>
+                        </div>
+                        <span className="text-[9px] font-Spline_Sans_Mono text-accent/30 tracking-wider uppercase mt-4 block">{post.date}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               {/* Sidebar toolbox (Social share and link copy) */}

@@ -1,0 +1,13 @@
+/* TEAM */
+Chef Developer: Samad Shaikh
+Contact: sxmxd.1825@gmail.com
+LinkedIn: https://www.linkedin.com/in/samad-ai
+GitHub: https://github.com/The-Syntax-Slayer
+From: Bandra, Mumbai, India
+
+/* SITE */
+Last update: 2026/06/17
+Standards: HTML5, CSS3, ESNext
+Components: React 19, Vite, Framer Motion, Tailwind CSS
+Software SaaS portfolio: MockMate AI, PriMaX Hub, Planora, WebLens, LegalEase
+Host: Vercel
