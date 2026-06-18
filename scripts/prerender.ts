@@ -171,7 +171,7 @@ async function runPrerender() {
 
   if (cssContent) {
     indexHtml = indexHtml.replace(
-      /<link rel="stylesheet" crossorigin href="\.\/assets\/index-.*?\.css">/g,
+      /<link rel="stylesheet" crossorigin href="(?:\.\/|\/)assets\/index-.*?\.css">/g,
       `<style id="critical-css">${cssContent}</style>`
     );
     fs.writeFileSync(TEMPLATE_PATH, indexHtml);
