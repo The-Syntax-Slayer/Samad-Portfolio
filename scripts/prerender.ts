@@ -109,11 +109,6 @@ function ensureDir(dirPath: string) {
   }
 }
 
-/**
- * Safely replace a section in HTML by finding its opening tag and replacing
- * everything until the matching closing tag. This avoids regex issues with
- * large multiline content that can cause catastrophic backtracking.
- */
 function replaceSeoSection(html: string, newSectionContent: string): string {
   const openTag = '<section id="seo-crawler-context"';
   const closeTag = '</section>';
@@ -124,17 +119,31 @@ function replaceSeoSection(html: string, newSectionContent: string): string {
     return html.replace('</body>', `${newSectionContent}\n</body>`);
   }
 
-  // Find the '>' that closes the opening tag attributes
+  // Find the exact closing tag of the outer section by balancing tags
+  let depth = 1;
   const openTagEnd = html.indexOf('>', startIdx) + 1;
+  let currentIdx = openTagEnd;
 
-  // Now find the closing </section> after the opening tag
-  const closeIdx = html.indexOf(closeTag, openTagEnd);
-  if (closeIdx === -1) {
-    console.warn('  [WARN] Closing </section> not found — replacing from open tag to end of file');
-    return html.slice(0, startIdx) + newSectionContent + html.slice(openTagEnd);
+  while (depth > 0 && currentIdx < html.length) {
+    const nextOpen = html.indexOf('<section', currentIdx);
+    const nextClose = html.indexOf('</section>', currentIdx);
+
+    if (nextClose === -1) {
+      break;
+    }
+
+    if (nextOpen !== -1 && nextOpen < nextClose) {
+      depth++;
+      currentIdx = nextOpen + '<section'.length;
+    } else {
+      depth--;
+      currentIdx = nextClose + '</section>'.length;
+    }
   }
 
-  return html.slice(0, startIdx) + newSectionContent + html.slice(closeIdx + closeTag.length);
+  const endIdx = depth === 0 ? currentIdx : html.indexOf(closeTag, openTagEnd) + closeTag.length;
+
+  return html.slice(0, startIdx) + newSectionContent + html.slice(endIdx);
 }
 
 async function runPrerender() {
