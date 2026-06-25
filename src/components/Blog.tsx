@@ -4,6 +4,41 @@ import { Calendar, Clock, ArrowLeft, Copy, Check, MessageSquare, Send, CheckCirc
 import { blogPosts, type BlogPost } from "../data/blogs";
 import SpotlightCard from "./SpotlightCard";
 
+// ─── Google AdSense Banner ────────────────────────────────────────────────────
+function GoogleAdBanner() {
+  useEffect(() => {
+    // Load adsbygoogle script once
+    if (!document.getElementById("adsense-script")) {
+      const script = document.createElement("script");
+      script.id = "adsense-script";
+      script.async = true;
+      script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5113174882780393";
+      script.crossOrigin = "anonymous";
+      document.head.appendChild(script);
+    }
+
+    try {
+      // Push ad unit
+      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+    } catch (e) {
+      // silently ignore if adsbygoogle not ready
+    }
+  }, []);
+
+  return (
+    <div className="my-10 w-full overflow-hidden rounded-2xl" aria-label="Advertisement">
+      <ins
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client="ca-pub-5113174882780393"
+        data-ad-slot="2146545519"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+    </div>
+  );
+}
+
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 // Lightweight, zero-dependency stateful Markdown-to-HTML Parser for custom styled text
@@ -902,6 +937,9 @@ export default function Blog() {
                     handleSelectPost(post);
                   }
                 })}
+
+                {/* ── Google AdSense — In-Article Ad ── */}
+                <GoogleAdBanner />
 
                 {/* Author Biography Section */}
                 <div className="my-10 p-6 rounded-2xl border border-white/5 bg-white/[0.01] flex flex-col sm:flex-row items-center gap-5">
