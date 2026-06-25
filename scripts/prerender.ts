@@ -604,8 +604,12 @@ ${post.content}
   fs.writeFileSync(path.join(PUBLIC_DIR, `${INDEXNOW_KEY}.txt`), INDEXNOW_KEY);
   console.log(`✅ Generated IndexNow key file: ${INDEXNOW_KEY}.txt`);
 
-  // ─── Submit to IndexNow ─────────────────────────────────────────────────────
-  submitToIndexNow();
+  // ─── IndexNow ───────────────────────────────────────────────────────────────
+  // NOTE: IndexNow submission is intentionally NOT called here.
+  // The build runs inside Vercel's container BEFORE the site goes live,
+  // so the key-file URL is not yet accessible → API returns 403.
+  // Run `node scripts/ping-indexnow.js` manually AFTER deployment instead.
+  console.log('ℹ️  IndexNow: Run `node scripts/ping-indexnow.js` after deployment to notify search engines.');
 
   console.log('\n🎉 Prerender complete!\n');
   console.log('📋 Summary:');
