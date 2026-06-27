@@ -556,17 +556,41 @@ export default function Home({ setActiveTab }: HomeProps) {
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease }}
-        className="w-full max-w-3xl px-6 pt-16 pb-20 text-center select-none z-10"
+        className="relative w-full max-w-3xl px-6 pt-16 pb-20 text-center select-none z-10"
       >
-        <span className="font-Spline_Sans_Mono text-[10px] tracking-[0.25em] text-[#8FFFD1] uppercase font-semibold">
-          Editorial Biography
-        </span>
-        <h2 className="font-serif-display text-3xl md:text-4xl font-medium tracking-tight text-white mt-4 mb-6">
+        {/* Label with decorative flanking lines */}
+        <div className="flex items-center justify-center gap-3 mb-6">
+          <span className="h-px w-14 bg-gradient-to-r from-transparent to-[#8FFFD1]/50" />
+          <span className="font-Spline_Sans_Mono text-[10px] tracking-[0.25em] text-[#8FFFD1] uppercase font-semibold">
+            Editorial Biography
+          </span>
+          <span className="h-px w-14 bg-gradient-to-l from-transparent to-[#8FFFD1]/50" />
+        </div>
+
+        <h2 className="font-serif-display text-3xl md:text-4xl font-medium tracking-tight text-white mb-8">
           Architecting solutions with <span className="text-mint font-light italic">engineering precision</span>
         </h2>
-        <p className="text-accent/75 font-light text-sm sm:text-base leading-relaxed tracking-wide font-serif-display italic">
-          Samad Shaikh is a professional Software Engineer, Applied GenAI Specialist, and Tech Entrepreneur based in Bandra, Mumbai, India. Specialized in architecting and deploying high-performance full-stack web applications, he bridges deep backend concurrency with fluid, pixel-perfect user interfaces. Over his engineering career, Samad has designed and launched several prominent digital products including <span className="text-mint font-normal not-italic">PriMaX Hub</span> (a habits & productivity SaaS platform), <span className="text-mint font-normal not-italic">MockMate AI</span> (a real-time speech analytics interview tool), and <span className="text-mint font-normal not-italic">WebLens</span> (a developer utility for web performance audits). With a Bachelor of Science (B.Sc.) in Computer Science from the University of Mumbai (class of 2026, graduating with honors), he holds 10 industry certifications from Google, IBM, Microsoft, AWS, and Meta. He works closely with startups and enterprises globally, designing high-availability APIs, vector retrieval systems (pgvector/RAG), and modular component ecosystems.
+
+        <p className="text-accent/70 font-light text-sm sm:text-base leading-[1.9] tracking-wide font-serif-display italic">
+          <span className="text-white/95 font-normal not-italic">Samad Shaikh</span> is a{' '}
+          <span className="text-[#8FFFD1]/90 font-normal not-italic">Software Engineer</span>,{' '}
+          <span className="text-[#8FFFD1]/90 font-normal not-italic">AI Specialist</span>, and{' '}
+          <span className="text-[#8FFFD1]/90 font-normal not-italic">Tech Entrepreneur</span>{' '}
+          based in Bandra, Mumbai, India — building high-performance full-stack applications and
+          production-grade AI systems. He bridges deep backend concurrency with fluid, pixel-perfect
+          interfaces, and has shipped products trusted by startups and enterprises globally.
         </p>
+
+        {/* Decorative bottom ornament */}
+        <div className="mt-10 flex items-center justify-center gap-2">
+          <span className="h-px w-10 bg-[#8FFFD1]/20" />
+          <span className="w-1 h-1 rounded-full bg-[#8FFFD1]/50" />
+          <span className="h-px w-4 bg-[#8FFFD1]/20" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#8FFFD1]/30" />
+          <span className="h-px w-4 bg-[#8FFFD1]/20" />
+          <span className="w-1 h-1 rounded-full bg-[#8FFFD1]/50" />
+          <span className="h-px w-10 bg-[#8FFFD1]/20" />
+        </div>
       </motion.section>
 
       {/* 2. Bento Grid Section (Below the fold - only visible when scrolled down) */}
