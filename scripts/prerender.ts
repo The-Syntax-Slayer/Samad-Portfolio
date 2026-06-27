@@ -183,13 +183,13 @@ async function runPrerender() {
     {
       name: 'about',
       title: 'About Samad Shaikh | Background, Skills & Certifications',
-      description: 'Explore the skills, certifications, and background of Samad Shaikh, a software engineer specializing in React, TypeScript, Node.js, and Generative AI.',
-      h1: 'About Samad Shaikh — Background, Skills & Certifications',
+      description: 'Samad Shaikh is a Software Engineer, AI Specialist and Tech Entrepreneur from Mumbai. B.Sc. CS graduate with 10 professional certifications from Google, IBM, Microsoft, AWS and Meta.',
+      h1: 'Samad Shaikh — Background, Skills & Certifications',
       bodyContent: `
         <article style="max-width:800px;margin:0 auto;padding:20px;">
-          <h1 style="font-size:2rem;color:#fff;margin-bottom:16px;">About Samad Shaikh — Background, Skills &amp; Certifications</h1>
-          <p style="color:#a8b2c1;line-height:1.75;">Samad Shaikh is a professional Software Engineer and AI Specialist based in Bandra, Mumbai, India. He builds high-performance web applications, production SaaS platforms, and integrates agentic LLM workflows using React 19, TypeScript, Python, and FastAPI.</p>
-          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Education</h2>
+          <h1 style="font-size:2rem;color:#fff;margin-bottom:16px;">Samad Shaikh</h1>
+          <p id="about-description" style="color:#a8b2c1;line-height:1.75;">Samad Shaikh is a professional Software Engineer, AI Specialist, and Tech Entrepreneur based in Bandra, Mumbai, India. He builds high-performance web applications and production SaaS platforms, and integrates agentic LLM workflows.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Background &amp; Education</h2>
           <p style="color:#a8b2c1;line-height:1.75;">Samad graduated with a B.Sc. in Computer Science from M.P.S.P.S College, University of Mumbai with a CGPA of 8.25/10.</p>
           <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Professional Certifications</h2>
           <ul style="list-style-type:disc;padding-left:24px;color:#a8b2c1;">
@@ -562,12 +562,12 @@ He graduated with a Bachelor of Science (B.Sc.) in Computer Science from the Uni
 
 ## Detailed Technical Projects
 ${JSON.stringify([
-  { name: 'MockMate AI', category: 'Speech Analytics & Interview platform', description: 'An interactive AI-driven interview practice platform featuring real-time speech analytics and voice feedback loops.' },
-  { name: 'PriMaX Hub', category: 'Business SaaS Application', description: 'A scalable multi-module SaaS product built using a Supabase backend and highly optimized relational database schemas.' },
-  { name: 'Planora', category: 'Social Scheduler pipeline', description: 'A social media pipeline scheduler designed for automated publishing and workflow coordination.' },
-  { name: 'WebLens', category: 'Performance & SEO Audit utility', description: 'A web performance, SEO, and accessibility audit utility providing actionable performance reports.' },
-  { name: 'LegalEase', category: 'AI Legal Contract Simplifier', description: 'An AI-powered legal contract simplifier that translates legalese into human-readable summaries.' }
-], null, 2)}
+    { name: 'MockMate AI', category: 'Speech Analytics & Interview platform', description: 'An interactive AI-driven interview practice platform featuring real-time speech analytics and voice feedback loops.' },
+    { name: 'PriMaX Hub', category: 'Business SaaS Application', description: 'A scalable multi-module SaaS product built using a Supabase backend and highly optimized relational database schemas.' },
+    { name: 'Planora', category: 'Social Scheduler pipeline', description: 'A social media pipeline scheduler designed for automated publishing and workflow coordination.' },
+    { name: 'WebLens', category: 'Performance & SEO Audit utility', description: 'A web performance, SEO, and accessibility audit utility providing actionable performance reports.' },
+    { name: 'LegalEase', category: 'AI Legal Contract Simplifier', description: 'An AI-powered legal contract simplifier that translates legalese into human-readable summaries.' }
+  ], null, 2)}
 
 ---
 
