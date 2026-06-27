@@ -7,7 +7,7 @@ interface BootLoaderProps {
 
 const bootLogs = [
   "SYSTEM_BOOT: SAMAD-SHAIKH-PORTFOLIO",
-  "--------------------------------------------------",
+  "------------------------------------------",
   "[OK] INITIALIZING STYLES & GLOW BUFFER...",
   "[OK] PACKAGING COMPONENT CORE...",
   "[OK] BOOTSTRAPPING GENAI AGENTS...",
@@ -93,13 +93,12 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
 
   return (
     <div
-      className={`fixed inset-0 w-screen h-screen bg-[#050505] z-[9999] flex flex-col justify-center items-center px-6 font-Spline_Sans_Mono select-none transition-all duration-1000 ease-[cubic-bezier(0.76,0,0.24,1)] ${
-        isTransitioningOut 
-          ? "-translate-y-full opacity-0 pointer-events-none" 
+      className={`fixed inset-0 w-screen h-screen bg-[#050505] z-[9999] flex flex-col justify-center items-center px-6 font-Spline_Sans_Mono select-none transition-all duration-1000 ease-[cubic-bezier(0.76,0,0.24,1)] ${isTransitioningOut
+          ? "-translate-y-full opacity-0 pointer-events-none"
           : "translate-y-0 opacity-100"
-      }`}
+        }`}
     >
-      <div 
+      <div
         className="absolute inset-0 z-10 pointer-events-none opacity-[3%]"
         style={{
           backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, #FFFFFF 2px, #FFFFFF 4px)"
@@ -120,8 +119,8 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
             const isSuccess = log.includes("[OK]");
             const isGranted = log.includes("GRANTED");
             return (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className={isGranted ? "text-mint font-semibold text-glow-mint mt-2" : isSuccess ? "text-[#B0FF92]" : ""}
               >
                 {log}
@@ -135,9 +134,9 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
             <span>BOOTING CORE SYSTEM</span>
             <span className="text-mint font-bold">{Math.min(100, progress)}%</span>
           </div>
-          
+
           <div className="w-full h-1 bg-white/[0.04] border border-white/10 rounded-full overflow-hidden p-[1px]">
-            <motion.div 
+            <motion.div
               className="h-full rounded-full bg-mint shadow-[0_0_10px_var(--theme-mint)]"
               style={{ width: `${Math.min(100, progress)}%` }}
             />
@@ -160,7 +159,7 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
             transition={{ duration: 1.4, ease: "linear", repeat: Infinity }}
             className="w-full h-[3px] bg-gradient-to-r from-transparent via-mint to-transparent shadow-[0_0_15px_#8FFFD1] absolute left-0"
           />
-          
+
           {/* Pulse text */}
           <motion.div
             initial={{ scale: 0.98, opacity: 0 }}
@@ -168,7 +167,7 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="flex flex-col items-center gap-3 text-center px-4"
           >
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.5, ease: "easeOut" }}
@@ -176,8 +175,8 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
             >
               ✦ ACCESS GRANTED ✦
             </motion.span>
-            
-            <motion.span 
+
+            <motion.span
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.6, ease: "easeOut" }}
@@ -187,7 +186,7 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
               WELCOME TO SAMAD'S WORKSPACE
             </motion.span>
 
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.45 }}
               transition={{ delay: 0.85, duration: 0.5 }}
