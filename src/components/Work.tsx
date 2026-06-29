@@ -85,7 +85,7 @@ const projects = [
     image: tradingImg,
     imageSm: tradingImgSm,
     imageMd: tradingImgMd,
-    imageFit: "contain",
+    imageFit: "cover",
     demoLink: "https://github.com/The-Syntax-Slayer/autonomous-llm-trading-agents",
     githubLink: "https://github.com/The-Syntax-Slayer/autonomous-llm-trading-agents",
   },
@@ -105,7 +105,7 @@ const projects = [
     image: autocoderoverImg,
     imageSm: autocoderoverImgSm,
     imageMd: autocoderoverImgMd,
-    imageFit: "contain",
+    imageFit: "cover",
     demoLink: "https://github.com/The-Syntax-Slayer/auto-code-rover",
     githubLink: "https://github.com/The-Syntax-Slayer/auto-code-rover",
   },
@@ -125,7 +125,7 @@ const projects = [
     image: calfkitImg,
     imageSm: calfkitImgSm,
     imageMd: calfkitImgMd,
-    imageFit: "contain",
+    imageFit: "cover",
     demoLink: "https://github.com/The-Syntax-Slayer/calfkit-sdk",
     githubLink: "https://github.com/The-Syntax-Slayer/calfkit-sdk",
   },
@@ -145,7 +145,7 @@ const projects = [
     image: browsermcpImg,
     imageSm: browsermcpImgSm,
     imageMd: browsermcpImgMd,
-    imageFit: "contain",
+    imageFit: "cover",
     demoLink: "https://github.com/The-Syntax-Slayer/browser-mcp",
     githubLink: "https://github.com/The-Syntax-Slayer/browser-mcp",
   },
@@ -165,7 +165,7 @@ const projects = [
     image: langgraphImg,
     imageSm: langgraphImgSm,
     imageMd: langgraphImgMd,
-    imageFit: "contain",
+    imageFit: "cover",
     demoLink: "https://github.com/The-Syntax-Slayer/fastapi-langgraph-agent-production-ready-template",
     githubLink: "https://github.com/The-Syntax-Slayer/fastapi-langgraph-agent-production-ready-template",
   },
@@ -352,7 +352,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           srcSet={`${project.imageSm} 400w, ${project.imageMd} 800w, ${project.image} 1200w`}
           sizes="(max-width: 768px) 100vw, 600px"
           alt={project.title}
-          className={`w-full h-full ${project.imageFit === 'contain' ? 'object-contain p-4 md:p-6 bg-neutral-950/20' : 'object-cover'} transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/img:scale-[1.03]`}
+          className={`w-full h-full ${project.imageFit === 'contain' ? 'object-contain p-2 bg-[#070b13]' : 'object-cover'} transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/img:scale-[1.03]`}
         />
       </div>
 
@@ -472,7 +472,7 @@ function HorizontalProjectCard({ project }: { project: typeof projects[0] }) {
         <img
           src={project.image}
           alt={project.title}
-          className={`w-full h-full ${project.imageFit === 'contain' ? 'object-contain p-4 md:p-6 bg-neutral-950/20' : 'object-cover'} transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/img:scale-[1.03]`}
+          className={`w-full h-full ${project.imageFit === 'contain' ? 'object-contain p-2 bg-[#070b13]' : 'object-cover'} transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/img:scale-[1.03]`}
         />
       </div>
 
