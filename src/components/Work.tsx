@@ -36,17 +36,17 @@ const tradingImgMd = tradingImg;
 const calfkitImgSm = calfkitImg;
 const calfkitImgMd = calfkitImg;
 
-const browsermcpImg = wlImg;
-const browsermcpImgSm = wlImgSm;
-const browsermcpImgMd = wlImgMd;
+import browsermcpImg from "../assets/browsermcp.png";
+const browsermcpImgSm = browsermcpImg;
+const browsermcpImgMd = browsermcpImg;
 
-const autocoderoverImg = wlImg;
-const autocoderoverImgSm = wlImgSm;
-const autocoderoverImgMd = wlImgMd;
+import autocoderoverImg from "../assets/autocoderover.png";
+const autocoderoverImgSm = autocoderoverImg;
+const autocoderoverImgMd = autocoderoverImg;
 
-const langgraphImg = wlImg;
-const langgraphImgSm = wlImgSm;
-const langgraphImgMd = wlImgMd;
+import langgraphImg from "../assets/langgraph.png";
+const langgraphImgSm = langgraphImg;
+const langgraphImgMd = langgraphImg;
 
 const projects = [
   {
@@ -65,6 +65,7 @@ const projects = [
     image: octopalImg,
     imageSm: octopalImgSm,
     imageMd: octopalImgMd,
+    imageFit: "contain",
     demoLink: "https://github.com/The-Syntax-Slayer/Octopal",
     githubLink: "https://github.com/The-Syntax-Slayer/Octopal",
   },
@@ -84,6 +85,7 @@ const projects = [
     image: tradingImg,
     imageSm: tradingImgSm,
     imageMd: tradingImgMd,
+    imageFit: "contain",
     demoLink: "https://github.com/The-Syntax-Slayer/autonomous-llm-trading-agents",
     githubLink: "https://github.com/The-Syntax-Slayer/autonomous-llm-trading-agents",
   },
@@ -103,6 +105,7 @@ const projects = [
     image: autocoderoverImg,
     imageSm: autocoderoverImgSm,
     imageMd: autocoderoverImgMd,
+    imageFit: "contain",
     demoLink: "https://github.com/The-Syntax-Slayer/auto-code-rover",
     githubLink: "https://github.com/The-Syntax-Slayer/auto-code-rover",
   },
@@ -122,6 +125,7 @@ const projects = [
     image: calfkitImg,
     imageSm: calfkitImgSm,
     imageMd: calfkitImgMd,
+    imageFit: "contain",
     demoLink: "https://github.com/The-Syntax-Slayer/calfkit-sdk",
     githubLink: "https://github.com/The-Syntax-Slayer/calfkit-sdk",
   },
@@ -141,6 +145,7 @@ const projects = [
     image: browsermcpImg,
     imageSm: browsermcpImgSm,
     imageMd: browsermcpImgMd,
+    imageFit: "contain",
     demoLink: "https://github.com/The-Syntax-Slayer/browser-mcp",
     githubLink: "https://github.com/The-Syntax-Slayer/browser-mcp",
   },
@@ -160,6 +165,7 @@ const projects = [
     image: langgraphImg,
     imageSm: langgraphImgSm,
     imageMd: langgraphImgMd,
+    imageFit: "contain",
     demoLink: "https://github.com/The-Syntax-Slayer/fastapi-langgraph-agent-production-ready-template",
     githubLink: "https://github.com/The-Syntax-Slayer/fastapi-langgraph-agent-production-ready-template",
   },
@@ -179,6 +185,7 @@ const projects = [
     image: primaxImg,
     imageSm: primaxImgSm,
     imageMd: primaxImgMd,
+    imageFit: "cover",
     demoLink: "https://primax-sigma.vercel.app/",
     githubLink: "https://github.com/The-Syntax-Slayer/PriMaX-Hub.git",
   },
@@ -198,6 +205,7 @@ const projects = [
     image: mmImg,
     imageSm: mmImgSm,
     imageMd: mmImgMd,
+    imageFit: "cover",
     demoLink: "https://mock-mate-ai-beta.vercel.app",
     githubLink: "https://github.com/The-Syntax-Slayer/MockMate-AI.git",
   },
@@ -217,6 +225,7 @@ const projects = [
     image: wlImg,
     imageSm: wlImgSm,
     imageMd: wlImgMd,
+    imageFit: "cover",
     demoLink: "https://web-lens-seven.vercel.app",
     githubLink: "https://github.com/The-Syntax-Slayer/Web-Lens.git",
   },
@@ -236,6 +245,7 @@ const projects = [
     image: planoraImg,
     imageSm: planoraImgSm,
     imageMd: planoraImgMd,
+    imageFit: "cover",
     demoLink: "https://planora-social.vercel.app",
     githubLink: "https://github.com/The-Syntax-Slayer/Planora.git",
   },
@@ -255,6 +265,7 @@ const projects = [
     image: legaleaseImg,
     imageSm: legaleaseImgSm,
     imageMd: legaleaseImgMd,
+    imageFit: "cover",
     demoLink: "https://legal-ease-tan.vercel.app/",
     githubLink: "https://github.com/The-Syntax-Slayer/Legal-Ease.git",
   },
@@ -274,6 +285,7 @@ const projects = [
     image: clientsyncImg,
     imageSm: clientsyncImgSm,
     imageMd: clientsyncImgMd,
+    imageFit: "cover",
     demoLink: "https://client-sync-ddcrm.vercel.app",
     githubLink: "https://github.com/The-Syntax-Slayer",
   },
@@ -293,6 +305,7 @@ const projects = [
     image: smartmeetImg,
     imageSm: smartmeetImgSm,
     imageMd: smartmeetImgMd,
+    imageFit: "cover",
     demoLink: "https://smart-meet.vercel.app",
     githubLink: "https://github.com/The-Syntax-Slayer/Smart-Meet.git",
   }
@@ -339,7 +352,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           srcSet={`${project.imageSm} 400w, ${project.imageMd} 800w, ${project.image} 1200w`}
           sizes="(max-width: 768px) 100vw, 600px"
           alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/img:scale-[1.03]"
+          className={`w-full h-full ${project.imageFit === 'contain' ? 'object-contain p-4 md:p-6 bg-neutral-950/20' : 'object-cover'} transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/img:scale-[1.03]`}
         />
       </div>
 
@@ -459,7 +472,7 @@ function HorizontalProjectCard({ project }: { project: typeof projects[0] }) {
         <img
           src={project.image}
           alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/img:scale-[1.03]"
+          className={`w-full h-full ${project.imageFit === 'contain' ? 'object-contain p-4 md:p-6 bg-neutral-950/20' : 'object-cover'} transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/img:scale-[1.03]`}
         />
       </div>
 
