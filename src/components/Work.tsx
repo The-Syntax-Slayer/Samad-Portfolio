@@ -23,9 +23,148 @@ import smartmeetImg from "../assets/smartmeet.webp";
 import smartmeetImgSm from "../assets/smartmeet-sm.webp";
 import smartmeetImgMd from "../assets/smartmeet-md.webp";
 
+// AI Projects assets
+import octopalImg from "../assets/octopal.png";
+import tradingImg from "../assets/trading.png";
+import calfkitImg from "../assets/calfkit.png";
+
+// Setup compilation placeholders for Vite build
+const octopalImgSm = octopalImg;
+const octopalImgMd = octopalImg;
+const tradingImgSm = tradingImg;
+const tradingImgMd = tradingImg;
+const calfkitImgSm = calfkitImg;
+const calfkitImgMd = calfkitImg;
+
+const browsermcpImg = wlImg;
+const browsermcpImgSm = wlImgSm;
+const browsermcpImgMd = wlImgMd;
+
+const autocoderoverImg = wlImg;
+const autocoderoverImgSm = wlImgSm;
+const autocoderoverImgMd = wlImgMd;
+
+const langgraphImg = wlImg;
+const langgraphImgSm = wlImgSm;
+const langgraphImgMd = wlImgMd;
+
 const projects = [
   {
     id: "01",
+    title: "Octopal",
+    category: "AI Agent Operator",
+    themeColor: "#8FFFD1", // Mint Green
+    description: "A local, Docker-sandboxed autonomous AI agent (Octo) that coordinates short-lived specialized workers to perform automation, scheduled workflows, and web research securely.",
+    problem: "AI agents with broad host system permissions are highly vulnerable to prompt injections and malicious code execution.",
+    solution: "Architected a coordinator-worker model where the thinking loop is split from the execution environment using disposable Docker sandboxes.",
+    metrics: [
+      { value: "100%", label: "Sandbox Isolation" },
+      { value: "12+", label: "Worker Templates" }
+    ],
+    techStack: ["Python", "FastAPI", "Docker", "Telegram API", "uv"],
+    image: octopalImg,
+    imageSm: octopalImgSm,
+    imageMd: octopalImgMd,
+    demoLink: "https://github.com/The-Syntax-Slayer/Octopal",
+    githubLink: "https://github.com/The-Syntax-Slayer/Octopal",
+  },
+  {
+    id: "02",
+    title: "Autonomous LLM Trading Agents",
+    category: "AI Multi-Agent Simulation",
+    themeColor: "#F59E0B", // Amber
+    description: "A multi-agent quantitative finance system where specialized agents (Traders, Analysts, Risk Managers) coordinate via async message passing to execute mock trades.",
+    problem: "Single-agent trading models fail to balance complex market monitoring, deep analyst research, and strict risk limits.",
+    solution: "Designed a 5-stage agent pipeline coordinated by an async CommunicationHub, separating research, risk management, and execution roles.",
+    metrics: [
+      { value: "5+", label: "Cooperating Agents" },
+      { value: "100+", label: "Supported Models" }
+    ],
+    techStack: ["Python", "Asyncio", "OpenRouter", "TOML", "pytest"],
+    image: tradingImg,
+    imageSm: tradingImgSm,
+    imageMd: tradingImgMd,
+    demoLink: "https://github.com/The-Syntax-Slayer/autonomous-llm-trading-agents",
+    githubLink: "https://github.com/The-Syntax-Slayer/autonomous-llm-trading-agents",
+  },
+  {
+    id: "03",
+    title: "Auto-Code-Rover",
+    category: "Autonomous Coding Agent",
+    themeColor: "#EC4899", // Pink
+    description: "An autonomous software engineer that resolves real-world GitHub issues in SWE-bench using AST-level context gathering and iterative edits.",
+    problem: "Generic LLM coding helpers lack codebase structure awareness, causing high costs and poor task success rates.",
+    solution: "Built an agent that parses codebases into abstract syntax trees (AST) to selectively search classes/methods and execute precise, localized edits.",
+    metrics: [
+      { value: "37.3%", label: "SWE-bench Lite" },
+      { value: "51.6%", label: "SWE-bench Verified" }
+    ],
+    techStack: ["Python", "AST Parsing", "SWE-bench", "LLM reasoning"],
+    image: autocoderoverImg,
+    imageSm: autocoderoverImgSm,
+    imageMd: autocoderoverImgMd,
+    demoLink: "https://github.com/The-Syntax-Slayer/auto-code-rover",
+    githubLink: "https://github.com/The-Syntax-Slayer/auto-code-rover",
+  },
+  {
+    id: "04",
+    title: "Calfkit SDK",
+    category: "AI Agent Framework",
+    themeColor: "#A78BFA", // Purple
+    description: "An agent-orchestration library enabling decentralized multi-agent collaboration with runtime discovery, dynamic messaging, and tool delegation without hardcoding.",
+    problem: "Multi-agent frameworks often require complex, rigid orchestrators and hardcoded routing pipelines, making scaling difficult.",
+    solution: "Developed a decentralized framework where agents dynamically advertise capabilities, discover peers, and self-choreograph work.",
+    metrics: [
+      { value: "0", label: "Hardcoded Routing" },
+      { value: "Dynamic", label: "Runtime Discovery" }
+    ],
+    techStack: ["Python", "Pydantic", "OpenAI API", "PyPI"],
+    image: calfkitImg,
+    imageSm: calfkitImgSm,
+    imageMd: calfkitImgMd,
+    demoLink: "https://github.com/The-Syntax-Slayer/calfkit-sdk",
+    githubLink: "https://github.com/The-Syntax-Slayer/calfkit-sdk",
+  },
+  {
+    id: "05",
+    title: "Browser MCP",
+    category: "Developer MCP Tool",
+    themeColor: "#06B6D4", // Cyan
+    description: "A Playwright-powered Model Context Protocol server enabling LLMs to perform browser automation, CDP sessions, and bookmarking with a React dashboard interface.",
+    problem: "Coding agents need a safe, visual, and highly-configurable browser interface to perform research, E2E testing, and scraping.",
+    solution: "Built a custom MCP server integrating Chrome CDP sessions, Playwright automation, and a live React dashboard for monitoring.",
+    metrics: [
+      { value: "Playwright", label: "Browser Engine" },
+      { value: "FastMCP", label: "MCP Protocol" }
+    ],
+    techStack: ["TypeScript", "Playwright", "FastMCP", "React"],
+    image: browsermcpImg,
+    imageSm: browsermcpImgSm,
+    imageMd: browsermcpImgMd,
+    demoLink: "https://github.com/The-Syntax-Slayer/browser-mcp",
+    githubLink: "https://github.com/The-Syntax-Slayer/browser-mcp",
+  },
+  {
+    id: "06",
+    title: "FastAPI LangGraph Template",
+    category: "AI Agent Template",
+    themeColor: "#10B981", // Emerald
+    description: "A production-ready FastAPI template for building scalable AI agent services with LangGraph, including structured routing, background state execution, and JWT authentication.",
+    problem: "Moving LangGraph conversational agents from development scripts to production-ready REST APIs requires redundant boilerplate.",
+    solution: "Created a template containing pre-built async background task runners, state persistence, structured JSON endpoints, and Docker configs.",
+    metrics: [
+      { value: "100%", label: "Production Ready" },
+      { value: "Async", label: "Execution Loop" }
+    ],
+    techStack: ["FastAPI", "LangGraph", "Python", "JWT", "Docker"],
+    image: langgraphImg,
+    imageSm: langgraphImgSm,
+    imageMd: langgraphImgMd,
+    demoLink: "https://github.com/The-Syntax-Slayer/fastapi-langgraph-agent-production-ready-template",
+    githubLink: "https://github.com/The-Syntax-Slayer/fastapi-langgraph-agent-production-ready-template",
+  },
+  {
+    id: "07",
     title: "PriMaX Hub",
     category: "AI Productivity SaaS",
     themeColor: "#3B82F6", // Cyber Blue
@@ -44,7 +183,7 @@ const projects = [
     githubLink: "https://github.com/The-Syntax-Slayer/PriMaX-Hub.git",
   },
   {
-    id: "02",
+    id: "08",
     title: "MockMate AI",
     category: "AI Product",
     themeColor: "#A78BFA", // Purple
@@ -63,26 +202,7 @@ const projects = [
     githubLink: "https://github.com/The-Syntax-Slayer/MockMate-AI.git",
   },
   {
-    id: "03",
-    title: "Planora",
-    category: "Social Media Planner",
-    themeColor: "#F59E0B", // Amber
-    description: "A social media planner designed to plan content pipelines, schedule posts, and manage content calendars across various platforms.",
-    problem: "Creators waste hours manually scheduling and managing content pipelines across fragmented social platforms.",
-    solution: "Designed a pipeline visualizer and scheduler backed by a real-time Supabase database and cron workflows.",
-    metrics: [
-      { value: "60%", label: "Time Saved" },
-      { value: "2.4s", label: "Avg Load Time" }
-    ],
-    techStack: ["React", "Zustand", "Supabase", "Tailwind CSS", "Vercel"],
-    image: planoraImg,
-    imageSm: planoraImgSm,
-    imageMd: planoraImgMd,
-    demoLink: "https://planora-social.vercel.app",
-    githubLink: "https://github.com/The-Syntax-Slayer/Planora.git",
-  },
-  {
-    id: "04",
+    id: "09",
     title: "WebLens",
     category: "Developer Tool",
     themeColor: "#06B6D4", // Cyan
@@ -101,7 +221,26 @@ const projects = [
     githubLink: "https://github.com/The-Syntax-Slayer/Web-Lens.git",
   },
   {
-    id: "05",
+    id: "10",
+    title: "Planora",
+    category: "Social Media Planner",
+    themeColor: "#F59E0B", // Amber
+    description: "A social media planner designed to plan content pipelines, schedule posts, and manage content calendars across various platforms.",
+    problem: "Creators waste hours manually scheduling and managing content pipelines across fragmented social platforms.",
+    solution: "Designed a pipeline visualizer and scheduler backed by a real-time Supabase database and cron workflows.",
+    metrics: [
+      { value: "60%", label: "Time Saved" },
+      { value: "2.4s", label: "Avg Load Time" }
+    ],
+    techStack: ["React", "Zustand", "Supabase", "Tailwind CSS", "Vercel"],
+    image: planoraImg,
+    imageSm: planoraImgSm,
+    imageMd: planoraImgMd,
+    demoLink: "https://planora-social.vercel.app",
+    githubLink: "https://github.com/The-Syntax-Slayer/Planora.git",
+  },
+  {
+    id: "11",
     title: "LegalEase",
     category: "Legal Tech SaaS",
     themeColor: "#2DD4BF", // Teal
@@ -120,7 +259,7 @@ const projects = [
     githubLink: "https://github.com/The-Syntax-Slayer/Legal-Ease.git",
   },
   {
-    id: "06",
+    id: "12",
     title: "ClientSync",
     category: "Client CRM SaaS",
     themeColor: "#8FFFD1", // Mint Green
@@ -139,7 +278,7 @@ const projects = [
     githubLink: "https://github.com/The-Syntax-Slayer",
   },
   {
-    id: "07",
+    id: "13",
     title: "SmartMeet",
     category: "AI Meeting Assistant",
     themeColor: "#10B981", // Emerald
@@ -415,11 +554,11 @@ function HorizontalProjects() {
     offset: ["start start", "end end"]
   });
 
-  // 7 projects. Total translation is -84% of inner content width
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-84%"]);
+  // 13 projects. Total translation is -91.5% of inner content width
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-91.5%"]);
 
   return (
-    <section ref={targetRef} className="relative w-full h-[500vh] bg-transparent hidden lg:block">
+    <section ref={targetRef} className="relative w-full h-[900vh] bg-transparent hidden lg:block">
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         {/* Subtle background tech guide line */}
         <div className="absolute top-[18%] left-[5%] right-[5%] h-[1px] bg-gradient-to-r from-mint/0 via-mint/10 to-mint/0 pointer-events-none" />

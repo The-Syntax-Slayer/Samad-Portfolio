@@ -224,20 +224,32 @@ async function runPrerender() {
         <article style="max-width:800px;margin:0 auto;padding:20px;">
           <h1 style="font-size:2rem;color:#fff;margin-bottom:16px;">Portfolio &amp; Projects — Handcrafted Digital Experiences by Samad Shaikh</h1>
           <p style="color:#a8b2c1;line-height:1.75;">Samad Shaikh has designed and launched multiple production-grade digital products. Each project demonstrates deep technical expertise in full-stack engineering and applied AI.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Octopal</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">A local, Docker-sandboxed autonomous AI agent (Octo) that coordinates short-lived specialized workers to perform automation, scheduled workflows, and web research securely. Built with Python, FastAPI, Docker, and Telegram API.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Autonomous LLM Trading Agents</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">A multi-agent quantitative finance system where specialized agents (Traders, Analysts, Risk Managers) coordinate via async message passing to execute mock trades. Built with Python, Asyncio, OpenRouter, and TOML.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Auto-Code-Rover</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">An autonomous software engineer that resolves real-world GitHub issues in SWE-bench using AST-level context gathering and iterative edits. Built with Python, AST Parsing, and LLM reasoning.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Calfkit SDK</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">An agent-orchestration library enabling decentralized multi-agent collaboration with runtime discovery, dynamic messaging, and tool delegation without hardcoding. Built with Python, Pydantic, and OpenAI API.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Browser MCP</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">A Playwright-powered Model Context Protocol server enabling LLMs to perform browser automation, CDP sessions, and bookmarking with a React dashboard interface. Built with TypeScript, Playwright, and FastMCP.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">FastAPI LangGraph Template</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">A production-ready FastAPI template for building scalable AI agent services with LangGraph, including structured routing, background state execution, and JWT authentication. Built with FastAPI, LangGraph, Python, and Docker.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">PriMaX Hub</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">An AI-powered productivity ecosystem that integrates neuroscience growth frameworks to build habits, track performance, and help users crush their daily goals. Built with React, TypeScript, Node.js, and MongoDB.</p>
           <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">MockMate AI</h2>
           <p style="color:#a8b2c1;line-height:1.75;">An interactive AI-driven interview practice platform featuring real-time speech analytics and voice feedback loops. Built with React, TypeScript, Node.js, and the Google Gemini multimodal API.</p>
-          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">PriMaX Hub</h2>
-          <p style="color:#a8b2c1;line-height:1.75;">A scalable multi-module SaaS product built using a Supabase backend and highly optimized relational database schemas to integrate habits and growth frameworks.</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">WebLens</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">A web performance, SEO, and accessibility audit utility providing actionable performance reports by querying the Google PageSpeed Insights API. Built with React, PageSpeed API, and Tailwind CSS.</p>
           <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Planora</h2>
           <p style="color:#a8b2c1;line-height:1.75;">A social media pipeline scheduler designed for automated publishing and workflow coordination, utilizing React, Zustand, Supabase, and Tailwind CSS.</p>
-          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">WebLens</h2>
-          <p style="color:#a8b2c1;line-height:1.75;">A web performance, SEO, and accessibility audit utility providing actionable performance reports by querying the Google PageSpeed Insights API.</p>
           <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">LegalEase</h2>
           <p style="color:#a8b2c1;line-height:1.75;">An AI-powered legal contract simplifier that translates dense legalese into human-readable summaries using FastAPI, Python, spaCy, and Hugging Face models.</p>
           <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">ClientSync</h2>
           <p style="color:#a8b2c1;line-height:1.75;">A client relationship management CRM platform focused on organizing customer data, project workflows, communication, and business operations using React, Django, and PostgreSQL.</p>
           <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">SmartMeet</h2>
-          <p style="color:#a8b2c1;line-height:1.75;">An AI-powered meeting summarizer and task planner designed to automatically extract key discussion points, generate summaries, and organize follow-up tasks.</p>
+          <p style="color:#a8b2c1;line-height:1.75;">An AI-powered meeting summarizer and task planner designed to automatically extract key discussion points, generate summaries, and organize follow-up tasks. Built with React, FastAPI, Python, and spaCy.</p>
         </article>
       `
     },
