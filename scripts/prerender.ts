@@ -153,7 +153,6 @@ async function runPrerender() {
     console.error(`❌ Vite template index.html not found at: ${TEMPLATE_PATH}`);
     process.exit(1);
   }
-
   let indexHtml = fs.readFileSync(TEMPLATE_PATH, 'utf-8');
   const buildDate = new Date().toISOString().split('T')[0];
 
@@ -174,9 +173,100 @@ async function runPrerender() {
       /<link rel="stylesheet" crossorigin href="(?:\.\/|\/)assets\/index-.*?\.css">/g,
       `<style id="critical-css">${cssContent}</style>`
     );
-    fs.writeFileSync(TEMPLATE_PATH, indexHtml);
     console.log('✅ Inlined critical CSS inside index.html template\n');
   }
+
+  // ─── Extract Schemas from Template ─────────────────────────────────────────
+  const startMarker = '<!-- SCHEMA_START -->';
+  const endMarker = '<!-- SCHEMA_END -->';
+  const startIdx = indexHtml.indexOf(startMarker);
+  const endIdx = indexHtml.indexOf(endMarker);
+
+  if (startIdx === -1 || endIdx === -1) {
+    console.error('❌ SCHEMA_START or SCHEMA_END markers not found in template. Build aborted.');
+    process.exit(1);
+  }
+
+  const schemaBlockContent = indexHtml.slice(startIdx + startMarker.length, endIdx).trim();
+
+  // Extract all script tags in the schema block
+  const scriptRegex = /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g;
+  let match;
+  let parsedGraph: any[] = [];
+  let speakablePage: any = null;
+
+  while ((match = scriptRegex.exec(schemaBlockContent)) !== null) {
+    try {
+      const parsed = JSON.parse(match[1].trim());
+      if (parsed['@graph']) {
+        parsedGraph = parsed['@graph'];
+      } else if (parsed['@type'] === 'WebPage' && parsed['speakable']) {
+        speakablePage = parsed;
+      }
+    } catch (err) {
+      console.warn('⚠️  Failed to parse schema script from template: ', err);
+    }
+  }
+
+  // Find individual entities
+  const personEntity = parsedGraph.find(item => item['@type'] === 'Person');
+  const websiteEntity = parsedGraph.find(item => item['@type'] === 'WebSite');
+  const serviceEntity = parsedGraph.find(item => item['@type'] === 'ProfessionalService');
+  const faqEntity = parsedGraph.find(item => item['@type'] === 'FAQPage');
+
+  if (!personEntity || !websiteEntity) {
+    console.error('❌ Could not find Person or WebSite entities in the template schemas.');
+    process.exit(1);
+  }
+
+  const replaceSchemaBlock = (htmlString: string, schemaObj: object) => {
+    const scriptTag = `<script type="application/ld+json">\n${JSON.stringify(schemaObj, null, 2)}\n</script>`;
+    return htmlString.slice(0, startIdx) + startMarker + '\n  ' + scriptTag + '\n  ' + endMarker + htmlString.slice(endIdx + endMarker.length);
+  };
+
+  // Base template HTML is now frozen (constant) for all subsequent page generation
+  const baseTemplateHtml = indexHtml;
+
+  // ─── Homepage schema generation and injection ───
+  const homepageSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      // ProfilePage
+      {
+        '@type': 'ProfilePage',
+        '@id': `${DOMAIN}/#profile`,
+        'url': DOMAIN,
+        'image': `${DOMAIN}/Samad_Portrait_1x1.png`,
+        'primaryImageOfPage': {
+          '@type': 'ImageObject',
+          'url': `${DOMAIN}/Samad_Portrait_1x1.png`
+        },
+        'mainEntity': {
+          '@id': `${DOMAIN}/#person`
+        }
+      },
+      personEntity,
+      websiteEntity,
+      ...(serviceEntity ? [serviceEntity] : []),
+      {
+        '@type': 'ItemList',
+        '@id': `${DOMAIN}/#blogs`,
+        'name': "Samad Shaikh's Software Engineering & AI Blog",
+        'itemListElement': blogPosts.map((post, idx) => ({
+          '@type': 'ListItem',
+          'position': idx + 1,
+          'url': `${DOMAIN}/blog/${post.slug}`,
+          'name': post.title
+        }))
+      },
+      ...(faqEntity ? [faqEntity] : []),
+      ...(speakablePage ? [speakablePage] : [])
+    ]
+  };
+
+  const homepageHtml = replaceSchemaBlock(baseTemplateHtml, homepageSchema);
+  fs.writeFileSync(TEMPLATE_PATH, homepageHtml);
+  console.log('✅ Generated and injected clean homepage schema into dist/index.html\n');
 
   // ─── Static Tab Pages ─────────────────────────────────────────────────────
   const staticTabs = [
@@ -305,43 +395,41 @@ async function runPrerender() {
     const tabSeoSection = `<section id="seo-crawler-context" aria-hidden="true" style="display: none; position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">\n${tab.bodyContent}\n</section>`;
 
     // Build page-specific JSON-LD schema
-    const pageSchemas: Record<string, object> = {
-      about: {
-        '@context': 'https://schema.org',
-        '@type': 'AboutPage',
-        'name': tab.title,
-        'description': tab.description,
-        'url': `${DOMAIN}/about`,
-        'mainEntity': { '@id': `${DOMAIN}/#person` }
-      },
-      work: {
-        '@context': 'https://schema.org',
-        '@type': 'CollectionPage',
-        'name': tab.title,
-        'description': tab.description,
-        'url': `${DOMAIN}/work`
-      },
-      blog: {
-        '@context': 'https://schema.org',
-        '@type': 'Blog',
-        'name': tab.title,
-        'description': tab.description,
-        'url': `${DOMAIN}/blog`,
-        'publisher': { '@id': `${DOMAIN}/#person` }
-      },
-      connect: {
-        '@context': 'https://schema.org',
-        '@type': 'ContactPage',
-        'name': tab.title,
-        'description': tab.description,
-        'url': `${DOMAIN}/connect`,
-        'mainEntity': { '@id': `${DOMAIN}/#person` }
-      }
+    const typeMapping: Record<string, string> = {
+      about: 'AboutPage',
+      work: 'CollectionPage',
+      blog: 'CollectionPage',
+      connect: 'ContactPage'
     };
 
-    const schemaTag = `<script type="application/ld+json" id="jsonld-page">${JSON.stringify(pageSchemas[tab.name])}</script>`;
+    const tabSchema = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': typeMapping[tab.name],
+          '@id': `${DOMAIN}/${tab.name}#webpage`,
+          'url': `${DOMAIN}/${tab.name}`,
+          'name': tab.title,
+          'description': tab.description,
+          ...(tab.name === 'blog' ? { 'publisher': { '@id': `${DOMAIN}/#person` } } : { 'mainEntity': { '@id': `${DOMAIN}/#person` } })
+        },
+        personEntity,
+        websiteEntity,
+        {
+          '@type': 'BreadcrumbList',
+          '@id': `${DOMAIN}/${tab.name}#breadcrumb`,
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': DOMAIN },
+            { '@type': 'ListItem', 'position': 2, 'name': tab.name.charAt(0).toUpperCase() + tab.name.slice(1), 'item': `${DOMAIN}/${tab.name}` }
+          ]
+        }
+      ]
+    };
 
-    let html = indexHtml
+    // Replace the schema placeholder first
+    let html = replaceSchemaBlock(baseTemplateHtml, tabSchema);
+
+    html = html
       // Update title
       .replace(/<title>.*?<\/title>/g, `<title>${tab.title}</title>`)
       // Update meta description — handles both single and double quotes, and multi-line
@@ -355,9 +443,7 @@ async function runPrerender() {
       .replace(/<meta property="twitter:description"\s+content=".*?"\s*\/>/g, `<meta property="twitter:description" content="${tab.description}" />`)
       .replace(/<meta property="twitter:url"\s+content=".*?"\s*\/>/g, `<meta property="twitter:url" content="${DOMAIN}/${tab.name}" />`)
       // ⚠️ KEY FIX: Update canonical to this page's URL (not /)
-      .replace(/<link rel="canonical"\s+href=".*?"\s*\/>/g, `<link rel="canonical" href="${DOMAIN}/${tab.name}" />`)
-      // Inject page-specific schema before </head>
-      .replace('</head>', `${schemaTag}\n</head>`);
+      .replace(/<link rel="canonical"\s+href=".*?"\s*\/>/g, `<link rel="canonical" href="${DOMAIN}/${tab.name}" />`);
 
     // Replace the SEO crawler section with page-specific content
     html = replaceSeoSection(html, tabSeoSection);
@@ -368,7 +454,6 @@ async function runPrerender() {
 
   // ─── Blog Post Pages ────────────────────────────────────────────────────────
   console.log('\n📝 Rendering blog posts...');
-  const blogUrls: string[] = [];
   const baseBlogDir = path.join(DIST_DIR, 'blog');
   ensureDir(baseBlogDir);
 
@@ -378,7 +463,6 @@ async function runPrerender() {
 
     const postDateIso = post.datePublished || parseBlogDate(post.date);
     const postModifiedIso = post.dateModified || postDateIso;
-    blogUrls.push(`${DOMAIN}/blog/${post.slug}`);
 
     // JSON-LD for blog post
     const blogSchema = {
@@ -400,6 +484,8 @@ async function runPrerender() {
           'keywords': post.tags.join(', '),
           'image': `${DOMAIN}/Samad_Portrait_1x1.png`
         },
+        personEntity,
+        websiteEntity,
         {
           '@type': 'BreadcrumbList',
           '@id': `${DOMAIN}/blog/${post.slug}#breadcrumb`,
@@ -411,8 +497,6 @@ async function runPrerender() {
         }
       ]
     };
-
-    const schemaScriptTag = `<script type="application/ld+json" id="jsonld-blog-post">${JSON.stringify(blogSchema)}</script>`;
 
     // Full readable article HTML for crawlers
     const postHtmlContent = `
@@ -435,7 +519,10 @@ async function runPrerender() {
 
     const postSeoSection = `<section id="seo-crawler-context" aria-hidden="true" style="display: none; position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">\n${postHtmlContent}\n</section>`;
 
-    let html = indexHtml
+    // Replace the schema placeholder first
+    let html = replaceSchemaBlock(baseTemplateHtml, blogSchema);
+
+    html = html
       .replace(/<title>.*?<\/title>/g, `<title>${escapeHtml(post.title)} | Samad Shaikh</title>`)
       .replace(/<meta name="description"\s+content=".*?"\s*\/>/g, `<meta name="description" content="${escapeHtml(post.metaDescription || post.excerpt)}" />`)
       .replace(/<meta name="keywords"\s+content=".*?"\s*\/>/g, `<meta name="keywords" content="${escapeHtml(post.metaKeywords || post.tags.join(', '))}" />`)
@@ -445,10 +532,7 @@ async function runPrerender() {
       .replace(/<meta property="twitter:title"\s+content=".*?"\s*\/>/g, `<meta property="twitter:title" content="${escapeHtml(post.title)} | Samad Shaikh" />`)
       .replace(/<meta property="twitter:description"\s+content=".*?"\s*\/>/g, `<meta property="twitter:description" content="${escapeHtml(post.metaDescription || post.excerpt)}" />`)
       .replace(/<meta property="twitter:url"\s+content=".*?"\s*\/>/g, `<meta property="twitter:url" content="${DOMAIN}/blog/${post.slug}" />`)
-      // ⚠️ KEY FIX: Correct canonical for every blog post
-      .replace(/<link rel="canonical"\s+href=".*?"\s*\/>/g, `<link rel="canonical" href="${DOMAIN}/blog/${post.slug}" />`)
-      // Inject blog post schema into <head>
-      .replace('</head>', `${schemaScriptTag}\n</head>`);
+      .replace(/<link rel="canonical"\s+href=".*?"\s*\/>/g, `<link rel="canonical" href="${DOMAIN}/blog/${post.slug}" />`);
 
     // Replace SEO section using safe string-index method
     html = replaceSeoSection(html, postSeoSection);
