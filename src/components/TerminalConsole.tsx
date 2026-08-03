@@ -50,7 +50,7 @@ Key Developed Case Studies:
 
 const contactOutput = `
 Connect with Samad Shaikh:
-- Email:    connect@samadshaikh.dev
+- Email:    contact@samadshaikh.dev
 - GitHub:   github.com/The-Syntax-Slayer
 - LinkedIn: linkedin.com/in/samad-ai
 `;

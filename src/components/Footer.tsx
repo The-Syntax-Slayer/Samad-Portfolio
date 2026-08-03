@@ -8,7 +8,7 @@ interface FooterProps {
 
 export default function Footer({ setActiveTab }: FooterProps) {
   const [copied, setCopied] = useState(false);
-  const email = "connect@samadshaikh.dev";
+  const email = "contact@samadshaikh.dev";
 
   // Mouse move state for atmospheric parallax (using MotionValues to prevent re-renders)
   const mouseX = useMotionValue(0);

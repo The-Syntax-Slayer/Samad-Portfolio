@@ -1,6 +1,6 @@
 /* TEAM */
 Chef Developer: Samad Shaikh
-Contact: connect@samadshaikh.dev
+Contact: contact@samadshaikh.dev
 LinkedIn: https://www.linkedin.com/in/samad-ai
 GitHub: https://github.com/The-Syntax-Slayer
 From: Bandra, Mumbai, India

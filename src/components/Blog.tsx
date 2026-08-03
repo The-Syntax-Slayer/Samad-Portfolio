@@ -362,7 +362,7 @@ function FeedbackWidget({ blogTitle, blogSlug }: { blogTitle: string; blogSlug: 
         body: JSON.stringify({
           access_key: accessKey,
           name: name,
-          email: "connect@samadshaikh.dev",
+          email: "contact@samadshaikh.dev",
           subject: `Blog Feedback [${reaction.toUpperCase()}] - ${blogTitle}`,
           message: `Article: ${blogTitle} (${blogSlug})\nReaction: ${reaction}\nUser: ${name}\n\nFeedback:\n${note}`,
           from_name: "Samad Portfolio Blog Bot",

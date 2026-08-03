@@ -101,6 +101,6 @@ PORTFOLIO/
 ## 📧 Contact & Links
 
 * **Name**: Samad Shaikh
-* **Email**: [connect@samadshaikh.dev](mailto:connect@samadshaikh.dev)
+* **Email**: [contact@samadshaikh.dev](mailto:contact@samadshaikh.dev)
 * **LinkedIn**: [linkedin.com/in/samad-ai](https://linkedin.com/in/samad-ai)
 * **GitHub**: [github.com/The-Syntax-Slayer](https://github.com/The-Syntax-Slayer)

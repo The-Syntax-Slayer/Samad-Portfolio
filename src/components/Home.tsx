@@ -419,7 +419,7 @@ export default function Home({ setActiveTab }: HomeProps) {
             </a>
 
             <a
-              href="mailto:connect@samadshaikh.dev"
+              href="mailto:contact@samadshaikh.dev"
               aria-label="Email Samad Shaikh"
               className="w-9 h-9 rounded-xl border border-white/5 bg-black/40 hover:bg-[#8FFFD1]/5 hover:border-[#8FFFD1]/30 flex items-center justify-center text-accent/60 hover:text-[#8FFFD1] transition-all duration-300 shadow-md group relative cursor-pointer"
             >
@@ -751,7 +751,7 @@ export default function Home({ setActiveTab }: HomeProps) {
               </SpotlightCard>
             </a>
             <a
-              href="mailto:connect@samadshaikh.dev"
+              href="mailto:contact@samadshaikh.dev"
               aria-label="Email Samad Shaikh"
               className="h-[90px] block rounded-2xl"
             >

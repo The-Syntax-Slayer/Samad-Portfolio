@@ -492,7 +492,7 @@ export default function About() {
                     </svg>
                   </a>
                   <a
-                    href="mailto:connect@samadshaikh.dev"
+                    href="mailto:contact@samadshaikh.dev"
                     title="Email"
                     className="w-9 h-9 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-[#8FFFD1]/5 hover:border-[#8FFFD1]/30 flex items-center justify-center text-accent/60 hover:text-[#8FFFD1] transition-all duration-300 shadow-md group relative cursor-pointer"
                   >
