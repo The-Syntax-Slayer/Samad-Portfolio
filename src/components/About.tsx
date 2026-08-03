@@ -67,23 +67,33 @@ const interests = [
 const timelineData = {
   experience: [
     {
-      role: "Software Developer Intern — AI & Full-Stack",
-      company: "Arova Technologies, Mumbai",
-      period: "July 2024 – Oct 2025",
+      role: "Full-Stack Software Engineer",
+      company: "Springer Capital, Freelance - Remote",
+      period: "Oct 2024 – June 2026",
       points: [
-        "Designed and developed full-stack Python + React applications end-to-end, applying OOP principles and SOLID design patterns.",
-        "Integrated LLMs via Google Gemini API into enterprise systems to automate content pipelines and deliver decision-support analytics.",
-        "Engineered structured prompt templates and output validators that improved LLM accuracy and consistency in production.",
-        "Architected Intern-Flow, a multi-tier platform featuring React, Supabase PostgreSQL, real-time auth, and automated reporting."
+        "Engineered and deployed comprehensive web architectures utilizing React, TypeScript, and Python/Node.js; integrated robust RESTful APIs with PostgreSQL to deliver performance-optimized frontend components, sophisticated backend logic, and durable data persistence layers.",
+        "Architected and deployed high-performance RESTful APIs & external service integrations, enforcing rigorous request validation, secure authentication protocols, and fault-tolerant data synchronization across distributed full-stack architectures.",
+        "Spearheaded the integration of advanced LLM orchestration layers within core application logic, optimizing model-generated outputs for architectural integrity, fault tolerance, and scalable production deployment.",
+        "Developed modular technical assets and managed autonomous troubleshooting across distributed full-stack architectures; utilized version-controlled CI/CD pipelines to ensure architectural integrity and seamless production deployment."
       ]
     },
     {
-      role: "Data & Analytics Specialist",
-      company: "Freelance, Mumbai",
-      period: "Sep 2022 – Jul 2023",
+      role: "Software Developer Intern — AI & Full-Stack",
+      company: "Arova Technologies, Mumbai",
+      period: "May 2023 – Oct 2024",
       points: [
-        "Delivered data entry, cleaning, QA, and structured reporting across a sustained 10-month engagement, resolving data integrity errors.",
-        "Developed advanced Excel dashboards (pivot tables, conditional formatting) for enterprise analytics and tracking workflows."
+        "Designed and developed full-stack Python + React applications end-to-end, applying OOP principles and SOLID design patterns to produce clean, production-grade codebases used by real teams daily.",
+        "Integrated LLMs into enterprise systems to automate content pipelines, enhance reporting capabilities, and deliver AI-driven decision-support directly analogous to integrating LLMs into financial governance tooling.",
+        "Collaborated across cross-functional teams to gather ambiguous requirements, produce technical specs, and iterate rapidly in agile sprints maintaining a risk-and-control mindset on data integrity and system reliability."
+      ]
+    },
+    {
+      role: "Data Analytics Specialist",
+      company: "Freelance, Mumbai",
+      period: "Sep 2022 – April 2023",
+      points: [
+        "Delivered data entry, cleaning, QA, and structured reporting across a sustained 8-month independent engagement; identified and resolved systemic data integrity errors that improved downstream analytics accuracy for multiple clients.",
+        "Developed advanced Excel skills (pivot tables, VLOOKUP, data validation, conditional formatting) building a practical foundation in data management directly applicable to enterprise analytics and governance tooling."
       ]
     }
   ],
@@ -482,7 +492,7 @@ export default function About() {
                     </svg>
                   </a>
                   <a
-                    href="mailto:sxmxd.1825@gmail.com"
+                    href="mailto:connect@samadshaikh.dev"
                     title="Email"
                     className="w-9 h-9 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-[#8FFFD1]/5 hover:border-[#8FFFD1]/30 flex items-center justify-center text-accent/60 hover:text-[#8FFFD1] transition-all duration-300 shadow-md group relative cursor-pointer"
                   >

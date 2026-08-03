@@ -378,7 +378,7 @@ async function runPrerender() {
           </ul>
           <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Contact Information</h2>
           <ul style="list-style-type:disc;padding-left:24px;color:#a8b2c1;">
-            <li>Email: <a href="mailto:sxmxd.1825@gmail.com" style="color:#8fffd1;">sxmxd.1825@gmail.com</a></li>
+            <li>Email: <a href="mailto:connect@samadshaikh.dev" style="color:#8fffd1;">connect@samadshaikh.dev</a></li>
             <li>LinkedIn: <a href="https://www.linkedin.com/in/samad-ai" style="color:#8fffd1;">linkedin.com/in/samad-ai</a></li>
             <li>GitHub: <a href="https://github.com/The-Syntax-Slayer" style="color:#8fffd1;">github.com/The-Syntax-Slayer</a></li>
           </ul>

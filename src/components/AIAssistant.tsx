@@ -47,7 +47,7 @@ It leverages **Gemini Pro** to conduct mock interviews, evaluate resume relevanc
   {
     keywords: ["contact", "email", "hire", "github", "linkedin", "social"],
     answer: `**Reach out to Samad Shaikh:**
-*   **Email**: [sxmxd.1825@gmail.com](mailto:sxmxd.1825@gmail.com)
+*   **Email**: [connect@samadshaikh.dev](mailto:connect@samadshaikh.dev)
 *   **LinkedIn**: [linkedin.com/in/samad-ai](https://linkedin.com/in/samad-ai)
 *   **GitHub**: [github.com/The-Syntax-Slayer](https://github.com/The-Syntax-Slayer)
 *   **Availability**: Open for freelance projects, AI integrations, and full-time software engineering roles.`,
@@ -139,7 +139,7 @@ Here is your professional context:
   4. LegalEase: AI legal language simplification SaaS.
   5. ClientSync: CRM project workflow console.
   6. SmartMeet: AI meeting summarizer and task planner.
-- Contact: Email (sxmxd.1825@gmail.com), GitHub (github.com/The-Syntax-Slayer), LinkedIn (linkedin.com/in/samad-ai).
+- Contact: Email (connect@samadshaikh.dev), GitHub (github.com/The-Syntax-Slayer), LinkedIn (linkedin.com/in/samad-ai).
 - Availability: Open for freelance projects, AI integration consulting, and full-time software engineering roles.`,
                   },
                 ],
@@ -150,7 +150,7 @@ Here is your professional context:
 
         const data = await response.json();
         const botText = data.candidates?.[0]?.content?.parts?.[0]?.text || 
-          "I experienced an issue fetching that response. Please write to Samad at sxmxd.1825@gmail.com!";
+          "I experienced an issue fetching that response. Please write to Samad at connect@samadshaikh.dev!";
 
         setIsTyping(false);
         setMessages((prev) => [
@@ -180,7 +180,7 @@ Here is your professional context:
       }
 
       if (!matchedAnswer) {
-        matchedAnswer = "I'm not fully sure about that detail, but I'd be happy to connect you with Samad! You can write to him directly at [sxmxd.1825@gmail.com](mailto:sxmxd.1825@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/samad-ai).";
+        matchedAnswer = "I'm not fully sure about that detail, but I'd be happy to connect you with Samad! You can write to him directly at [connect@samadshaikh.dev](mailto:connect@samadshaikh.dev) or connect on [LinkedIn](https://linkedin.com/in/samad-ai).";
       }
 
       setIsTyping(false);

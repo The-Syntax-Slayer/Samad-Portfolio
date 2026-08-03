@@ -1,4 +1,4 @@
-Contact: mailto:sxmxd.1825@gmail.com
+Contact: mailto:connect@samadshaikh.dev
 Expires: 2027-06-17T12:00:00.000Z
 Preferred-Languages: en, hi
 Canonical: https://www.samadshaikh.dev/.well-known/security.txt
