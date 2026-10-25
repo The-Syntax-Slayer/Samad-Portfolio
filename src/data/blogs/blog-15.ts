@@ -5,6 +5,7 @@ export const blog15: BlogPost = {
   title: "JavaScript Fundamentals: Variables, Functions, Scope, and ES6+ Features",
   slug: "javascript-fundamentals-variables-functions-scope-es6",
   date: "March 29, 2026",
+  dateModified: "2026-10-26",
   readTime: "15 min read",
   excerpt: "Master core JavaScript concepts. Understand var vs let vs const, scopes, execution context, closures, arrow functions, and essential ES6+ features.",
   category: "WebDev",
@@ -235,5 +236,25 @@ To apply your JavaScript skills to building APIs, read **[Understanding REST API
 ---
 
 ### Feedback & Collaboration
-What is your favorite ES6+ feature? Do you prefer promises with \`.then()\` syntax or cleaner \`async/await\` blocks? Let's discuss JavaScript execution environments! Share your feedback on my **[Resume Portal](https://samadshaikh.me)** or write a note in the Connect section of my **[Portfolio Portal](https://samadshaikh.dev)**.`
+What is your favorite ES6+ feature? Do you prefer promises with \`.then()\` syntax or cleaner \`async/await\` blocks? Let's discuss JavaScript execution environments! Share your feedback on my **[Resume Portal](https://samadshaikh.me)** or write a note in the Connect section of my **[Portfolio Portal](https://samadshaikh.dev)**.
+---
+
+### Key Takeaways
+- Scope is where a variable can be used in code — getting it wrong is a common bug source.
+- Modern code should prefer let and const over var.
+- A business owner does not need the language — only the finished, working website.
+
+### Frequently Asked Questions
+**Q: Do I need to learn JavaScript to run a business website?**
+A: No. This post is for developers. A business owner needs a working website, not the language behind it.
+
+**Q: What is scope, in one line?**
+A: Where a variable can be used in code — getting it wrong is a common source of bugs.
+
+**Q: Why do old tutorials still show \`var\`?**
+A: Because they were written before modern JavaScript. New code should prefer \`let\` and \`const\`.
+
+### Need this built for your business?
+If you run a business in Mumbai and want a fast, mobile-first business website built for you, see [Services](/services/website-development-mumbai) or [book a free demo](/connect).
+`
 };

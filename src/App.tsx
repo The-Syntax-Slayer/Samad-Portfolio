@@ -8,6 +8,7 @@ const About = lazy(() => import("./components/About"));
 const Work = lazy(() => import("./components/Work"));
 const Connect = lazy(() => import("./components/Connect"));
 const Blog = lazy(() => import("./components/Blog"));
+const Services = lazy(() => import("./components/Services"));
 import Footer from "./components/Footer";
 import cloudBg from "./assets/cloud.webp";
 import ParticleBackground from "./components/ParticleBackground";
@@ -16,7 +17,7 @@ import AIAssistant from "./components/AIAssistant";
 import CustomCursor from "./components/CustomCursor";
 import "lenis/dist/lenis.css";
 
-type Tab = "home" | "about" | "work" | "blog" | "connect";
+type Tab = "home" | "about" | "work" | "blog" | "connect" | "services";
 
 export default function App() {
   const [, startTransition] = useTransition();
@@ -26,7 +27,7 @@ export default function App() {
       const pathParts = pathname.split("/").filter(Boolean);
       if (pathParts.length > 0) {
         const primarySegment = pathParts[0].toLowerCase();
-        if (["about", "work", "blog", "connect"].includes(primarySegment)) {
+        if (["about", "work", "blog", "connect", "services"].includes(primarySegment)) {
           return primarySegment as Tab;
         }
       }
@@ -71,7 +72,7 @@ export default function App() {
       const pathParts = pathname.split("/").filter(Boolean);
       if (pathParts.length > 0) {
         const primarySegment = pathParts[0].toLowerCase();
-        if (["about", "work", "blog", "connect"].includes(primarySegment)) {
+        if (["about", "work", "blog", "connect", "services"].includes(primarySegment)) {
           setActiveTab(primarySegment as Tab);
           return;
         }
@@ -111,6 +112,9 @@ export default function App() {
       } else {
         targetUrl = `/blog`;
       }
+    } else if (activeTab === "services") {
+      const pathname = window.location.pathname;
+      targetUrl = pathname.startsWith("/services") ? pathname : "/services";
     } else if (activeTab !== "home") {
       targetUrl = `/${activeTab}`;
     }
@@ -138,6 +142,9 @@ export default function App() {
       const isPostActive = document.title.includes(" | Samad Shaikh") && !document.title.startsWith("Blog | ");
       if (isPostActive) return;
     }
+
+    // Services pages set their own title/meta/schema in Services.tsx
+    if (activeTab === "services") return;
 
     let title = "Samad Shaikh | Innovative Software Developer, AI Engineer & Tech Entrepreneur in Mumbai";
     let description = "Who is Samad Shaikh? A professional Software Engineer and AI Specialist in Mumbai building high-performance web apps and Generative AI systems.";
@@ -416,6 +423,25 @@ export default function App() {
             </Suspense>
           )}
         </AnimatePresence>
+
+          {activeTab === "services" && (
+            <Suspense fallback={
+              <div className="h-[60vh] w-full flex items-center justify-center">
+                <span className="text-mint font-Spline_Sans_Mono text-xs tracking-widest uppercase animate-pulse">// Loading services...</span>
+              </div>
+            }>
+              <motion.div
+                key="services"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full flex justify-center"
+              >
+                <Services />
+              </motion.div>
+            </Suspense>
+          )}
 
         {/* 3. Persistent Page Footer */}
         <Footer setActiveTab={handleTabChange} />

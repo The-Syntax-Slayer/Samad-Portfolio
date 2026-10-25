@@ -5,6 +5,7 @@ export const blog11: BlogPost = {
   title: "How I Built PriMaX Hub: Scaling a Multi-Module SaaS on Supabase Architecture",
   slug: "how-i-built-primax-hub-supabase-architecture",
   date: "March 8, 2026",
+  dateModified: "2026-10-26",
   readTime: "12 min read",
   excerpt: "Case study on scaling a 4-module SaaS with PostgreSQL Row-Level Security policies and real-time state synchronization.",
   category: "DevOps",
@@ -266,5 +267,25 @@ If you are containerizing microservices for cloud deployment, check out **[Minim
 
 ### Feedback & Collaboration
 
-What backend configurations do you use to scale your SaaS products? Have you worked with Postgres triggers for user syncs? I\\'d love to hear your approaches! Leave your feedback on my **[Resume Portal](https://samadshaikh.me)** or write a note in the Connect tab.`
+What backend configurations do you use to scale your SaaS products? Have you worked with Postgres triggers for user syncs? I\\'d love to hear your approaches! Leave your feedback on my **[Resume Portal](https://samadshaikh.me)** or write a note in the Connect tab.
+---
+
+### Key Takeaways
+- Supabase gives database, auth and APIs in one managed place, so a small team ships faster.
+- Multi-module apps stay manageable when each module's data stays separate.
+- The same one-system, separate-modules pattern is how a business system is built.
+
+### Frequently Asked Questions
+**Q: Why Supabase for a multi-module SaaS?**
+A: It gives database, auth and APIs in one managed place, so a small team can ship faster without running its own infrastructure.
+
+**Q: When does a multi-module app become too complex?**
+A: When modules share too much state. Keep each module's data separate and sync only what is needed.
+
+**Q: Can a small business use the same pattern?**
+A: Yes — the same idea (one system, separate modules for customers, billing, stock) is exactly how a business system is built.
+
+### Need this built for your business?
+If you run a business in Mumbai and want a website or business system deployed and maintained properly built for you, see [Services](/services/business-software-mumbai) or [book a free demo](/connect).
+`
 };

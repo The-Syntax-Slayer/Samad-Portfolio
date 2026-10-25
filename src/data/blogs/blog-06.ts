@@ -5,6 +5,7 @@ export const blog06: BlogPost = {
   title: "Scaling Stateful WebSockets: Event-Driven Real-Time Sync with FastAPI & Redis",
   slug: "scaling-stateful-websockets-fastapi-broadcast",
   date: "April 10, 2026",
+  dateModified: "2026-10-26",
   readTime: "12 min read",
   excerpt: "Construct a robust, distributed WebSocket broadcast server using FastAPI and Redis Pub/Sub channels to sync state across multiple server nodes.",
   category: "Backend",
@@ -238,5 +239,25 @@ For details on optimizing the asynchronous backend or creating frontend componen
 Scaling persistent socket connections requires coordinating network protocols and event buses. What tools do you use to test WebSocket connection loads? Have you deployed Redis clustering configurations in production?
 
 I would love to learn about your architectural approaches. Share your thoughts on my [Resume Portal](https://samadshaikh.me) or write a note on my [Portfolio Portal's](https://samadshaikh.dev) Connect tab.
+
+---
+
+### Key Takeaways
+- WebSockets are for live updates — dashboards, tracking, chat and collaborative tools. Normal forms and pages are simpler with regular APIs.
+- Design for reconnect and resync from the start, or users will see missed messages and duplicate state.
+- Live order and booking dashboards for a small team are a practical use, not only for large apps.
+
+### Frequently Asked Questions
+**Q: When are WebSockets the right choice?**
+A: For live updates — dashboards, tracking, chat, collaborative tools. For normal forms and pages, regular APIs are simpler.
+
+**Q: What breaks when users reconnect?**
+A: Missed messages and duplicate state. Design for reconnect + resync from the start.
+
+**Q: Can this run for a small business system?**
+A: Yes — live order / booking dashboards for a small team are a normal, practical use, not only for large apps.
+
+### Need this built for your business?
+If you run a business in Mumbai and want a backend / business system (billing, customers, stock), see [Services](/services/business-software-mumbai) or [book a free demo](/connect).
 `
 };

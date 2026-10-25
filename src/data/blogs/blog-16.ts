@@ -5,6 +5,7 @@ export const blog16: BlogPost = {
   title: "Understanding REST APIs: A Beginner's Guide to HTTP, JSON, and Endpoints",
   slug: "understanding-rest-apis-http-json-endpoints",
   date: "April 05, 2026",
+  dateModified: "2026-10-26",
   readTime: "13 min read",
   excerpt: "Learn the core concepts of REST APIs. Understand HTTP methods, status codes, JSON payloads, and how to structure clean endpoints.",
   category: "Backend",
@@ -183,5 +184,25 @@ To build web services that run these REST API endpoints, read **[Getting Started
 ---
 
 ### Feedback & Collaboration
-What tool do you use to test your API endpoints—Postman, Bruno, or curl commands? Have you encountered issues handling CORS policies when fetching data in React? Let's discuss backend design! Share your thoughts on my **[Resume Portal](https://samadshaikh.me)** or send a message via the Connect tab on my **[Portfolio Portal](https://samadshaikh.dev)**.`
+What tool do you use to test your API endpoints—Postman, Bruno, or curl commands? Have you encountered issues handling CORS policies when fetching data in React? Let's discuss backend design! Share your thoughts on my **[Resume Portal](https://samadshaikh.me)** or send a message via the Connect tab on my **[Portfolio Portal](https://samadshaikh.dev)**.
+---
+
+### Key Takeaways
+- A REST API is a standard way for systems to exchange data and actions over the web, using URLs and JSON.
+- APIs let billing, stock, website and future tools share the same data instead of separate copies.
+- Unclear errors, missing documentation and silent changes are what make an API hard to use.
+
+### Frequently Asked Questions
+**Q: What is a REST API in simple terms?**
+A: A standard way for one system to ask another for data or actions over the web, using URLs and JSON.
+
+**Q: Why does a business system need APIs?**
+A: So billing, stock, website and future tools can share the same data instead of keeping separate copies.
+
+**Q: What makes an API hard to use?**
+A: Unclear errors, no documentation, and changing behaviour without warning. All three are avoidable.
+
+### Need this built for your business?
+If you run a business in Mumbai and want a backend / business system (billing, customers, stock) built for you, see [Services](/services/business-software-mumbai) or [book a free demo](/connect).
+`
 };

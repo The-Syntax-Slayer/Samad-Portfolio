@@ -5,6 +5,7 @@ export const blog04: BlogPost = {
   title: "The CSS Glassmorphism Handbook: Coding Premium Futuristic Neon UI Layouts",
   slug: "css-glassmorphism-handbook-neon-ui-layouts",
   date: "April 5, 2026",
+  dateModified: "2026-10-26",
   readTime: "12 min read",
   excerpt: "Master the art of backdrop blur filters, radial cursor-spotlight spotlights, and hardware-accelerated Framer Motion spring physics.",
   category: "WebDev",
@@ -241,5 +242,25 @@ For details on implementing interactive form states or fetching data behind your
 Building modern user interfaces requires balancing design details with performance constraints. Have you implemented glassmorphic dashboards? How do you optimize rendering performance on mobile viewports?
 
 I would love to exchange optimization tips. Share your ideas on my [Resume Portal](https://samadshaikh.me) or send a message on the Connect tab of my [Portfolio Portal](https://samadshaikh.dev).
+
+---
+
+### Key Takeaways
+- Glassmorphism works best in small doses — cards and highlights, not full pages.
+- Reduce blur on mobile and keep text contrast high, or readability suffers.
+- Heavy blur over large areas can hurt performance — test on a real phone.
+
+### Frequently Asked Questions
+**Q: Is glassmorphism good for a business website?**
+A: Only in small doses — headings, cards and highlights. Full-page effects hurt readability and speed.
+
+**Q: Does it work on mobile?**
+A: Yes if blur and transparency are reduced on small screens and text contrast stays high.
+
+**Q: Does it slow the site down?**
+A: Heavy blur over large areas can. Keep effects to small elements and test on a real phone, not just a desktop.
+
+### Need this built for your business?
+If you run a business in Mumbai and want a fast, mobile-first business website built for you, see [Services](/services/website-development-mumbai) or [book a free demo](/connect).
 `
 };

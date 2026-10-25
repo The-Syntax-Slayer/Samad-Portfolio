@@ -5,6 +5,7 @@ export const blog05: BlogPost = {
   title: "Taming Asyncio: Handling 10k+ Concurrent LLM Requests with Tornado & FastAPI",
   slug: "taming-asyncio-tornado-fastapi-concurrency",
   date: "April 18, 2026",
+  dateModified: "2026-10-26",
   readTime: "12 min read",
   excerpt: "Learn how to build asynchronous Python servers that manage high-concurrency LLM streaming requests without blocking the event loop.",
   category: "Backend",
@@ -273,5 +274,25 @@ For details on managing stateful channels or configuring database backends, chec
 Designing high-concurrency backends in Python requires careful attention to the event loop. What tools do you use to monitor event loop blocking in production? Have you migrated legacy synchronous codebases to async?
 
 I would love to learn about your experiences. Share your thoughts on my [Resume Portal](https://samadshaikh.me) or write a note on my [Portfolio Portal's](https://samadshaikh.dev) Connect tab.
+
+---
+
+### Key Takeaways
+- Concurrency matters when many requests wait on databases, APIs or AI calls at once.
+- FastAPI suits most new APIs; Tornado only where its long-connection model is genuinely needed.
+- Measure first — the bottleneck is usually the database or an external API, not Python itself.
+
+### Frequently Asked Questions
+**Q: When do I actually need asyncio / concurrency?**
+A: When many requests wait on databases, APIs or AI calls at the same time. A simple internal tool usually does not need it.
+
+**Q: FastAPI or Tornado — which one?**
+A: FastAPI for most new APIs; Tornado only where its specific long-connection model is genuinely needed.
+
+**Q: What is the first bottleneck to check?**
+A: Usually the database or an external API, not the Python code itself. Measure before optimising.
+
+### Need this built for your business?
+If you run a business in Mumbai and want a backend / business system (billing, customers, stock) built for you, see [Services](/services/business-software-mumbai) or [book a free demo](/connect).
 `
 };

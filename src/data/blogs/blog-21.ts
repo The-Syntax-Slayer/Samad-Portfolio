@@ -5,6 +5,7 @@ export const blog21: BlogPost = {
   title: "Web Security Fundamentals: Demystifying HTTPS, SSL Certificates, and CORS",
   slug: "web-security-fundamentals-https-ssl-cors",
   date: "June 5, 2026",
+  dateModified: "2026-10-26",
   readTime: "13 min read",
   excerpt: "A comprehensive developer's guide to core web security concepts. Demystify how HTTPS works, how SSL/TLS certificates secure channels, and how to configure Cross-Origin Resource Sharing (CORS) safely.",
   category: "AppSec",
@@ -220,5 +221,25 @@ To learn more about implementing security frameworks across development operatio
 
 ### Feedback & Collaboration
 
-Have you run into CORS errors while building a frontend dashboard, or are you trying to configure SSL parameters for a complex domain structure? Let's discuss! Check out my projects on **[samadshaikh.dev](https://samadshaikh.dev)**, view my background on my **[Resume Portal](https://samadshaikh.me)**, or drop me a message via the Connect page.`
+Have you run into CORS errors while building a frontend dashboard, or are you trying to configure SSL parameters for a complex domain structure? Let's discuss! Check out my projects on **[samadshaikh.dev](https://samadshaikh.dev)**, view my background on my **[Resume Portal](https://samadshaikh.me)**, or drop me a message via the Connect page.
+---
+
+### Key Takeaways
+- HTTPS protects data in transit between the visitor and the site, so form data cannot be read or changed on the way.
+- A free SSL certificate is enough for encryption — correct setup matters more than paying for a certificate.
+- CORS is a browser protection rule, not a bug to simply turn off.
+
+### Frequently Asked Questions
+**Q: What does HTTPS actually protect?**
+A: Data in transit between the visitor and the site — so passwords and form data cannot be read or changed on the way.
+
+**Q: Is a free SSL certificate enough?**
+A: Yes, for encryption. Paid certificates do not make a site more secure by themselves; correct setup matters more.
+
+**Q: What is CORS in one line?**
+A: A browser rule that controls which other websites can call your site's API — a protection, not a bug to simply turn off.
+
+### Need this built for your business?
+If you run a business in Mumbai and want a secure business system with proper login and data control, see [Services](/services/business-software-mumbai) or [book a free demo](/connect).
+`
 };

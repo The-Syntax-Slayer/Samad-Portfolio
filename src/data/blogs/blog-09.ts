@@ -5,6 +5,7 @@ export const blog09: BlogPost = {
   title: "Securing LLM Integrations: Preventing Prompt Injection in GenAI Workflows",
   slug: "securing-llm-integrations-preventing-prompt-injection",
   date: "April 18, 2026",
+  dateModified: "2026-10-26",
   readTime: "12 min read",
   excerpt: "A practical guide to securing database pipelines and implementing validation filters to shield AI integrations from injection threats.",
   category: "AppSec",
@@ -236,5 +237,25 @@ If you want to secure your core API authentication layer, check out our guide on
 
 ### Feedback & Collaboration
 
-How do you secure your AI gateways? Have you run tests against LLM injection parameters? Let\\'s share AppSec tips! Leave your feedback on my **[Resume Portal](https://samadshaikh.me)** or write a note in the Connect tab.`
+How do you secure your AI gateways? Have you run tests against LLM injection parameters? Let\\'s share AppSec tips! Leave your feedback on my **[Resume Portal](https://samadshaikh.me)** or write a note in the Connect tab.
+---
+
+### Key Takeaways
+- Prompt injection is untrusted text tricking an AI into following instructions it should not.
+- No single fix prevents it — use layers: validation, limited actions, human approval for important steps.
+- Sensitive actions like payments or deletions should never be direct AI actions.
+
+### Frequently Asked Questions
+**Q: What is prompt injection in simple terms?**
+A: When text from an untrusted source (a document, a message, a webpage) tricks the AI into following instructions it should not follow.
+
+**Q: Can it be fully prevented?**
+A: No single fix prevents it. The professional approach is layers: validate input, limit what the AI can do, and keep human approval for important actions.
+
+**Q: Should a business chatbot have access to payments or deletions?**
+A: No, not directly. Sensitive actions should always need human confirmation.
+
+### Need this built for your business?
+If you run a business in Mumbai and want a secure business system with proper login and data control built for you, see [Services](/services/ai-automation-mumbai) or [book a free demo](/connect).
+`
 };

@@ -22,6 +22,8 @@ import { blog21 } from "./blogs/blog-21";
 import { blog22 } from "./blogs/blog-22";
 import { blog23 } from "./blogs/blog-23";
 import { blog24 } from "./blogs/blog-24";
+import { blog25 } from "./blogs/blog-25";
+import { blog26 } from "./blogs/blog-26";
 
 export interface BlogPost {
   id: string;
@@ -63,6 +65,8 @@ export const blogPosts: BlogPost[] = [
   blog21,
   blog22,
   blog23,
-  blog24
+  blog24,
+  blog25,
+  blog26
 ];
 

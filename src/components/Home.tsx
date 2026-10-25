@@ -1306,6 +1306,30 @@ export default function Home({ setActiveTab }: HomeProps) {
         </div>
       </motion.div>
 
+      {/* Services strip — for businesses, links to prerendered service pages */}
+      <div className="w-full max-w-5xl px-4 pb-4 pt-4 flex flex-col z-10 text-left">
+        <span className="font-Spline_Sans_Mono text-[10px] tracking-[0.2em] text-[#8FFFD1] uppercase font-semibold">
+          Services — Bandra, Mumbai
+        </span>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+          <a href="/services/website-development-mumbai" className="rounded-2xl border border-white/5 bg-white/[0.01] p-5 hover:border-mint/20 transition-colors">
+            <p className="text-white text-sm font-medium">Business Website</p>
+            <p className="text-accent/50 text-xs mt-2 leading-relaxed">Fast, mobile-first websites for Mumbai businesses.</p>
+            <p className="text-mint text-xs mt-3">From ₹19,999 →</p>
+          </a>
+          <a href="/services/business-software-mumbai" className="rounded-2xl border border-white/5 bg-white/[0.01] p-5 hover:border-mint/20 transition-colors">
+            <p className="text-white text-sm font-medium">Business Software</p>
+            <p className="text-accent/50 text-xs mt-2 leading-relaxed">CRM, billing and inventory for shops, clinics and agencies.</p>
+            <p className="text-mint text-xs mt-3">From ₹39,999 →</p>
+          </a>
+          <a href="/services/ai-automation-mumbai" className="rounded-2xl border border-white/5 bg-white/[0.01] p-5 hover:border-mint/20 transition-colors">
+            <p className="text-white text-sm font-medium">AI Automation</p>
+            <p className="text-accent/50 text-xs mt-2 leading-relaxed">Chatbots, document Q&amp;A and follow-up automation.</p>
+            <p className="text-mint text-xs mt-3">Free demo →</p>
+          </a>
+        </div>
+      </div>
+
       {/* FAQ Section */}
       <HomeFAQ />
 

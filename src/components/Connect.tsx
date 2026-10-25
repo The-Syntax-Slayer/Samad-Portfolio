@@ -38,7 +38,7 @@ export default function Connect() {
   }, [mouseX, mouseY]);
 
   // Form State
-  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "", businessType: "", budgetRange: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -62,6 +62,8 @@ export default function Connect() {
           email: formData.email,
           subject: formData.subject || "Portfolio Inquiry from " + formData.name,
           message: formData.message,
+          business_type: formData.businessType,
+          budget_range: formData.budgetRange,
           from_name: "Samad Portfolio Bot",
         }),
       });
@@ -69,7 +71,7 @@ export default function Connect() {
       const result = await response.json();
       if (result.success) {
         setIsSuccess(true);
-        setFormData({ name: "", email: "", subject: "", message: "" });
+        setFormData({ name: "", email: "", subject: "", message: "", businessType: "", budgetRange: "" });
         setTimeout(() => setIsSuccess(false), 3000);
       } else {
         console.error("Web3Forms Submission Error:", result);
@@ -291,6 +293,20 @@ export default function Connect() {
                 glowColor="rgba(var(--theme-mint-rgb), 0.08)"
                 hoverBorderColor="rgba(var(--theme-mint-rgb), 0.45)"
               >
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                  <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+                    <p className="text-white text-sm font-medium">Website</p>
+                    <p className="text-[#8FFFD1] text-sm mt-1">From ₹19,999</p>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+                    <p className="text-white text-sm font-medium">Business System</p>
+                    <p className="text-[#8FFFD1] text-sm mt-1">From ₹39,999</p>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+                    <p className="text-white text-sm font-medium">Care Plan</p>
+                    <p className="text-[#8FFFD1] text-sm mt-1">₹4,999/month</p>
+                  </div>
+                </div>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {/* Name field */}
@@ -339,6 +355,46 @@ export default function Connect() {
                       className="w-full bg-black/55 border border-white/10 focus:border-[#8FFFD1] rounded-xl px-4 py-3.5 text-base md:text-sm text-white placeholder-white/35 focus:outline-none focus:ring-4 focus:ring-[#8FFFD1]/5 hover:border-white/20 transition-all duration-300 font-light focus:bg-black/75 focus:shadow-[0_0_15px_rgba(143,255,209,0.1)]"
                       placeholder="What project are you building?"
                     />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="form-business-type" className="text-[9px] font-Spline_Sans_Mono tracking-widest text-[#A1A1AA] uppercase">
+                        Business Type (optional)
+                      </label>
+                      <select
+                        id="form-business-type"
+                        value={formData.businessType}
+                        onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
+                        className="w-full bg-black/55 border border-white/10 focus:border-[#8FFFD1] rounded-xl px-4 py-3.5 text-base md:text-sm text-white focus:outline-none transition-all duration-300 font-light"
+                      >
+                        <option value="">Select business type</option>
+                        <option value="Shop">Shop</option>
+                        <option value="Clinic">Clinic</option>
+                        <option value="Salon">Salon</option>
+                        <option value="Tours & Travels">Tours &amp; Travels</option>
+                        <option value="Jewellery">Jewellery</option>
+                        <option value="Real Estate">Real Estate</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="form-budget" className="text-[9px] font-Spline_Sans_Mono tracking-widest text-[#A1A1AA] uppercase">
+                        Budget Range (optional)
+                      </label>
+                      <select
+                        id="form-budget"
+                        value={formData.budgetRange}
+                        onChange={(e) => setFormData({ ...formData, budgetRange: e.target.value })}
+                        className="w-full bg-black/55 border border-white/10 focus:border-[#8FFFD1] rounded-xl px-4 py-3.5 text-base md:text-sm text-white focus:outline-none transition-all duration-300 font-light"
+                      >
+                        <option value="">Select budget range</option>
+                        <option value="Under ₹20k">Under ₹20k</option>
+                        <option value="₹20–40k">₹20–40k</option>
+                        <option value="₹40k–1L">₹40k–1L</option>
+                        <option value="₹1L+">₹1L+</option>
+                      </select>
+                    </div>
                   </div>
 
                   {/* Message field */}

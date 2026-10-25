@@ -5,6 +5,7 @@ export const blog12: BlogPost = {
   title: "Minimized Docker Containerization: Deploying High-Performance Backends on AWS",
   slug: "multi-stage-docker-builds-minimized-aws-lambda",
   date: "February 28, 2026",
+  dateModified: "2026-10-26",
   readTime: "12 min read",
   excerpt: "Optimize container footprints using multi-stage Docker builds to run fast, scalable backends on AWS App Runner and Lambda.",
   category: "DevOps",
@@ -252,5 +253,25 @@ If you are deploying database-backed platforms and need database security config
 
 ### Feedback & Collaboration
 
-What base images do you use to deploy your containerized backends? Have you experienced cold start delays on AWS Lambda or App Runner? Let\\'s discuss cloud optimizations! Leave your feedback on my **[Resume Portal](https://samadshaikh.me)** or write a note in the Connect tab.`
+What base images do you use to deploy your containerized backends? Have you experienced cold start delays on AWS Lambda or App Runner? Let\\'s discuss cloud optimizations! Leave your feedback on my **[Resume Portal](https://samadshaikh.me)** or write a note in the Connect tab.
+---
+
+### Key Takeaways
+- Smaller Docker images deploy faster, cost less and have fewer unused components.
+- Lambda suits variable, event-driven workloads; always-on heavy workloads can be cheaper on a server.
+- Docker matters most when the same system must run identically in development, staging and production.
+
+### Frequently Asked Questions
+**Q: Why minimise a Docker image?**
+A: Smaller images deploy faster, cost less to store and transfer, and have fewer unused components that could be vulnerable.
+
+**Q: Is AWS Lambda right for every backend?**
+A: No — it suits variable, event-driven workloads. Always-on, heavy workloads can be cheaper on a regular server.
+
+**Q: Does a small business need Docker at all?**
+A: Not always. It matters when the same system must run reliably in development, staging and production without "works on my machine" problems.
+
+### Need this built for your business?
+If you run a business in Mumbai and want a website or business system deployed and maintained properly built for you, see [Services](/services/business-software-mumbai) or [book a free demo](/connect).
+`
 };

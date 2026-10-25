@@ -5,6 +5,7 @@ export const blog10: BlogPost = {
   title: "Zero-Trust API Authentication: Mitigating Token Leakage & Session Hijacking",
   slug: "zero-trust-authentication-jwt-security-best-practices",
   date: "April 1, 2026",
+  dateModified: "2026-10-26",
   readTime: "12 min read",
   excerpt: "Implement secure authentication workflows with HttpOnly cookies, CSRF protection, and JWT rotation in Python and Node.js.",
   category: "AppSec",
@@ -265,5 +266,25 @@ If you are developing backend microservices to handle concurrent AI workloads, c
 
 ### Feedback & Collaboration
 
-Where do you store authentication tokens in your projects? Have you implemented refresh token rotation in production before? Let\\'s discuss secure authentication patterns! Leave your feedback on my **[Resume Portal](https://samadshaikh.me)** or write a note in the Connect tab.`
+Where do you store authentication tokens in your projects? Have you implemented refresh token rotation in production before? Let\\'s discuss secure authentication patterns! Leave your feedback on my **[Resume Portal](https://samadshaikh.me)** or write a note in the Connect tab.
+---
+
+### Key Takeaways
+- Zero-trust means every request is checked, even from inside the system.
+- JWTs need short expiry, secure storage, rotation and server-side checks to be safe.
+- A small business system needs, at minimum, individual logins, role control and instant revocation.
+
+### Frequently Asked Questions
+**Q: What does zero-trust mean in practice?**
+A: Every request is checked, even from inside the system. No user or service is trusted just because it got in once.
+
+**Q: Are JWTs safe on their own?**
+A: Only with short expiry, secure storage, rotation and server-side checks. A token alone is not a security system.
+
+**Q: What should a small business system have at minimum?**
+A: Individual logins, role control (who can see billing vs. stock), and the ability to revoke access immediately.
+
+### Need this built for your business?
+If you run a business in Mumbai and want a secure business system with proper login and data control built for you, see [Services](/services/business-software-mumbai) or [book a free demo](/connect).
+`
 };

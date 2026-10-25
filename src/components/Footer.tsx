@@ -264,6 +264,7 @@ export default function Footer({ setActiveTab }: FooterProps) {
                   <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#8FFFD1]/60 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
                 </button>
               ))}
+              <a href="/services" className="group text-xs font-Spline_Sans_Mono text-accent/60 hover:text-[#8FFFD1] cursor-pointer transition-colors relative duration-300 py-0.5">Services</a>
             </div>
           </div>
 

@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import https from 'https';
 import { blogPosts } from '../src/data/blogs.js';
+import { services } from '../src/data/services.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -376,6 +377,12 @@ async function runPrerender() {
             <li>Performance optimization, SEO, and web analytics</li>
             <li>Application security consulting (JWT, zero-trust, prompt injection mitigation)</li>
           </ul>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Pricing</h2>
+          <ul style="list-style-type:disc;padding-left:24px;color:#a8b2c1;">
+            <li>Website from ₹19,999</li>
+            <li>Business System from ₹39,999</li>
+            <li>Care plan ₹4,999/month</li>
+          </ul>
           <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Contact Information</h2>
           <ul style="list-style-type:disc;padding-left:24px;color:#a8b2c1;">
             <li>Email: <a href="mailto:contact@samadshaikh.dev" style="color:#8fffd1;">contact@samadshaikh.dev</a></li>
@@ -450,6 +457,94 @@ async function runPrerender() {
 
     fs.writeFileSync(path.join(tabDir, 'index.html'), html);
     console.log(`✅ Pre-rendered static page: /${tab.name} (canonical: ${DOMAIN}/${tab.name})`);
+  }
+
+
+  // ─── Service Pages ────────────────────────────────────────────────────────
+  console.log('\n🛠️  Rendering service pages...');
+  {
+    const servicesDir = path.join(DIST_DIR, 'services');
+    ensureDir(servicesDir);
+    const listBody = `
+        <article style="max-width:800px;margin:0 auto;padding:20px;">
+          <h1 style="font-size:2rem;color:#fff;margin-bottom:16px;">Services for Mumbai Businesses</h1>
+          <p style="color:#a8b2c1;line-height:1.75;">Websites, business software and AI automation — built for owner-run small businesses, with a fixed quote after a free demo.</p>
+          <ul style="list-style-type:disc;padding-left:24px;color:#a8b2c1;">
+            ${services.map(s => `<li><a href="${DOMAIN}/services/${s.slug}" style="color:#8fffd1;text-decoration:underline;">${escapeHtml(s.h1)}</a> — ${escapeHtml(s.metaDescription)}</li>`).join('\n            ')}
+          </ul>
+        </article>
+      `;
+    const listSeo = `<section id="seo-crawler-context" aria-hidden="true" style="display: none; position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">\n${listBody}\n</section>`;
+    const listSchema = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        { '@type': 'CollectionPage', '@id': `${DOMAIN}/services#webpage`, url: `${DOMAIN}/services`, name: 'Services | Websites, Business Software & AI Automation in Mumbai — Samad Shaikh', description: 'Services by Samad Shaikh in Bandra, Mumbai: business websites from ₹19,999, business software from ₹39,999, and AI automation. Book a free demo.' },
+        personEntity,
+        websiteEntity,
+        { '@type': 'BreadcrumbList', '@id': `${DOMAIN}/services#breadcrumb`, itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: DOMAIN }, { '@type': 'ListItem', position: 2, name: 'Services', item: `${DOMAIN}/services` }] },
+      ],
+    };
+    let listHtml = replaceSchemaBlock(baseTemplateHtml, listSchema);
+    listHtml = listHtml
+      .replace(/<title>.*?<\/title>/g, `<title>Services | Websites, Business Software & AI Automation in Mumbai — Samad Shaikh</title>`)
+      .replace(/<meta name="description"\s+content=".*?"\s*\/>/g, `<meta name="description" content="Services by Samad Shaikh in Bandra, Mumbai: business websites from ₹19,999, business software from ₹39,999, and AI automation. Book a free demo." />`)
+      .replace(/<meta property="og:title"\s+content=".*?"\s*\/>/g, `<meta property="og:title" content="Services | Websites, Business Software & AI Automation in Mumbai — Samad Shaikh" />`)
+      .replace(/<meta property="og:url"\s+content=".*?"\s*\/>/g, `<meta property="og:url" content="${DOMAIN}/services" />`)
+      .replace(/<link rel="canonical"\s+href=".*?"\s*\/>/g, `<link rel="canonical" href="${DOMAIN}/services" />`);
+    listHtml = replaceSeoSection(listHtml, listSeo);
+    fs.writeFileSync(path.join(servicesDir, 'index.html'), listHtml);
+    console.log(`✅ Pre-rendered static page: /services`);
+
+    for (const svc of services) {
+      const svcDir = path.join(servicesDir, svc.slug);
+      ensureDir(svcDir);
+      const svcBody = `
+        <article style="max-width:800px;margin:0 auto;padding:20px;">
+          <h1 style="font-size:2rem;color:#fff;margin-bottom:16px;">${escapeHtml(svc.h1)}</h1>
+          <p style="color:#a8b2c1;line-height:1.75;">${escapeHtml(svc.problem)}</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">What you get</h2>
+          <ul style="list-style-type:disc;padding-left:24px;color:#a8b2c1;">
+            ${svc.includes.map(i => `<li>${escapeHtml(i)}</li>`).join('\n            ')}
+          </ul>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Price</h2>
+          <p style="color:#a8b2c1;line-height:1.75;"><strong style="color:#fff;">${escapeHtml(svc.price)}</strong> — ${escapeHtml(svc.priceNote)}</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">How it works</h2>
+          <ol style="padding-left:24px;color:#a8b2c1;">
+            ${svc.process.map(s2 => `<li style="margin-bottom:8px;">${escapeHtml(s2)}</li>`).join('\n            ')}
+          </ol>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Proof</h2>
+          <p style="color:#a8b2c1;line-height:1.75;">${escapeHtml(svc.proof)}</p>
+          <h2 style="font-size:1.5rem;color:#fff;margin-top:24px;">Frequently asked questions</h2>
+          ${svc.faqs.map(f => `<h3 style="font-size:1.2rem;color:#fff;margin-top:16px;">${escapeHtml(f.q)}</h3><p style="color:#a8b2c1;line-height:1.75;">${escapeHtml(f.a)}</p>`).join('\n          ')}
+          <p style="margin-top:24px;"><a href="${DOMAIN}/connect" style="color:#8fffd1;text-decoration:underline;">Book a free demo</a> · <a href="${DOMAIN}/services" style="color:#8fffd1;text-decoration:underline;">All services</a></p>
+        </article>
+      `;
+      const svcSeo = `<section id="seo-crawler-context" aria-hidden="true" style="display: none; position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">\n${svcBody}\n</section>`;
+      const svcSchema = {
+        '@context': 'https://schema.org',
+        '@graph': [
+          { '@type': 'Service', '@id': `${DOMAIN}/services/${svc.slug}#service`, name: svc.h1, description: svc.metaDescription, url: `${DOMAIN}/services/${svc.slug}`, provider: { '@id': `${DOMAIN}/#person` }, areaServed: ['Bandra, Mumbai', 'Mumbai', 'Maharashtra, India'] },
+          { '@type': 'FAQPage', '@id': `${DOMAIN}/services/${svc.slug}#faq`, mainEntity: svc.faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+          personEntity,
+          websiteEntity,
+          { '@type': 'BreadcrumbList', '@id': `${DOMAIN}/services/${svc.slug}#breadcrumb`, itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: DOMAIN }, { '@type': 'ListItem', position: 2, name: 'Services', item: `${DOMAIN}/services` }, { '@type': 'ListItem', position: 3, name: svc.h1, item: `${DOMAIN}/services/${svc.slug}` }] },
+        ],
+      };
+      let svcHtml = replaceSchemaBlock(baseTemplateHtml, svcSchema);
+      svcHtml = svcHtml
+        .replace(/<title>.*?<\/title>/g, `<title>${escapeHtml(svc.title)}</title>`)
+        .replace(/<meta name="description"\s+content=".*?"\s*\/>/g, `<meta name="description" content="${escapeHtml(svc.metaDescription)}" />`)
+        .replace(/<meta property="og:title"\s+content=".*?"\s*\/>/g, `<meta property="og:title" content="${escapeHtml(svc.title)}" />`)
+        .replace(/<meta property="og:description"\s+content=".*?"\s*\/>/g, `<meta property="og:description" content="${escapeHtml(svc.metaDescription)}" />`)
+        .replace(/<meta property="og:url"\s+content=".*?"\s*\/>/g, `<meta property="og:url" content="${DOMAIN}/services/${svc.slug}" />`)
+        .replace(/<meta property="twitter:title"\s+content=".*?"\s*\/>/g, `<meta property="twitter:title" content="${escapeHtml(svc.title)}" />`)
+        .replace(/<meta property="twitter:description"\s+content=".*?"\s*\/>/g, `<meta property="twitter:description" content="${escapeHtml(svc.metaDescription)}" />`)
+        .replace(/<meta property="twitter:url"\s+content=".*?"\s*\/>/g, `<meta property="twitter:url" content="${DOMAIN}/services/${svc.slug}" />`)
+        .replace(/<link rel="canonical"\s+href=".*?"\s*\/>/g, `<link rel="canonical" href="${DOMAIN}/services/${svc.slug}" />`);
+      svcHtml = replaceSeoSection(svcHtml, svcSeo);
+      fs.writeFileSync(path.join(svcDir, 'index.html'), svcHtml);
+      console.log(`  ✅ /services/${svc.slug}`);
+    }
   }
 
   // ─── Blog Post Pages ────────────────────────────────────────────────────────
@@ -575,6 +670,18 @@ async function runPrerender() {
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+  <url>
+    <loc>${DOMAIN}/services</loc>
+    <lastmod>${buildDate}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+${services.map(s => `  <url>
+    <loc>${DOMAIN}/services/${s.slug}</loc>
+    <lastmod>${buildDate}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>`).join('\n')}
 ${blogPosts.map(post => `  <url>
     <loc>${DOMAIN}/blog/${post.slug}</loc>
     <lastmod>${post.dateModified || post.datePublished || parseBlogDate(post.date)}</lastmod>
@@ -628,6 +735,10 @@ ${blogPosts.map(post => `  <url>
 - [/work](${DOMAIN}/work): Projects portfolio showcasing PriMaX Hub, MockMate AI, Planora, and WebLens.
 - [/blog](${DOMAIN}/blog): List of technical articles, architectural deep dives, and tutorials.
 - [/connect](${DOMAIN}/connect): Contact details, consulting requests, and scheduling links.
+
+## Services
+- [/services](${DOMAIN}/services): Services by Samad Shaikh in Bandra, Mumbai — websites, business software and AI automation.
+${services.map(s => `- [/services/${s.slug}](${DOMAIN}/services/${s.slug}): ${s.metaDescription}`).join('\n')}
 
 ## Published Blueprints
 ${blogPosts.map(post => `- [/blog/${post.slug}](${DOMAIN}/blog/${post.slug}): ${post.excerpt}`).join('\n')}

@@ -722,7 +722,7 @@ export default function Blog() {
 
   const handleCopyLink = () => {
     if (!selectedPost) return;
-    const url = `${window.location.origin}/?blog=${selectedPost.slug}`;
+    const url = `${window.location.origin}/blog/${selectedPost.slug}`;
     navigator.clipboard.writeText(url);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -730,7 +730,7 @@ export default function Blog() {
 
   const handleShareSocial = (platform: "linkedin" | "twitter") => {
     if (!selectedPost) return;
-    const url = encodeURIComponent(`${window.location.origin}/?blog=${selectedPost.slug}`);
+    const url = encodeURIComponent(`${window.location.origin}/blog/${selectedPost.slug}`);
     const title = encodeURIComponent(selectedPost.title);
     
     let shareUrl = "";
@@ -972,6 +972,34 @@ export default function Blog() {
                 </div>
 
                 <FeedbackWidget blogTitle={selectedPost.title} blogSlug={selectedPost.slug} />
+
+                {/* Services box — category mapped, professional, one link */}
+                <div className="mt-12 rounded-2xl border border-[#8FFFD1]/20 bg-[#8FFFD1]/[0.03] p-6">
+                  <h3 className="text-white font-serif-display text-lg font-medium mb-2">
+                    Need this built for your business?
+                  </h3>
+                  <p className="text-accent/60 text-sm leading-relaxed mb-4">
+                    If you run a business in Mumbai, see the matching service — websites, business
+                    software, or AI automation — with a fixed quote after a free demo.
+                  </p>
+                  <a
+                    href={({
+                      AI: "/services/ai-automation-mumbai",
+                      WebDev: "/services/website-development-mumbai",
+                      Backend: "/services/business-software-mumbai",
+                      SEO: "/services/website-development-mumbai",
+                      AppSec: "/services/business-software-mumbai",
+                      DevOps: "/services/business-software-mumbai",
+                    } as Record<string, string>)[selectedPost.category]}
+                    className="text-[#8FFFD1] hover:underline text-sm"
+                  >
+                    View matching service →
+                  </a>
+                  <span className="text-white/20 mx-2">·</span>
+                  <a href="/services" className="text-white/60 hover:text-white text-sm underline">
+                    All services
+                  </a>
+                </div>
 
                 {/* Related Posts Section */}
                 <div className="mt-12 border-t border-white/5 pt-10">

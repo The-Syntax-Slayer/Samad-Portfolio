@@ -292,5 +292,25 @@ For a complete look at how modern web platforms leverage advanced backend and fr
 Developing robust AI-driven semantic systems is an iterative process. Have you implemented hybrid pgvector pipelines in your production systems? Have you encountered recall degradation during scale updates? 
 
 I would love to learn about your architectural approaches and optimization discoveries. Drop your suggestions on my [Resume Portal](https://samadshaikh.me) or write a direct message in the Connect tab of my [Portfolio Portal](https://samadshaikh.dev).
+
+---
+
+### Key Takeaways
+- RAG answers from your own documents first, instead of guessing from general knowledge.
+- PostgreSQL + pgvector gives a practical, production-ready way to store and search those documents.
+- A handover to a human, when the answer is unsure, is part of a trustworthy system.
+
+### Frequently Asked Questions
+**Q: What is RAG in simple terms?**
+A: Your documents are searched first, then the AI answers using only those documents, instead of guessing from general knowledge.
+
+**Q: Can RAG work with my business documents?**
+A: Yes, if your price lists, manuals or FAQs are in a usable format — the demo call checks this before any quote.
+
+**Q: What happens when the AI does not know the answer?**
+A: It should say so and hand over to a human, not invent an answer. That handover is built in by design.
+
+### Need this built for your business?
+If you run a business in Mumbai and want an AI chatbot, document Q&A system or automation built for you, see [Services](/services/ai-automation-mumbai) or [book a free demo](/connect).
 `
 };
