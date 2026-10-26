@@ -43,7 +43,7 @@ export const services: ServicePage[] = [
       "Website live, usually within 2 weeks, then I show you how to use it.",
     ],
     proof:
-      "Built business systems for a tours & travels company and a jewellery business in Mumbai (full case studies on the Work page — names published with permission).",
+      "Built business systems for a tours & travels company and a jewellery business in Mumbai.",
     faqs: [
       {
         q: "How long does it take?",
